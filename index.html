@@ -8,43 +8,45 @@
 <!--[if gt IE 8]><!-->
 <html lang="en" ng-app="paysAdmin" class="no-js"> <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PAYS Admin</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet" href="angular/app.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="css/_all-skins.min.css">
-    <link rel="stylesheet" href="css/treeStyles.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>PAYS Admin</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+  <link rel="stylesheet" href="angular/app.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="css/_all-skins.min.css">
+  <link rel="stylesheet" href="css/treeStyles.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+  <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 
-    <script src="angular/app.js"></script>
-    <script src="angular/routes.js"></script>
-    <script src="angular/httpInterceptor.js"></script>
+  <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
 
-    <script src="angular/controllers/buyersCtrl.js"></script>
-    <script src="angular/controllers/categoriesCtrl.js"></script>
-    <script src="angular/controllers/distributorsCtrl.js"></script>
-    <script src="angular/controllers/farmersCtrl.js"></script>
-    <script src="angular/controllers/ordersCtrl.js"></script>
-    <script src="angular/controllers/productsCtrl.js"></script>
+  <script src="angular/app.js"></script>
+  <script src="angular/routes.js"></script>
+  <script src="angular/httpInterceptor.js"></script>
 
-    <script src="angular/services/categoryService.js"></script>
+  <script src="angular/controllers/buyersCtrl.js"></script>
+  <script src="angular/controllers/categoriesCtrl.js"></script>
+  <script src="angular/controllers/distributorsCtrl.js"></script>
+  <script src="angular/controllers/farmersCtrl.js"></script>
+  <script src="angular/controllers/ordersCtrl.js"></script>
+  <script src="angular/controllers/productsCtrl.js"></script>
+
+  <script src="angular/services/categoryService.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -60,7 +62,7 @@
 
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
+  your browser</a> to improve your experience.</p>
 
 <![endif]-->
 <div ng-view></div>
