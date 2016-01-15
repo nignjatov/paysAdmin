@@ -29,9 +29,11 @@
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
               {{node.name}}
-              <a ng-if="canBeDeleted(this)" class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeCategory(this)"><span
+              <a ng-if="canBeDeleted(this)" class="pull-right btn btn-danger btn-xs" data-nodrag
+                 ng-click="removeCategory(this)"><span
                 class="glyphicon glyphicon-remove"></span></a>
-              <a ng-if="canHaveSubcategories(this)" class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubCategory(this)"
+              <a ng-if="canHaveSubcategories(this)" class="pull-right btn btn-primary btn-xs" data-nodrag
+                 ng-click="newSubCategory(this,false)"
                  style="margin-right: 8px;"><span
                 class="glyphicon glyphicon-plus"></span></a>
               <a class="pull-right btn btn-success btn-xs" data-nodrag ng-click="selectCategory(this)"><span
@@ -44,6 +46,13 @@
           </script>
 
           <div class="row">
+            <div class="col-sm-12">
+              <button class="col-sm-5 btn btn-primary btn-padded btn-lg" ng-click="newSubCategory(null,true)">
+                <i class="fa fa-plus"></i> Add new category
+              </button>
+            </div>
+            <div class="row">
+            </div>
             <div ui-tree id="tree-root" data-drag-enabled="false">
               <ol ui-tree-nodes ng-model="categories">
                 <li ng-repeat="node in categories" ui-tree-node ng-include="'nodes_renderer.html'"></li>
@@ -64,11 +73,14 @@
                          placeholder="Enter category name">
                   </input></dd>
                 <dt ng-if="selectedCategory.level < 2" class="col-sm-6">Subcategories number</dt>
-                <dd ng-if="selectedCategory.level < 2" class="col-sm-6 text-center">{{selectedCategory.children.length}}</dd>
+                <dd ng-if="selectedCategory.level < 2" class="col-sm-6 text-center">
+                  {{selectedCategory.children.length}}
+                </dd>
                 <dt class="col-sm-6">Products number</dt>
                 <dd class="col-sm-6 text-center">{{selectedCategory.products.length}}</dd>
 
-                <button class="pull-right btn btn-primary btn-padded" ng-click="saveCategory()" ng-disabled="!selectedCategory.name">
+                <button class="pull-right btn btn-primary btn-padded" ng-click="saveCategory()"
+                        ng-disabled="!selectedCategory.name">
                   <i class="fa fa-floppy-o"></i> Save
                 </button>
               </dl>

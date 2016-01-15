@@ -29,7 +29,8 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
     }
 
     $scope.canBeDeleted = function (scope) {
-      if (scope.$modelValue.children && scope.$modelValue.children.length > 0) {
+      if ((scope.$modelValue.children && scope.$modelValue.children.length > 0) ||
+        (scope.$modelValue.products && scope.$modelValue.products.length > 0)) {
         return false;
       } else {
         return true;
@@ -37,16 +38,22 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
 
     }
 
-    $scope.newSubCategory = function (scope) {
-      $scope.selectedParentCategory = scope.$modelValue;
-      $scope.selectedCategory       = {
-        level: $scope.selectedParentCategory.level + 1,
+    $scope.newSubCategory = function (scope, root) {
+      var level = 0;
+      if (root == false) {
+        $scope.selectedParentCategory = scope.$modelValue;
+        level                         = $scope.selectedParentCategory.level + 1;
+      } else {
+        $scope.selectedParentCategory = null;
+      }
+      $scope.selectedCategory = {
+        level: level,
         name: "",
         products: [],
         children: []
       }
-      if ($scope.selectedCategory < 2) {
-        $scope.selectedCategory.children = null;
+      if ($scope.selectedCategory.level < 2) {
+        $scope.selectedCategory.children = [];
       }
     };
 
@@ -72,12 +79,17 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
             Notification.error("Failed to update category");
           });
       } else {
-        CategoryService.createCategory({
-          name: $scope.selectedCategory.name,
-          supercategory: $scope.selectedParentCategory.id
-        }).then(function (data) {
+        var newCat = {
+          name: $scope.selectedCategory.name
+        }
+        if ($scope.selectedParentCategory) {
+          newCat.supercategory = $scope.selectedParentCategory.id;
+        }
+        CategoryService.createCategory(newCat).then(function (data) {
           Notification.success("Category created");
-          $scope.selectedParentCategory.children.push($scope.selectedCategory);
+          if ($scope.selectedParentCategory) {
+            $scope.selectedParentCategory.children.push($scope.selectedCategory);
+          }
           $scope.clearSelectedCategory();
           $scope.loadCategories();
         }).catch(function (err) {
