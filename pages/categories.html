@@ -7,12 +7,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Categories
-        <small>Control information about product categories</small>
+        {{ 'CATEGORIES' | translate}}
+        <small>{{ 'CATEGORIES_DESCRIPTION' | translate}}</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Categories</li>
+        <li><a href="#/"><i class="fa fa-dashboard"></i> {{ 'HOME' | translate}}</a></li>
+        <li class="active">{{ 'CATEGORIES' | translate}}</li>
       </ol>
     </section>
     <section class="content">
@@ -47,8 +47,8 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="col-sm-5 btn btn-primary btn-padded btn-lg" ng-click="newSubCategory(null,true)">
-                <i class="fa fa-plus"></i> Add new category
+              <button class="col-sm-6 btn btn-primary btn-padded btn-lg" ng-click="newSubCategory(null,true)">
+                <i class="fa fa-plus"></i> {{ 'ADD_CATEGORY' | translate}}
               </button>
             </div>
             <div class="row">
@@ -63,25 +63,25 @@
         <div class="col-sm-5">
           <div ng-if="selectedCategory" class="panel panel-info panel-heading-margin">
             <div class="panel-heading col-sm-12">
-              <div class="col-sm-4">Category</div>
+              <div class="col-sm-4">{{ 'CATEGORY' | translate}}</div>
             </div>
             <div class="panel-body">
               <dl>
-                <dt class="col-sm-6">Category name</dt>
+                <dt class="col-sm-6">{{ 'CATEGORY_NAME' | translate}}</dt>
                 <dd class="col-sm-6 text-center">
                   <input type="text" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name"
-                         placeholder="Enter category name">
+                         placeholder="{{ 'ENTER_CATEGORY_NAME' | translate}}">
                   </input></dd>
-                <dt ng-if="selectedCategory.level < 2" class="col-sm-6">Subcategories number</dt>
+                <dt ng-if="selectedCategory.level < 2" class="col-sm-6">{{ 'SUBCATEGORY_NUM' | translate}}</dt>
                 <dd ng-if="selectedCategory.level < 2" class="col-sm-6 text-center">
                   {{selectedCategory.children.length}}
                 </dd>
-                <dt class="col-sm-6">Products number</dt>
+                <dt class="col-sm-6">{{ 'PRODUCTS_NUM' | translate}}</dt>
                 <dd class="col-sm-6 text-center">{{selectedCategory.products.length}}</dd>
 
                 <button class="pull-right btn btn-primary btn-padded" ng-click="saveCategory()"
                         ng-disabled="!selectedCategory.name">
-                  <i class="fa fa-floppy-o"></i> Save
+                  <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}
                 </button>
               </dl>
             </div>
