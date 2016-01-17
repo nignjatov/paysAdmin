@@ -67,7 +67,7 @@
             </thead>
             <tbody>
             <tr class="cursor-pointer"
-                ng-repeat="distributor in distributors | orderBy:sortType:sortReverse | filter:searchWord"
+                dir-paginate="distributor in distributors | orderBy:sortType:sortReverse | filter:searchWord |itemsPerPage:maxItemsPerPage"
                 ng-click="selectDistributor(distributor)"
                 ng-class="{'active-user' : distributor.isActive ,'not-active-user' : !distributor.isActive,
                 'not-confirmed-user' : !distributor.isConfirmed}">
@@ -78,6 +78,13 @@
             </tr>
             </tbody>
           </table>
+          <div class="text-center">
+            <dir-pagination-controls
+              max-size="5"
+              direction-links="true"
+              boundary-links="true">
+            </dir-pagination-controls>
+          </div>
         </div>
       </div>
       <div class="col-sm-5">

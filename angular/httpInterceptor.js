@@ -4,7 +4,7 @@ angular.module('paysAdmin').factory('myHttpInterceptor', function($q,$rootScope)
     'request': function(config) {
       // do something on success
       console.log(config);
-      if(!/.html/.test(config.url)){
+      if(!/.html/.test(config.url) && !/.Pagination/.test(config.url)){
         config.url = $rootScope.serverURL+ config.url;
         console.log("NEW URL "+ config.url);
       }

@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.tree', 'ui-notification'
-  , 'pascalprecht.translate'])
+  , 'pascalprecht.translate','angularUtils.directives.dirPagination'])
   .filter('html', function ($sce) {
     return function (input) {
       return $sce.trustAsHtml(input);
@@ -78,6 +78,14 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'CATEGORY_NOT_CREATED' : 'Failed to create category',
       'CATEGORY_NOT_DELETED' : 'Failed to delete category',
       'CATEGORY_NOT_UPDATED' : 'Failed to update category',
+      'FARMERS_DESC' : 'Review information about farmers',
+      'SEARCH_FARMERS' : 'Search farmers',
+      'FARMER_ACTIVATED' : 'Farmer activated',
+      'FARMER_NOT_ACTIVATED' : 'Farmer not activated',
+      'FARMER_DEACTIVATED' : 'Farmer deactivated',
+      'FARMER_NOT_DEACTIVATED' : 'Farmer not deactivated',
+      'FARMER': 'Farmer'
+
     })
       .translations('rs', {
         'HOME' : 'Početna',
@@ -131,6 +139,13 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'CATEGORY_NOT_CREATED' : 'Neuspešno kreiranje kategorije',
         'CATEGORY_NOT_DELETED' : 'Neuspešno brisanje kategorije',
         'CATEGORY_NOT_UPDATED' : 'Neuspešno ažuriranje kategorije',
+        'FARMERS_DESC' : 'Pregled informacija o farmerima',
+        'SEARCH_FARMERS' : 'Pretražite farmere',
+        'FARMER_ACTIVATED' : 'Distributer aktiviran',
+        'FARMER_NOT_ACTIVATED' : 'Distributer nije aktiviran',
+        'FARMER_DEACTIVATED' : 'Distributer deaktiviran',
+        'FARMER_NOT_DEACTIVATED' : 'Distributer nije deaktiviran',
+        'FARMER': 'Farmer'
       });
     $translateProvider.preferredLanguage('en');
   });
@@ -139,6 +154,7 @@ paysAdmin.run(function ($rootScope,$translate) {
   $rootScope.serverURL       = "http://185.23.171.43/PEP/PaysRest/";
   $rootScope.serverImagesURL = "http://185.23.171.43/PaysImages/";
 
+  $rootScope.maxItemsPerPage = 30;
   $rootScope.changeLanguage = function (langCode) {
     $translate.use(langCode);
   };

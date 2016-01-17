@@ -12,9 +12,25 @@ angular.module("paysAdmin").config(['$routeProvider', function (routeProvider) {
     }).when("/farmers", {
         templateUrl: "pages/farmers.html",
         controller: "farmersCtrl",
+        resolve: {
+            farmers: function (UsersService) {
+                return UsersService.getFarmers()
+                  .then(function (data) {
+                      return data;
+                  })
+            }
+        }
     }).when("/distributors", {
         templateUrl: "pages/distributors.html",
         controller: "distributorsCtrl",
+        resolve: {
+            distributors: function (UsersService) {
+                return UsersService.getDistributors()
+                  .then(function (data) {
+                      return data;
+                  })
+            }
+        }
     }).when("/buyers", {
         templateUrl: "pages/buyers.html",
         controller: "buyersCtrl",
