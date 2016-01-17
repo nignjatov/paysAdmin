@@ -48,7 +48,36 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'ENTER_CATEGORY_NAME' : 'Enter category name',
       'SUBCATEGORY_NUM' : 'Subcategories number',
       'PRODUCTS_NUM' : 'Products number',
-      'SAVE' : 'Save'
+      'SAVE' : 'Save',
+      'DISTRIBUTOR' : 'Distributor',
+      'DISTRIBUTORS_DESC' : 'Review information about distributors',
+      'COMPANY_NAME': 'Company name',
+      'CITY' : 'City',
+      'E_MAIL': 'E-mail',
+      'PHONE' : 'Phone',
+      'NOT_ACTIVATED' : 'Not activated',
+      'ACTIVATED' : 'Activated',
+      'SEARCH_DISTRIBUTORS' : 'Search distributors',
+      'NOT_CONFIRMED' : 'Account not confirmed',
+      'TAX_NUM': 'Tax number',
+      'BUSINESS_ACT_NUM': 'Bussiness activity number',
+      'FAX': 'Fax number',
+      'BANK_NUMBER': 'Bank account number',
+      'PIB_NUMBER': 'Company identification number',
+      'ADDRESS' : 'Address',
+      'POSTAL_CODE' : 'Postal code',
+      'ACTIVATE' : 'Activate',
+      'DEACTIVATE' : 'Deactivate',
+      'DISTRIBUTOR_ACTIVATED' : 'Distributor activated',
+      'DISTRIBUTOR_NOT_ACTIVATED' : 'Distributor not activated',
+      'DISTRIBUTOR_DEACTIVATED' : 'Distributor deactivated',
+      'DISTRIBUTOR_NOT_DEACTIVATED' : 'Distributor not deactivated',
+      'CATEGORY_CREATED' : 'Category created',
+      'CATEGORY_DELETED' : 'Category deleted',
+      'CATEGORY_UPDATED' : 'Category updated',
+      'CATEGORY_NOT_CREATED' : 'Failed to create category',
+      'CATEGORY_NOT_DELETED' : 'Failed to delete category',
+      'CATEGORY_NOT_UPDATED' : 'Failed to update category',
     })
       .translations('rs', {
         'HOME' : 'Početna',
@@ -72,7 +101,36 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'ENTER_CATEGORY_NAME' : 'Unesite ime kategorije',
         'SUBCATEGORY_NUM' : 'Broj podkategorija',
         'PRODUCTS_NUM' : 'Broj proizvoda',
-        'SAVE' : 'Sačuvaj'
+        'SAVE' : 'Sačuvaj',
+        'DISTRIBUTOR' : 'Distributer',
+        'DISTRIBUTORS_DESC' : 'Pregled informacija o distributerima',
+        'COMPANY_NAME': 'Ime kompanije',
+        'CITY' : 'Grad',
+        'E_MAIL': 'E-mail adresa',
+        'PHONE' : 'Telefon',
+        'NOT_ACTIVATED' : 'Nisu aktivirani',
+        'ACTIVATED' : 'Aktivirani',
+        'SEARCH_DISTRIBUTORS' : 'Pretražite distributere',
+        'NOT_CONFIRMED' : 'Nalog nije potvrđen',
+        'TAX_NUM': 'Poreski broj',
+        'BUSINESS_ACT_NUM': 'Broj preduzetnika',
+        'FAX': 'Fax broj',
+        'BANK_NUMBER': 'Žiro račun',
+        'PIB_NUMBER': 'PIB',
+        'ADDRESS' : 'Adresa',
+        'POSTAL_CODE' : 'Poštanski broj',
+        'ACTIVATE' : 'Aktiviraj',
+        'DEACTIVATE' : 'Deaktiviraj',
+        'DISTRIBUTOR_ACTIVATED' : 'Distributer aktiviran',
+        'DISTRIBUTOR_NOT_ACTIVATED' : 'Distributer nije aktiviran',
+        'DISTRIBUTOR_DEACTIVATED' : 'Distributer deaktiviran',
+        'DISTRIBUTOR_NOT_DEACTIVATED' : 'Distributer nije deaktiviran',
+        'CATEGORY_CREATED' : 'Kategorija kreirana',
+        'CATEGORY_DELETED' : 'Kategorija izbrisana',
+        'CATEGORY_UPDATED' : 'Kategorija ažurirana',
+        'CATEGORY_NOT_CREATED' : 'Neuspešno kreiranje kategorije',
+        'CATEGORY_NOT_DELETED' : 'Neuspešno brisanje kategorije',
+        'CATEGORY_NOT_UPDATED' : 'Neuspešno ažuriranje kategorije',
       });
     $translateProvider.preferredLanguage('en');
   });
@@ -82,8 +140,11 @@ paysAdmin.run(function ($rootScope,$translate) {
   $rootScope.serverImagesURL = "http://185.23.171.43/PaysImages/";
 
   $rootScope.changeLanguage = function (langCode) {
-    console.log("AAA "+ langCode);
     $translate.use(langCode);
+  };
+
+  $rootScope.objectPrint = function(obj){
+    console.log(JSON.stringify(obj,null,4));
   }
 
 });

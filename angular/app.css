@@ -29,8 +29,8 @@
     padding: 0;
 }
 
-.panel-heading-margin {
-    margin-top: 55px;
+.panel-heading-position {
+    position: fixed;
 }
 
 .panel-heading {
@@ -49,4 +49,28 @@
 
 dt, dd {
     margin-bottom: 5px;
+}
+
+.color-legend {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-right: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.not-active-user {
+    background-color: #FF6347;
+}
+
+.active-user {
+    background-color: #00FF7F;
+}
+
+.not-confirmed-user{
+    background-color: #FFFF6B;
+}
+
+.mt20 {
+    margin-top: 20px;
 }

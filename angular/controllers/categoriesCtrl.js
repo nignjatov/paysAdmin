@@ -1,5 +1,5 @@
-angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope", "CategoryService", "Notification",
-  function ($scope, $rootScope, CategoryService, Notification) {
+angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope", "$filter", "CategoryService", "Notification",
+  function ($scope, $rootScope, $filter, CategoryService, Notification) {
 
     $scope.selectedCategory       = null;
     $scope.selectedCategoryScope  = null;
@@ -60,10 +60,10 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
     $scope.removeCategory = function (scope) {
       CategoryService.deleteCategory(scope.$modelValue.id)
         .then(function (data) {
-          Notification.success("Category deleted");
+          Notification.success({message: $filter('translate')('CATEGORY_DELETED')});
           scope.remove();
         }).catch(function (err) {
-          Notification.error("Failed to delete category");
+          Notification.error({message: $filter('translate')('CATEGORY_NOT_DELETED')});
         });
     };
 
@@ -73,10 +73,10 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
           {
             name: $scope.selectedCategory.name
           }).then(function (data) {
-            Notification.success("Category updated");
+            Notification.success({message: $filter('translate')('CATEGORY_UPDATED')});
             $scope.clearSelectedCategory();
           }).catch(function (err) {
-            Notification.error("Failed to update category");
+            Notification.error({message: $filter('translate')('CATEGORY_NOT_UPDATED')});
           });
       } else {
         var newCat = {
@@ -86,14 +86,14 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
           newCat.supercategory = $scope.selectedParentCategory.id;
         }
         CategoryService.createCategory(newCat).then(function (data) {
-          Notification.success("Category created");
+          Notification.success({message: $filter('translate')('CATEGORY_CREATED')});
           if ($scope.selectedParentCategory) {
             $scope.selectedParentCategory.children.push($scope.selectedCategory);
           }
           $scope.clearSelectedCategory();
           $scope.loadCategories();
         }).catch(function (err) {
-          Notification.error("Failed to create category");
+          Notification.error({message: $filter('translate')('CATEGORY_NOT_CREATED')});
         });
         ;
       }

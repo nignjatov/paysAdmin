@@ -1,24 +1,171 @@
 <div class="wrapper">
 
-    <div ng-include="'pages/header.html'"></div>
-    <div ng-include="'pages/navbar.html'"></div>
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Distributors
-                <small>Review information about distributors</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#/"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Distributors</li>
-            </ol>
-        </section>
-        <section class="content">
-        </section>
-    </div>
-    <div ng-include="'pages/footer.html'"></div>
-    <!-- /.content-wrapper -->
+  <div ng-include="'pages/header.html'"></div>
+  <div ng-include="'pages/navbar.html'"></div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ 'DISTRIBUTORS' | translate}}
+        <small>{{ 'DISTRIBUTORS_DESC' | translate}}</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#/"><i class="fa fa-dashboard"></i> {{ 'HOME' | translate}}</a></li>
+        <li class="active">{{ 'DISTRIBUTORS' | translate}}</li>
+      </ol>
+    </section>
+    <section class="container content">
+      <div class="col-sm-7">
+        <div class="col-sm-12">
+          <div class="col-sm-3 color-legend not-active-user">{{ 'NOT_ACTIVATED' | translate}}</div>
+          <div class="col-sm-3 color-legend active-user">{{ 'ACTIVATED' | translate}}</div>
+          <div class="col-sm-4 color-legend not-confirmed-user">{{ 'NOT_CONFIRMED' | translate}}</div>
+        </div>
+        <div class="col-sm-12 mt20">
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="{{ 'SEARCH_DISTRIBUTORS' | translate}}"
+                       ng-model="searchWord">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-12">
+          <table class="table table-responsive">
+            <thead>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'businessSubject.name'; sortReverse = !sortReverse">
+                {{ 'COMPANY_NAME' | translate}}
+                <span ng-show="sortType == 'businessSubject.name' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'businessSubject.name' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'businessSubject.city'; sortReverse = !sortReverse">
+                {{ 'CITY' | translate}}
+                <span ng-show="sortType == 'businessSubject.city' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'businessSubject.city' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+                {{ 'E_MAIL' | translate}}
+                <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'businessSubject.phone'; sortReverse = !sortReverse">
+                {{ 'PHONE' | translate}}
+                <span ng-show="sortType == 'businessSubject.phone' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'businessSubject.phone' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            </thead>
+            <tbody>
+            <tr class="cursor-pointer"
+                ng-repeat="distributor in distributors | orderBy:sortType:sortReverse | filter:searchWord"
+                ng-click="selectDistributor(distributor)"
+                ng-class="{'active-user' : distributor.isActive ,'not-active-user' : !distributor.isActive,
+                'not-confirmed-user' : !distributor.isConfirmed}">
+              <td>{{distributor.businessSubject.name}}</td>
+              <td>{{distributor.businessSubject.city}}</td>
+              <td>{{distributor.email}}</td>
+              <td>{{distributor.businessSubject.phone}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div ng-if="selectedDistributor" class="panel panel-info panel-heading-position">
+          <div class="panel-heading col-sm-12">
+            <div class="col-sm-4">{{ 'DISTRIBUTOR' | translate}}</div>
+          </div>
+          <div class="panel-body">
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'COMPANY_NAME' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.name}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'BANK_NUMBER' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.account}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'TAX_NUM' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.taxNum}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'PIB_NUMBER' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.companyNum}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'BUSINESS_ACT_NUM' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.businessActivityCode}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'PHONE' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.phone}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5t class="col-sm-6"><strong>{{ 'FAX' | translate}}</strong></h5t>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.fax}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.email}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.address}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.postalCode}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedDistributor.businessSubject.city}}
+              </h5>
+            </div>
+            <button ng-if=" selectedDistributor.isConfirmed && !selectedDistributor.isActive"
+                    class="pull-right btn btn-primary btn-padded" ng-click="activateDistributor()">
+              <i class="fa fa-check"></i> {{ 'ACTIVATE' | translate}}
+            </button>
+            <button ng-if=" selectedDistributor.isConfirmed && selectedDistributor.isActive"
+                    class="pull-right btn btn-primary btn-padded" ng-click="deactivateDistributor()">
+              <i class="fa fa-times"></i> {{ 'DEACTIVATE' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div ng-include="'pages/footer.html'"></div>
+  <!-- /.content-wrapper -->
 </div>
 
