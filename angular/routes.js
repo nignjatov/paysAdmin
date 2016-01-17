@@ -34,5 +34,13 @@ angular.module("paysAdmin").config(['$routeProvider', function (routeProvider) {
     }).when("/buyers", {
         templateUrl: "pages/buyers.html",
         controller: "buyersCtrl",
+        resolve: {
+            buyers: function (UsersService) {
+                return UsersService.getBuyers()
+                  .then(function (data) {
+                      return data;
+                  })
+            }
+        }
     }).otherwise({redirectTo: '/'});
 }]);

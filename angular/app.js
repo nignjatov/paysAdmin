@@ -84,7 +84,13 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'FARMER_NOT_ACTIVATED' : 'Farmer not activated',
       'FARMER_DEACTIVATED' : 'Farmer deactivated',
       'FARMER_NOT_DEACTIVATED' : 'Farmer not deactivated',
-      'FARMER': 'Farmer'
+      'FARMER': 'Farmer',
+      'BUYERS_DESC': 'Review information about buyers',
+      'SEARCH_BUYERS' : 'Search buyers',
+      'CONFIRMED_ACCOUNT' : 'Confirmed',
+      'LAST_NAME' : 'Surname',
+      'NAME' : 'Name',
+      'BUYER' : 'Buyer'
 
     })
       .translations('rs', {
@@ -145,7 +151,14 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'FARMER_NOT_ACTIVATED' : 'Distributer nije aktiviran',
         'FARMER_DEACTIVATED' : 'Distributer deaktiviran',
         'FARMER_NOT_DEACTIVATED' : 'Distributer nije deaktiviran',
-        'FARMER': 'Farmer'
+        'FARMER': 'Farmer',
+        'BUYERS_DESC' : 'Pregled informacija o kupcima',
+        'SEARCH_BUYERS' : 'Pretraži kupce',
+        'CONFIRMED_ACCOUNT' : 'Nalog potvrđen',
+        'LAST_NAME' : 'Prezime',
+        'NAME' : 'Ime',
+        'BUYER' : 'Kupac'
+
       });
     $translateProvider.preferredLanguage('en');
   });

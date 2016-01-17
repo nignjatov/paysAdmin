@@ -117,6 +117,30 @@ angular.module('paysAdmin').service('UsersService',
             deffered.reject("Error");
           });
         return deffered.promise;
-      }
+      },
+
+      /*
+       BUYERS
+       */
+      getBuyers: function () {
+        var deffered = $q.defer();
+        $http.get("client").
+          success(function (data, status) {
+            if (status == 200) {
+              deffered.resolve(data);
+            } else {
+              console.log("getBuyers | Status not OK " + status);
+              deffered.reject("Error");
+            }
+
+          }).
+          error(function (data, status) {
+            console.log("getBuyers | Error " + status);
+            deffered.reject("Error");
+          });
+
+        return deffered.promise;
+      },
+
     }
   });
