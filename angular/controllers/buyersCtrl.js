@@ -3,6 +3,7 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope","bu
 
         $scope.buyers = buyers;
 
+        $rootScope.objectPrint($scope.buyers);
         $scope.selectedBuyer = null;
 
         $scope.selectBuyer = function (buyer) {

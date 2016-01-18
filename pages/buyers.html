@@ -67,7 +67,7 @@
               <tr class="cursor-pointer"
                   dir-paginate="buyer in buyers | orderBy:sortType:sortReverse | filter:searchWord | itemsPerPage:maxItemsPerPage "
                   ng-click="selectBuyer(buyer)"
-                  ng-class="{'active-user' : buyer.isActive ,'not-active-user' : !buyer.isActive}">
+                  ng-class="{'active-user' : buyer.isConfirmed ,'not-active-user' : !buyer.isConfirmed}">
                 <td>{{buyer.privateSubject.name}} {{buyer.privateSubject.lastName}}</td>
                 <td>{{buyer.privateSubject.city}}</td>
                 <td>{{buyer.email}}</td>

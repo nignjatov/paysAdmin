@@ -3,11 +3,11 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
 
     $scope.farmers = farmers;
 
-    angular.forEach($scope.farmers, function (farmer) {
-      farmer.isConfirmed = true;
-    });
-
     $scope.selectedFarmer = null;
+
+    $scope.selectFarmer = function (farmer) {
+      $scope.selectedFarmer = farmer;
+    }
 
     $scope.deactivateFarmer = function () {
       UsersService.deactivateFarmer($scope.selectedFarmer.id).then(function (data) {
