@@ -67,10 +67,17 @@ dt, dd {
     background-color: #00FF7F;
 }
 
-.not-confirmed-user{
+.not-confirmed-user {
     background-color: #FFFF6B;
 }
 
 .mt20 {
     margin-top: 20px;
+}
+
+.container-override {
+    padding-left: 1% !important;
+    padding-top: 1% !important;
+    margin-left: 0px !important;;
+    margin-right: 0px !important;;
 }
