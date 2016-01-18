@@ -9,10 +9,6 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
 
     $scope.selectedFarmer = null;
 
-    $scope.selectFarmer = function (farmer) {
-      $scope.selectedFarmer = farmer;
-    }
-
     $scope.deactivateFarmer = function () {
       UsersService.deactivateFarmer($scope.selectedFarmer.id).then(function (data) {
         $scope.selectedFarmer.isActive = false;

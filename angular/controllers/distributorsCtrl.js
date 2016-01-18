@@ -4,10 +4,6 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
     $scope.distributors        = distributors;
     $scope.selectedDistributor = null;
 
-    angular.forEach($scope.distributors, function (dist) {
-      dist.isConfirmed = true;
-    });
-
     $scope.selectDistributor = function (distributor) {
       $scope.selectedDistributor = distributor;
     }
