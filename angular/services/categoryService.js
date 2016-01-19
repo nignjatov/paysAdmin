@@ -4,7 +4,7 @@ angular.module('paysAdmin').service('CategoryService',
     return {
       getCategories: function () {
         var deffered = $q.defer();
-        $http.get("product_category").
+        $http.get("product_category_first").
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);

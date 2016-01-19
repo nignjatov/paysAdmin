@@ -48,7 +48,9 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
       }
       $scope.selectedCategory = {
         level: level,
-        name: "",
+        name: {
+          localization : {}
+        },
         products: [],
         children: []
       }
@@ -68,6 +70,7 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
     };
 
     $scope.saveCategory = function () {
+      $scope.selectedCategory.name.default = $scope.selectedCategory.name.localization[$rootScope.defaultLang];
       if ($scope.selectedCategory.id) {
         CategoryService.updateCategory($scope.selectedCategory.id,
           {
@@ -85,6 +88,7 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
         if ($scope.selectedParentCategory) {
           newCat.supercategory = $scope.selectedParentCategory.id;
         }
+        $rootScope.objectPrint(newCat);
         CategoryService.createCategory(newCat).then(function (data) {
           Notification.success({message: $filter('translate')('CATEGORY_CREATED')});
           if ($scope.selectedParentCategory) {

@@ -29,7 +29,7 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       .setPrefix('paysAdmin');
   }).config(function ($translateProvider) {
     $translateProvider.useSanitizeValueStrategy(null);
-    $translateProvider.translations('en', {
+    $translateProvider.translations('en_EN', {
       'HOME': 'Home',
       'NAVIGATION': 'Main navigation',
       'CATEGORIES': 'Categories',
@@ -47,7 +47,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'CATEGORIES_DESCRIPTION': 'Control information about product categories',
       'ADD_CATEGORY': 'Add new category',
       'CATEGORY': 'Category',
-      'CATEGORY_NAME': 'Category name',
+      'CATEGORY_NAME_ENGLISH': 'Category name( english )',
+      'CATEGORY_NAME_SERBIAN': 'Category name( serbian )',
       'ENTER_CATEGORY_NAME': 'Enter category name',
       'SUBCATEGORY_NUM': 'Subcategories number',
       'PRODUCTS_NUM': 'Products number',
@@ -98,7 +99,7 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'LOGIN' : 'Log in'
 
     })
-      .translations('rs', {
+      .translations('rs_RS', {
         'HOME': 'Početna',
         'NAVIGATION': 'Navigacija',
         'CATEGORIES': 'Kategorije',
@@ -116,7 +117,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'CATEGORIES_DESCRIPTION': 'Upravljajte informacijama o kategorijama',
         'ADD_CATEGORY': 'Dodaj novu kategoriju',
         'CATEGORY': 'Kategorija',
-        'CATEGORY_NAME': 'Ime kategorije',
+        'CATEGORY_NAME_ENGLISH': 'Ime kategorije( engleski )',
+        'CATEGORY_NAME_SERBIAN': 'Ime kategorije( srpski )',
         'ENTER_CATEGORY_NAME': 'Unesite ime kategorije',
         'SUBCATEGORY_NUM': 'Broj podkategorija',
         'PRODUCTS_NUM': 'Broj proizvoda',
@@ -166,15 +168,22 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'WELCOME' : 'Dobrodošli u administratorsku aplikacija PAYS sistema',
         'LOGIN' : 'Prijava'
       });
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('en_EN');
   });
 
 paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window) {
   $rootScope.serverURL       = "http://185.23.171.43/PEP/PaysRest/";
   $rootScope.serverImagesURL = "http://185.23.171.43/PaysImages/";
 
+  $rootScope.englishLangCode = "en_EN";
+  $rootScope.serbianLangCode = "rs_RS";
+
+  $rootScope.defaultLang = $rootScope.englishLangCode;
+  $rootScope.currentLang = $rootScope.englishLangCode;
+
   $rootScope.maxItemsPerPage = 30;
   $rootScope.changeLanguage  = function (langCode) {
+    $rootScope.currentLang = langCode;
     $translate.use(langCode);
   };
 
