@@ -1,8 +1,9 @@
 angular.module('paysAdmin').service('UsersService',
-  function ($rootScope, $q, $http) {
+  function ($rootScope, $q, $http, localStorageService) {
 
     return {
-      getDistributors: function () {
+      getDistributors: function
+        () {
         var deffered = $q.defer();
         $http.get("transporter").
           success(function (data, status) {
@@ -20,7 +21,8 @@ angular.module('paysAdmin').service('UsersService',
           });
 
         return deffered.promise;
-      },
+      }
+      ,
       activateDistributor: function (distributorId) {
         var deffered = $q.defer();
         $http.put("transporter/" + distributorId + "/activate").
@@ -38,7 +40,8 @@ angular.module('paysAdmin').service('UsersService',
             deffered.reject("Error");
           });
         return deffered.promise;
-      },
+      }
+      ,
       deactivateDistributor: function (distributorId) {
         var deffered = $q.defer();
         $http.put("transporter/" + distributorId + "/deactivate").
@@ -56,7 +59,8 @@ angular.module('paysAdmin').service('UsersService',
             deffered.reject("Error");
           });
         return deffered.promise;
-      },
+      }
+      ,
 
       /*
        FARMERS
@@ -81,7 +85,8 @@ angular.module('paysAdmin').service('UsersService',
           });
 
         return deffered.promise;
-      },
+      }
+      ,
       activateFarmer: function (farmer) {
         var deffered = $q.defer();
         $http.put("merchant/" + farmer + "/activate").
@@ -99,7 +104,8 @@ angular.module('paysAdmin').service('UsersService',
             deffered.reject("Error");
           });
         return deffered.promise;
-      },
+      }
+      ,
       deactivateFarmer: function (distributorId) {
         var deffered = $q.defer();
         $http.put("merchant/" + distributorId + "/deactivate").
@@ -117,7 +123,8 @@ angular.module('paysAdmin').service('UsersService',
             deffered.reject("Error");
           });
         return deffered.promise;
-      },
+      }
+      ,
 
       /*
        BUYERS
@@ -140,7 +147,40 @@ angular.module('paysAdmin').service('UsersService',
           });
 
         return deffered.promise;
+      }
+      ,
+
+      storeUserCredentials: function (token, id, role) {
+        if (localStorageService.cookie.isSupported) {
+          localStorageService.cookie.clearAll();
+          localStorageService.cookie.set("role", role, 1);
+          localStorageService.cookie.set("token", token, 1);
+          localStorageService.cookie.set("id", id, 1);
+        } else {
+          console.error("Cookies not supported in this browser!");
+        }
       },
 
+      logoutUser: function () {
+        if (localStorageService.cookie.isSupported) {
+          return localStorageService.cookie.clearAll();
+        } else {
+          console.error("Cookies not supported in this browser!");
+        }
+      },
+
+      getUserCredentials: function () {
+        if (localStorageService.cookie.isSupported) {
+          return {
+            role: localStorageService.cookie.get("role"),
+            token: localStorageService.cookie.get("token"),
+            id: localStorageService.cookie.get("id")
+          }
+        } else {
+          console.error("Cookies not supported in this browser!");
+          return null;
+        }
+      }
     }
-  });
+  })
+;
