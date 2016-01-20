@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.tree', 'ui-notification'
-  , 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'LocalStorageModule'])
+  , 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'LocalStorageModule','flow'])
   .filter('html', function ($sce) {
     return function (input) {
       return $sce.trustAsHtml(input);
@@ -24,7 +24,21 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       positionX: 'center',
       positionY: 'top'
     });
-  }).config(function (localStorageServiceProvider) {
+  }).config(['flowFactoryProvider', function (flowFactoryProvider) {
+    flowFactoryProvider.defaults = {
+      target: 'upload.php',
+      permanentErrors: [404, 500, 501],
+      maxChunkRetries: 1,
+      chunkRetryInterval: 5000,
+      simultaneousUploads: 4,
+      singleFile: true
+    };
+    flowFactoryProvider.on('catchAll', function (event) {
+      console.log('catchAll', arguments);
+    });
+    // Can be used with different implementations of Flow.js
+    // flowFactoryProvider.factory = fustyFlowFactory;
+  }]).config(function (localStorageServiceProvider) {
     localStorageServiceProvider
       .setPrefix('paysAdmin');
   }).config(function ($translateProvider) {
@@ -95,8 +109,31 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'LAST_NAME': 'Surname',
       'NAME': 'Name',
       'BUYER': 'Buyer',
-      'WELCOME' : 'Welcome to PAYS administrator application',
-      'LOGIN' : 'Log in'
+      'WELCOME': 'Welcome to PAYS administrator application',
+      'LOGIN': 'Log in',
+      'PRODUCTS_DESC': 'Control information about products',
+      'PRODUCT': 'Product',
+      'SEARCH_PRODUCTS': 'Search products',
+      'PRODUCT_NAME_ENGLISH': 'Product name ( english )',
+      'PRODUCT_NAME_SERBIAN': 'Product name ( serbian )',
+      'ENTER_PRODUCT_NAME': 'Enter product name',
+      'SHORT_DESC': 'Short description ( 128 characters )',
+      'PRODUCT_SHORT_DESC_ENGLISH': 'Product short description ( english )',
+      'PRODUCT_SHORT_DESC_SERBIAN': 'Product short description ( serbian )',
+      'ENTER_PRODUCT_SHORT_DESC': 'Enter product short description',
+      'FULL_DESC': 'Full description ( 512 characters )',
+      'PRODUCT_FULL_DESC_ENGLISH': 'Product full description ( english )',
+      'PRODUCT_FULL_DESC_SERBIAN': 'Product full description ( serbian )',
+      'ENTER_PRODUCT_FULL_DESC': 'Enter product full description',
+      'DELETE' : 'Delete',
+      'ADD_PRODUCT' : 'Add new product',
+      'PRODUCT_NOT_UPDATED' : 'Failed to update product',
+      'PRODUCT_UPDATED' : 'Product updated',
+      'PRODUCT_NOT_CREATED' : 'Failed to create product',
+      'PRODUCT_CREATED' : 'Product created',
+      'PRODUCT_NOT_DELETED' : 'Failed to delete product',
+      'PRODUCT_DELETED' : 'Product deleted'
+
 
     })
       .translations('rs_RS', {
@@ -165,8 +202,30 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'LAST_NAME': 'Prezime',
         'NAME': 'Ime',
         'BUYER': 'Kupac',
-        'WELCOME' : 'Dobrodošli u administratorsku aplikacija PAYS sistema',
-        'LOGIN' : 'Prijava'
+        'WELCOME': 'Dobrodošli u administratorsku aplikacija PAYS sistema',
+        'LOGIN': 'Prijava',
+        'PRODUCTS_DESC': 'Upravljajte informacijama o proizvodima',
+        'PRODUCT': 'Proizvod',
+        'SEARCH_PRODUCTS': 'Pretražite proizvode',
+        'PRODUCT_NAME_ENGLISH': 'Ime proizvoda ( engleski )',
+        'PRODUCT_NAME_SERBIAN': 'Ime proizvoda ( srpski )',
+        'ENTER_PRODUCT_NAME': 'Unesite ime proizvoda',
+        'SHORT_DESC': 'Kratak opis ( 128 karaktera )',
+        'PRODUCT_SHORT_DESC_ENGLISH': 'Kratak opis proizvoda ( engleski )',
+        'PRODUCT_SHORT_DESC_SERBIAN': 'Kratak opis proizvoda ( srpski )',
+        'ENTER_PRODUCT_SHORT_DESC': 'Unesite kratac opis proizvoda',
+        'FULL_DESC': 'Pun opis ( 512 karaktera )',
+        'PRODUCT_FULL_DESC_ENGLISH': 'Pun opis proizvoda ( engleski )',
+        'PRODUCT_FULL_DESC_SERBIAN': 'Pun opis proizvoda ( srpski )',
+        'ENTER_PRODUCT_FULL_DESC': 'Unesite pun opis proizvoda',
+        'DELETE' : 'Obriši',
+        'ADD_PRODUCT' : 'Dodaj novi proizvod',
+        'PRODUCT_NOT_UPDATED' : 'Neuspešno ažuriranje proizvoda',
+        'PRODUCT_UPDATED' : 'Proizvod ažuriran',
+        'PRODUCT_NOT_CREATED' : 'Neuspešno kreiranje proizvoda',
+        'PRODUCT_CREATED' : 'Proizvod kreiran',
+        'PRODUCT_NOT_DELETED' : 'Neuspešno brisanje proizvoda',
+        'PRODUCT_DELETED' : 'Proizvod obrisan'
       });
     $translateProvider.preferredLanguage('en_EN');
   });
@@ -181,7 +240,7 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
   $rootScope.defaultLang = $rootScope.englishLangCode;
   $rootScope.currentLang = $rootScope.englishLangCode;
 
-  $rootScope.maxItemsPerPage = 30;
+  $rootScope.maxItemsPerPage = 20;
   $rootScope.changeLanguage  = function (langCode) {
     $rootScope.currentLang = langCode;
     $translate.use(langCode);
@@ -197,7 +256,7 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
     }
   });
 
-  $rootScope.logoutAdmin = function(){
+  $rootScope.logoutAdmin = function () {
     UsersService.logoutUser();
     $window.location.href = "#/login";
   };

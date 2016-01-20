@@ -69,12 +69,12 @@
               <dl>
                 <dt class="col-sm-6">{{ 'CATEGORY_NAME_ENGLISH' | translate}}</dt>
                 <dd class="col-sm-6 text-center">
-                  <input type="text" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[englishLangCode]"
+                  <input type="text" maxlength="64" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[englishLangCode]"
                          placeholder="{{ 'ENTER_CATEGORY_NAME' | translate}}">
                   </input></dd>
                 <dt class="col-sm-6">{{ 'CATEGORY_NAME_SERBIAN' | translate}}</dt>
                 <dd class="col-sm-6 text-center">
-                  <input type="text" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[serbianLangCode]"
+                  <input type="text" maxlength="64" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[serbianLangCode]"
                          placeholder="{{ 'ENTER_CATEGORY_NAME' | translate}}">
                   </input></dd>
                 <dt ng-if="selectedCategory.level < 2" class="col-sm-6">{{ 'SUBCATEGORY_NUM' | translate}}</dt>

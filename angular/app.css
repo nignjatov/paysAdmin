@@ -71,6 +71,9 @@ dt, dd {
     background-color: #FFFF6B;
 }
 
+.mt10 {
+    margin-top : 10px;
+}
 .mt20 {
     margin-top: 20px;
 }

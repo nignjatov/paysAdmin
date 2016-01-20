@@ -1,24 +1,180 @@
 <div class="wrapper">
 
-    <div ng-include="'pages/header.html'"></div>
-    <div ng-include="'pages/navbar.html'"></div>
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Products
-                <small>Control information about products</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#/"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Products</li>
-            </ol>
-        </section>
-        <section class="content">
-        </section>
-    </div>
-    <div ng-include="'pages/footer.html'"></div>
-    <!-- /.content-wrapper -->
+  <div ng-include="'pages/header.html'"></div>
+  <div ng-include="'pages/navbar.html'"></div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ 'PRODUCTS' | translate}}
+        <small>{{ 'PRODUCTS_DESC' | translate}}</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#/"><i class="fa fa-dashboard"></i> {{ 'HOME' | translate}}</a></li>
+        <li class="active">{{ 'PRODUCTS' | translate}}</li>
+      </ol>
+    </section>
+    <section class="container container-override">
+      <div class="col-sm-8">
+        <div class="col-sm-12 mt20">
+          <div class="col-sm-12">
+            <button class="col-sm-4 btn btn-primary btn-padded btn-lg" ng-click="newProduct()">
+              <i class="fa fa-plus"></i> {{ 'ADD_PRODUCT' | translate}}
+            </button>
+          </div>
+          <div class=" col-sm-12 mt20">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                  <input type="text" class="form-control" placeholder="{{ 'SEARCH_PRODUCTS' | translate}}"
+                         ng-model="searchWord">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-12">
+            <table class="table table-responsive">
+              <thead>
+              <th>
+                <a class="cursor-pointer" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                  #
+                  <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a>{{ 'NAME' | translate}}</a>
+              </th>
+              <th>
+                <a>{{ 'CATEGORY' | translate}}</a>
+              </th>
+              </thead>
+              <tbody>
+              <tr class="cursor-pointer"
+                  dir-paginate="product in products | orderBy:sortType:sortReverse | filter:searchWord | itemsPerPage:maxItemsPerPage "
+                  ng-click="selectProduct(product)">
+                <td>{{product.id}}</td>
+                <td>{{product.name.localization[currentLang]}}</td>
+                <td>{{product.categories.length}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <dir-pagination-controls
+                max-size="5"
+                direction-links="true"
+                boundary-links="true">
+              </dir-pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div ng-if="selectedProduct" class="panel panel-info panel-heading-position">
+          <div class="panel-heading col-sm-12">
+            <div class="col-sm-4">{{ 'PRODUCT' | translate}}</div>
+          </div>
+          <div class="panel-body">
+            <div class="col-sm-12">
+              <h5 class="col-sm-12"><strong>{{ 'PRODUCT_NAME_ENGLISH' | translate}}</strong></h5>
+              <input type="text" class="form-control col-sm-12 text-left"
+                     ng-model="selectedProduct.name.localization[englishLangCode]"
+                     placeholder="{{ 'ENTER_PRODUCT_NAME' | translate}}">
+              </input>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-12"><strong>{{ 'PRODUCT_NAME_SERBIAN' | translate}}</strong></h5>
+              <input type="text" class="form-control col-sm-12 text-left"
+                     ng-model="selectedProduct.name.localization[serbianLangCode]"
+                     placeholder="{{ 'ENTER_PRODUCT_NAME' | translate}}">
+              </input>
+            </div>
+            <div class="col-sm-12 mt10">
+              <a data-toggle="collapse" data-target="#productShortDesc" class="cursor-pointer pull-left">{{'SHORT_DESC'
+                | translate}}<i
+                  class="fa fa-caret-down"></i></a>
+            </div>
+            <div id="productShortDesc" class="collapse">
+              <div class="col-sm-12">
+                <h5 class="col-sm-12"><strong>{{ 'PRODUCT_SHORT_DESC_ENGLISH' | translate}}</strong></h5>
+                <input type="text" maxlength="128" class="form-control col-sm-12 text-left"
+                       ng-model="selectedProduct.shortDesc.localization[englishLangCode]"
+                       placeholder="{{ 'ENTER_PRODUCT_SHORT_DESC' | translate}}">
+                </input>
+              </div>
+              <div class="col-sm-12">
+                <h5 class="col-sm-12"><strong>{{ 'PRODUCT_SHORT_DESC_SERBIAN' | translate}}</strong></h5>
+                <input type="text" maxlength="128" class="form-control col-sm-12 text-left"
+                       ng-model="selectedProduct.shortDesc.localization[serbianLangCode]"
+                       placeholder="{{ 'ENTER_PRODUCT_SHORT_DESC' | translate}}">
+                </input>
+              </div>
+            </div>
+            <div class="col-sm-12 mt10">
+              <a data-toggle="collapse" data-target="#productFullDesc" class="cursor-pointer pull-left">{{'FULL_DESC' |
+                translate}}<i
+                  class="fa fa-caret-down"></i></a>
+            </div>
+            <div id="productFullDesc" class="collapse">
+              <div class="col-sm-12">
+                <h5 class="col-sm-12"><strong>{{ 'PRODUCT_FULL_DESC_ENGLISH' | translate}}</strong></h5>
+                <textarea class="form-control col-sm-12 text-left" rows="4" maxlength="512"
+                          ng-model="selectedProduct.fullDesc.localization[englishLangCode]"
+                          placeholder="{{ 'ENTER_PRODUCT_FULL_DESC' | translate}}">
+
+                </textarea>
+              </div>
+              <div class="col-sm-12">
+                <h5 class="col-sm-12"><strong>{{ 'PRODUCT_FULL_DESC_SERBIAN' | translate}}</strong></h5>
+                <textarea class="form-control col-sm-12 text-left" rows="4" maxlength="512"
+                          ng-model="selectedProduct.fullDesc.localization[serbianLangCode]"
+                          placeholder="{{ 'ENTER_PRODUCT_FULL_DESC' | translate}}">
+
+                </textarea>
+              </div>
+            </div>
+            <!--<div flow-init flow-files-submitted="" flow-name="selectedProduct.flow"-->
+                 <!--flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"-->
+                 <!--class="ng-scope">-->
+              <!--<div ng-show="!$flow.files.length">-->
+                <!--<img src="{{selectedProduct.img}}"/>-->
+              <!--</div>-->
+              <!--<div class="thumbnail-vehicle" ng-show="$flow.files.length">-->
+                <!--<img flow-img="$flow.files[0]"/>-->
+              <!--</div>-->
+              <!--<div>-->
+              <!--<span class="btn btn-primary" ng-show="!$flow.files.length"-->
+                    <!--flow-btn="">{{'SELECT_IMAGE' | translate}}<input-->
+                <!--type="file"-->
+                <!--style="visibility: hidden; position: absolute;"></span>-->
+              <!--<span class="btn btn-primary ng-hide"-->
+                    <!--ng-show="$flow.files.length"-->
+                    <!--flow-btn="">{{'UPDATE' | translate}}-->
+                <!--<input type="file"-->
+                     <!--style="visibility: hidden; position: absolute;"></span>-->
+                <!--<a class="btn btn-primary" ng-show="$flow.files.length"-->
+                   <!--ng-click="$flow.cancel()">-->
+                  <!--{{'DELETE' | translate}}-->
+                <!--</a>-->
+              <!--</div>-->
+            <!--</div>-->
+            <div class="col-sm-12">
+              <button class="pull-right btn btn-primary btn-padded" ng-click="saveProduct()"
+                      ng-disabled="!selectedProduct.name.localization[englishLangCode].length || !selectedProduct.name.localization[serbianLangCode]">
+                <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}
+              </button>
+              <button class="pull-right btn btn-primary btn-padded" ng-click="deleteProduct()">
+                <i class="fa fa-times"></i> {{ 'DELETE' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div ng-include="'pages/footer.html'"></div>
+  <!-- /.content-wrapper -->
 </div>
 
