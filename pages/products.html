@@ -57,7 +57,7 @@
                   ng-click="selectProduct(product)">
                 <td>{{product.id}}</td>
                 <td>{{product.name.localization[currentLang]}}</td>
-                <td>{{product.categories.length}}</td>
+                <td>{{product.categoryData.name.localization[currentLang]}}</td>
               </tr>
               </tbody>
             </table>
@@ -135,30 +135,60 @@
                 </textarea>
               </div>
             </div>
+            <div class="col-sm-12 mt10">
+              <a data-toggle="collapse" data-target="#productCategories" class="cursor-pointer pull-left">{{'CATEGORY'
+                |
+                translate}}<i
+                  class="fa fa-caret-down"></i></a>
+            </div>
+            <div id="productCategories" class="collapse">
+              <div class="col-sm-12">
+                <h5 class="col-sm-12"><strong>{{ 'CURRENT_CATEGORY' | translate }}: </strong> {{selectedProduct.categoryData.name.localization[currentLang]}}</h5>
+                <h5 class="col-sm-12"><strong>{{'CHANGE_CATEGORY_TO' | translate}}: </strong>{{getNewCategory().name.localization[currentLang]}}</h5>
+                <div class="col-sm-12 select_join">
+                  <h5 class="col-sm-12"><strong>{{ 'CATEGORY' | translate }}: </strong></h5>
+                  <select class="col-sm-12" ng-model="changeCategory.rootCategory"
+                        ng-options="category.name.localization[currentLang] for category in categories"
+                        required></select>
+                </div>
+                <div class="col-sm-12 select_join" ng-if="changeCategory.rootCategory.children.length > 0">
+                  <h5 class="col-sm-12"><strong>{{ 'SUBCATEGORY' | translate }}: </strong></h5>
+                  <select  class="col-sm-12" ng-model="changeCategory.childOneCategory"
+                          ng-options="category.name.localization[currentLang] for category in changeCategory.rootCategory.children"
+                          required></select>
+                </div>
+                <div class="col-sm-12 select_join" ng-if="changeCategory.childOneCategory.children.length > 0">
+                  <h5 class="col-sm-12"><strong>{{ 'SUBCATEGORY' | translate }}: </strong></h5>
+                  <select class="col-sm-12" ng-model="changeCategory.childTwoCategory"
+                          ng-options="category.name.localization[currentLang] for category in changeCategory.childOneCategory.children"
+                          required></select>
+                </div>
+              </div>
+            </div>
             <!--<div flow-init flow-files-submitted="" flow-name="selectedProduct.flow"-->
-                 <!--flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"-->
-                 <!--class="ng-scope">-->
-              <!--<div ng-show="!$flow.files.length">-->
-                <!--<img src="{{selectedProduct.img}}"/>-->
-              <!--</div>-->
-              <!--<div class="thumbnail-vehicle" ng-show="$flow.files.length">-->
-                <!--<img flow-img="$flow.files[0]"/>-->
-              <!--</div>-->
-              <!--<div>-->
-              <!--<span class="btn btn-primary" ng-show="!$flow.files.length"-->
-                    <!--flow-btn="">{{'SELECT_IMAGE' | translate}}<input-->
-                <!--type="file"-->
-                <!--style="visibility: hidden; position: absolute;"></span>-->
-              <!--<span class="btn btn-primary ng-hide"-->
-                    <!--ng-show="$flow.files.length"-->
-                    <!--flow-btn="">{{'UPDATE' | translate}}-->
-                <!--<input type="file"-->
-                     <!--style="visibility: hidden; position: absolute;"></span>-->
-                <!--<a class="btn btn-primary" ng-show="$flow.files.length"-->
-                   <!--ng-click="$flow.cancel()">-->
-                  <!--{{'DELETE' | translate}}-->
-                <!--</a>-->
-              <!--</div>-->
+            <!--flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"-->
+            <!--class="ng-scope">-->
+            <!--<div ng-show="!$flow.files.length">-->
+            <!--<img src="{{selectedProduct.img}}"/>-->
+            <!--</div>-->
+            <!--<div class="thumbnail-vehicle" ng-show="$flow.files.length">-->
+            <!--<img flow-img="$flow.files[0]"/>-->
+            <!--</div>-->
+            <!--<div>-->
+            <!--<span class="btn btn-primary" ng-show="!$flow.files.length"-->
+            <!--flow-btn="">{{'SELECT_IMAGE' | translate}}<input-->
+            <!--type="file"-->
+            <!--style="visibility: hidden; position: absolute;"></span>-->
+            <!--<span class="btn btn-primary ng-hide"-->
+            <!--ng-show="$flow.files.length"-->
+            <!--flow-btn="">{{'UPDATE' | translate}}-->
+            <!--<input type="file"-->
+            <!--style="visibility: hidden; position: absolute;"></span>-->
+            <!--<a class="btn btn-primary" ng-show="$flow.files.length"-->
+            <!--ng-click="$flow.cancel()">-->
+            <!--{{'DELETE' | translate}}-->
+            <!--</a>-->
+            <!--</div>-->
             <!--</div>-->
             <div class="col-sm-12">
               <button class="pull-right btn btn-primary btn-padded" ng-click="saveProduct()"

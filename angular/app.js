@@ -132,7 +132,10 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'PRODUCT_NOT_CREATED' : 'Failed to create product',
       'PRODUCT_CREATED' : 'Product created',
       'PRODUCT_NOT_DELETED' : 'Failed to delete product',
-      'PRODUCT_DELETED' : 'Product deleted'
+      'PRODUCT_DELETED' : 'Product deleted',
+      'CURRENT_CATEGORY' : 'Current category',
+      'CHANGE_CATEGORY_TO' : 'Change category to',
+      'SUBCATEGORY' : 'Subcategory'
 
 
     })
@@ -225,7 +228,11 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'PRODUCT_NOT_CREATED' : 'Neuspešno kreiranje proizvoda',
         'PRODUCT_CREATED' : 'Proizvod kreiran',
         'PRODUCT_NOT_DELETED' : 'Neuspešno brisanje proizvoda',
-        'PRODUCT_DELETED' : 'Proizvod obrisan'
+        'PRODUCT_DELETED' : 'Proizvod obrisan',
+        'CURRENT_CATEGORY' : 'Trenutna kategorija',
+        'CHANGE_CATEGORY_TO' : 'Prebaci u kategoriju',
+        'SUBCATEGORY' : 'Podkategorija'
+
       });
     $translateProvider.preferredLanguage('en_EN');
   });
@@ -248,12 +255,12 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
 
   $rootScope.credentials = UsersService.getUserCredentials();
   $rootScope.$on('$routeChangeStart', function (event, next) {
-    console.log($location.url());
-    if (next.restricted) {
-      if (!$rootScope.isLoggedIn()) {
-        $window.location.href = "#/login";
-      }
-    }
+    //console.log($location.url());
+    //if (next.restricted) {
+    //  if (!$rootScope.isLoggedIn()) {
+    //    $window.location.href = "#/login";
+    //  }
+    //}
   });
 
   $rootScope.logoutAdmin = function () {

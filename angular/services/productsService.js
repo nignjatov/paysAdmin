@@ -77,6 +77,25 @@ angular.module('paysAdmin').service('ProductsService',
           });
 
         return deffered.promise;
+      },
+      putProductToCategory : function(categoryId, productId){
+        var deffered = $q.defer();
+        $http.put("product_category/"+categoryId+"/products/"+productId).
+          success(function (data, status) {
+            if (status == 200) {
+              deffered.resolve(data);
+            } else {
+              console.log("putProductToCategory | Status not OK " + status);
+              deffered.reject("Error");
+            }
+
+          }).
+          error(function (data, status) {
+            console.log(" putProductToCategory | Error " + status);
+            deffered.reject("Error");
+          });
+
+        return deffered.promise;
       }
     }
   });
