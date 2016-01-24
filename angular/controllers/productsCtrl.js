@@ -51,17 +51,14 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
       $scope.selectedProduct.fullDesc.default  = $scope.selectedProduct.fullDesc.localization[$rootScope.defaultLang];
 
       var newCategory = $scope.getNewCategory();
-      if (newCategory) {
-      }
-      $rootScope.objectPrint($scope.getNewCategory());
-      console.log("AAAAAA");
-      console.log($scope.selectedProduct.categories);
       if ($scope.selectedProduct.id) {
         //Update existing product
         ProductsService.updateProduct($scope.selectedProduct.id, $scope.selectedProduct).then(function (data) {
           Notification.success({message: $filter('translate')('PRODUCT_UPDATED')});
           if (newCategory) {
             ProductsService.putProductToCategory(newCategory.id, $scope.selectedProduct.id).then(function (data) {
+              $scope.selectedProduct.categories = [];
+              $scope.selectedProduct.categories.push(newCategory.id);
               _assignCategoryDataToProduct($scope.selectedProduct, $scope.categories);
               $scope.selectedProduct = null;
               Notification.success({message: $filter('translate')('CATEGORY_UPDATED')});
@@ -80,11 +77,13 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
 
       } else {
         //Create new product
-        ProductsService.createProduct($scope.selectedProduct).then(function (data) {
+        ProductsService.createProduct($scope.selectedProduct).then(function (productData) {
           Notification.success({message: $filter('translate')('PRODUCT_CREATED')});
           if (newCategory) {
-            ProductsService.putProductToCategory(newCategory.id, data.id).then(function (data) {
-              _assignCategoryDataToProduct($scope.selectedProduct, $scope.categories);
+            ProductsService.putProductToCategory(newCategory.id, productData.id).then(function (data) {
+              productData.categories = [];
+              productData.categories.push(newCategory.id);
+              _assignCategoryDataToProduct(productData, $scope.categories);
               $scope.selectedProduct = null;
               Notification.success({message: $filter('translate')('CATEGORY_UPDATED')});
             }).catch(function (err) {
@@ -94,8 +93,8 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
           } else {
             $scope.selectedProduct = null;
           }
-          $scope.products.push(data);
-          //TODO handle category and picture
+          $scope.products.push(productData);
+          //TODO and picture
         }).catch(function (err) {
           console.log(err);
           Notification.error({message: $filter('translate')('PRODUCT_NOT_CREATED')});
