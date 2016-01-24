@@ -135,8 +135,21 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'PRODUCT_DELETED' : 'Product deleted',
       'CURRENT_CATEGORY' : 'Current category',
       'CHANGE_CATEGORY_TO' : 'Change category to',
-      'SUBCATEGORY' : 'Subcategory'
-
+      'SUBCATEGORY' : 'Subcategory',
+      'ORDER_DESC' : "Review orders in PAYS System",
+      'SEARCH_ORDERS' : 'Search orders',
+      'BUYER_NAME' : 'Buyer name',
+      'FARMER_NAME' : 'Farmer name',
+      'TRANSPORTER_NAME' : 'Distributor name',
+      'PRICE' : 'Price',
+      'STATUS' : 'Status',
+      'ORDER' : 'Order',
+      'BUYER_INFO' : 'Buyer information',
+      'FARMER_INFO' : 'Farmer information',
+      'DISTRIBUTOR_INFO' :'Distributor information',
+      'DELIVERY_DATE' : 'Delivery date',
+      'DELIVERY_TIME' : 'Delivery time',
+      'PRODUCTS_NUMBER' : "Number of products"
 
     })
       .translations('rs_RS', {
@@ -205,7 +218,7 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'LAST_NAME': 'Prezime',
         'NAME': 'Ime',
         'BUYER': 'Kupac',
-        'WELCOME': 'Dobrodošli u administratorsku aplikacija PAYS sistema',
+        'WELCOME': 'Dobrodošli u administratorsku aplikaciju PAYS sistema',
         'LOGIN': 'Prijava',
         'PRODUCTS_DESC': 'Upravljajte informacijama o proizvodima',
         'PRODUCT': 'Proizvod',
@@ -231,7 +244,21 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'PRODUCT_DELETED' : 'Proizvod obrisan',
         'CURRENT_CATEGORY' : 'Trenutna kategorija',
         'CHANGE_CATEGORY_TO' : 'Prebaci u kategoriju',
-        'SUBCATEGORY' : 'Podkategorija'
+        'SUBCATEGORY' : 'Podkategorija',
+        'ORDER_DESC' : "Pregled informacija o narudžbinama",
+        'SEARCH_ORDERS' : 'Pretražite narudžbine',
+        'BUYER_NAME' : 'Ime kupca',
+        'FARMER_NAME' : 'Ime farmera',
+        'TRANSPORTER_NAME' : 'Ime distributera',
+        'PRICE' : 'Cena',
+        'STATUS' : 'Status',
+        'ORDER' : 'Narudžbina',
+        'BUYER_INFO' : 'Informacije o kupcu',
+        'FARMER_INFO' : 'Informacije o farmeru',
+        'DISTRIBUTOR_INFO' :'Informacije o distributeru',
+        'DELIVERY_DATE' : 'Datum dostave',
+        'DELIVERY_TIME' : 'Vreme dostave',
+        'PRODUCTS_NUMBER' : "Broj proizvoda"
 
       });
     $translateProvider.preferredLanguage('en_EN');
