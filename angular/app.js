@@ -149,7 +149,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'DISTRIBUTOR_INFO' :'Distributor information',
       'DELIVERY_DATE' : 'Delivery date',
       'DELIVERY_TIME' : 'Delivery time',
-      'PRODUCTS_NUMBER' : "Number of products"
+      'PRODUCTS_NUMBER' : "Number of products",
+      'IMAGE' : 'Image'
 
     })
       .translations('rs_RS', {
@@ -258,7 +259,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'DISTRIBUTOR_INFO' :'Informacije o distributeru',
         'DELIVERY_DATE' : 'Datum dostave',
         'DELIVERY_TIME' : 'Vreme dostave',
-        'PRODUCTS_NUMBER' : "Broj proizvoda"
+        'PRODUCTS_NUMBER' : "Broj proizvoda",
+        'IMAGE' : 'Slika'
 
       });
     $translateProvider.preferredLanguage('en_EN');
@@ -282,12 +284,12 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
 
   $rootScope.credentials = UsersService.getUserCredentials();
   $rootScope.$on('$routeChangeStart', function (event, next) {
-    //console.log($location.url());
-    //if (next.restricted) {
-    //  if (!$rootScope.isLoggedIn()) {
-    //    $window.location.href = "#/login";
-    //  }
-    //}
+    console.log($location.url());
+    if (next.restricted) {
+      if (!$rootScope.isLoggedIn()) {
+        $window.location.href = "#/login";
+      }
+    }
   });
 
   $rootScope.logoutAdmin = function () {

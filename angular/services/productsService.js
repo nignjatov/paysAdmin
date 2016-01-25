@@ -21,9 +21,9 @@ angular.module('paysAdmin').service('ProductsService',
 
         return deffered.promise;
       },
-      updateProduct : function(productId, productData){
+      updateProduct: function (productId, productData) {
         var deffered = $q.defer();
-        $http.put("product/"+productId,productData).
+        $http.put("product/" + productId, productData).
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);
@@ -42,7 +42,7 @@ angular.module('paysAdmin').service('ProductsService',
       },
       createProduct: function (productData) {
         var deffered = $q.defer();
-        $http.post("product",productData).
+        $http.post("product", productData).
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);
@@ -61,7 +61,7 @@ angular.module('paysAdmin').service('ProductsService',
       },
       deleteProduct: function (productId) {
         var deffered = $q.defer();
-        $http.delete("product/"+productId).
+        $http.delete("product/" + productId).
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);
@@ -78,9 +78,9 @@ angular.module('paysAdmin').service('ProductsService',
 
         return deffered.promise;
       },
-      putProductToCategory : function(categoryId, productId){
+      putProductToCategory: function (categoryId, productId) {
         var deffered = $q.defer();
-        $http.put("product_category/"+categoryId+"/products/"+productId).
+        $http.put("product_category/" + categoryId + "/products/" + productId).
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);
@@ -95,6 +95,26 @@ angular.module('paysAdmin').service('ProductsService',
             deffered.reject("Error");
           });
 
+        return deffered.promise;
+      },
+      getProductImage: function (productId, imageId) {
+        var deffered = $q.defer();
+
+        $http.get("product/" + productId + "/images/" + imageId + "/imagefile").
+          success(function (data, status) {
+            if (status == 200) {
+              data.index = productId;
+              deffered.resolve(data);
+            } else {
+              console.log("getVehicleImage |Status not OK " + status);
+              deffered.reject("Error");
+            }
+
+          }).
+          error(function (data, status) {
+            console.log("Error " + status);
+            deffered.reject("Error");
+          });
         return deffered.promise;
       }
     }

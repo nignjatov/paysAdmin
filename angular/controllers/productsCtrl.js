@@ -16,6 +16,9 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
     $scope.selectProduct = function (product) {
       $scope.changeCategory.rootCategory = null;
       $scope.selectedProduct             = product;
+      ProductsService.getProductImage($scope.selectedProduct.id,$scope.selectedProduct.images).then(function(data){
+
+      });
     }
 
     $scope.newProduct = function () {
@@ -143,7 +146,6 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
         console.log("Product ID " + product.id + " Category Id " + categoryId);
         angular.forEach(categories, function (root) {
           if (found == false) {
-            console.log("ROOT " + root.id);
             if (root.id == categoryId) {
               console.log("ROOT " + root.id + " Category Id " + categoryId);
               found                = true;
@@ -151,7 +153,6 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
             }
             if (root.children.length > 0) {
               angular.forEach(root.children, function (childOne) {
-                console.log("ChildOne " + childOne.id);
                 if (found == false) {
                   if (childOne.id == categoryId) {
                     console.log("ChildOne " + root.id + " Category Id " + categoryId);
@@ -160,7 +161,6 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
                   }
                   if (childOne.children.length > 0) {
                     angular.forEach(childOne.children, function (childTwo) {
-                      console.log("ChildTwo " + childTwo.id);
                       if (found == false) {
                         if (childTwo.id == categoryId) {
                           console.log("childTwo " + root.id + " Category Id " + categoryId);

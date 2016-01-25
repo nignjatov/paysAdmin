@@ -5,7 +5,11 @@ angular.module('paysAdmin').factory('myHttpInterceptor', function($q,$rootScope)
       // do something on success
       console.log(config);
       if(!/.html/.test(config.url) && !/.Pagination/.test(config.url)){
-        config.url = $rootScope.serverURL+ config.url;
+        //if(/.images/.test(config.url)){
+        //  config.url = $rootScope.serverImagesURL + config.url;
+        //}else {
+          config.url = $rootScope.serverURL + config.url;
+        //}
         console.log("NEW URL "+ config.url);
       }
       return config;
