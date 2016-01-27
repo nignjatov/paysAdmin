@@ -4,7 +4,12 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
     $scope.products        = [];
     $scope.selectedProduct = null;
 
-    $scope.changeCategory = {}
+    $scope.changeCategory = {};
+
+    $scope.obj = {
+      flow: null
+    };
+
     ProductsService.getProducts().then(function (data) {
       $scope.products = data;
       CategoryService.getCategories().then(function (data) {
@@ -16,9 +21,15 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
     $scope.selectProduct = function (product) {
       $scope.changeCategory.rootCategory = null;
       $scope.selectedProduct             = product;
-      ProductsService.getProductImage($scope.selectedProduct.id,$scope.selectedProduct.images).then(function(data){
-
-      });
+      if (!$scope.selectedProduct.img || $scope.selectedProduct.img.length == 0) {
+        ProductsService.getProductImage($scope.selectedProduct.id, $scope.selectedProduct.images).then(function (data) {
+          for (var j = 0; j < $scope.products.length; j++) {
+            if ($scope.products[j].id === data.index) {
+              $scope.products[j].img = "data:" + data.type + ";base64," + data.document_content;
+            }
+          }
+        });
+      }
     }
 
     $scope.newProduct = function () {
@@ -63,7 +74,7 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
               $scope.selectedProduct.categories = [];
               $scope.selectedProduct.categories.push(newCategory.id);
               _assignCategoryDataToProduct($scope.selectedProduct, $scope.categories);
-              $scope.selectedProduct = null;
+              $scope.selectedProduct            = null;
               Notification.success({message: $filter('translate')('CATEGORY_UPDATED')});
             }).catch(function (err) {
               Notification.error({message: $filter('translate')('CATEGORY_NOT_UPDATED')});
@@ -117,23 +128,31 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
       });
     }
 
-    $scope.uploadProfilePicture = function () {
-      //if (typeof scope.profilePic.flow.files !== 'undefined') {
-      //  DistributorService.uploadDistributorProfileImage(scope.distributor.id,
-      //    scope.distributor.images.profile ? scope.distributor.images.profile : rootScope.undefinedImageId,
-      //    scope.profilePic.flow).then(function (data) {
-      //      Notification.success({message: filter('translate')('PROFILE_IMAGE_UPLOADED')});
-      //      scope.profilePic.flow.cancel();
-      //    }).catch(function (err) {
-      //      Notification.error({message: filter('translate')('PROFILE_IMAGE_FAILURE')});
-      //      scope.profilePic.flow.cancel();
-      //    });
-      //
-      //}
+    $scope.uploadProductPicture = function () {
+      if (typeof $scope.obj.flow.files !== 'undefined') {
+        ProductsService.uploadProductImage($scope.selectedProduct.id,
+          $scope.selectedProduct.images ? $scope.selectedProduct.images : $rootScope.undefinedImageId,
+          $scope.obj.flow).then(function (data) {
+            Notification.success({message: $filter('translate')('PRODUCT_IMAGE_UPLOADED')});
+            ProductsService.getProductImage($scope.selectedProduct.id, $scope.selectedProduct.images).then(function (data) {
+              for (var j = 0; j < $scope.products.length; j++) {
+                if ($scope.products[j].id === data.index) {
+                  $scope.products[j].img = "data:" + data.type + ";base64," + data.document_content;
+                }
+              }
+            });
+            $scope.obj.flow.cancel();
+          }).catch(function (err) {
+            Notification.error({message: $filter('translate')('PRODUCT_IMAGE_FAILURE')});
+            $scope.obj.flow.cancel();
+          });
+
+      }
     }
 
     _mergeProductsWithCategories = function (products, categories) {
       angular.forEach(products, function (product) {
+        product.flow = {};
         _assignCategoryDataToProduct(product, categories);
       });
     };

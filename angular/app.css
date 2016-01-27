@@ -114,3 +114,15 @@ select {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select {padding-right:18px}
 }
+
+.thumbnail-product {
+    max-width: 200px;
+    max-height: 150px;
+    line-height: 20px;
+    margin-bottom: 5px;
+
+}
+
+.product-image-preview {
+    height: 130px;
+}

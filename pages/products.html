@@ -168,23 +168,22 @@
                 </div>
               </div>
             </div>
-            <!--<div class="col-sm-12 mt10">-->
-              <!--<a data-toggle="collapse" data-target="#productImage" class="cursor-pointer pull-left">{{'IMAGE'-->
-                <!--|-->
-                <!--translate}}<i-->
-                  <!--class="fa fa-caret-down"></i></a>-->
-            <!--</div>-->
+            <div class="col-sm-12 mt10">
+              <a data-toggle="collapse" data-target="#productImage" class="cursor-pointer pull-left">{{'IMAGE'
+                |
+                translate}}<i
+                  class="fa fa-caret-down"></i></a>
+            </div>
             <div id="productImage" class="collapse">
-              <div flow-init flow-files-submitted="" flow-name="selectedProduct.flow"
-                   flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
-                   class="ng-scope">
-                <div ng-show="!$flow.files.length">
-                  <img src="{{selectedProduct.img}}"/>
+              <div flow-init flow-files-submitted="" flow-name="obj.flow"
+                   class="ng-scope col-sm-12 ">
+                <div class = "thumbnail-product col-sm-12 " ng-show="!$flow.files.length">
+                  <img src="{{selectedProduct.img}}" class="product-image-preview"/>
                 </div>
-                <div class="thumbnail-vehicle" ng-show="$flow.files.length">
-                  <img flow-img="$flow.files[0]"/>
+                <div class="thumbnail-product col-sm-12 " ng-show="$flow.files.length">
+                  <img flow-img="$flow.files[0]" class="product-image-preview"/>
                 </div>
-                <div>
+                <div class="col-sm-12">
             <span class="btn btn-primary" ng-show="!$flow.files.length"
                   flow-btn="">{{'SELECT_IMAGE' | translate}}<input
               type="file"
@@ -195,13 +194,17 @@
             <input type="file"
                    style="visibility: hidden; position: absolute;"></span>
                   <a class="btn btn-primary" ng-show="$flow.files.length"
+                     ng-click="uploadProductPicture()">
+                    {{'UPLOAD' | translate}}
+                  </a>
+                  <a class="btn btn-primary" ng-show="$flow.files.length"
                      ng-click="$flow.cancel()">
                     {{'DELETE' | translate}}
                   </a>
                 </div>
               </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12 mt20">
               <button class="pull-right btn btn-primary btn-padded" ng-click="saveProduct()"
                       ng-disabled="!selectedProduct.name.localization[englishLangCode].length || !selectedProduct.name.localization[serbianLangCode]">
                 <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}

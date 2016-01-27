@@ -116,6 +116,32 @@ angular.module('paysAdmin').service('ProductsService',
             deffered.reject("Error");
           });
         return deffered.promise;
+      },
+      uploadProductImage: function (productId, imageId, flowObj) {
+        var deferred = $q.defer();
+        //image doesnt exists,create new one
+        if (imageId == $rootScope.undefinedImageId) {
+          flowObj.opts.target = $rootScope.serverURL + "product/" + productId + "/imagefile";
+        } else {
+          // update current picture of product
+          flowObj.opts.target = $rootScope.serverURL + "product/" + productId + "/image/" + imageId + "/imagefile";
+        }
+        flowObj.opts.testChunks        = false;
+        flowObj.opts.fileParameterName = "file";
+        flowObj.on('fileSuccess', function (event, resp) {
+          console.log('fileSuccess ', resp);
+          deferred.resolve(resp);
+        });
+        flowObj.on('fileError', function (event, err) {
+          console.log('fileError ', err);
+          if (err.length > 0) {
+            deferred.reject(err);
+          } else {
+            deferred.resolve(err);
+          }
+        });
+        flowObj.upload();
+        return deferred.promise;
       }
     }
   });

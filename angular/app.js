@@ -268,7 +268,6 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
 
 paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window) {
   $rootScope.serverURL       = "http://185.23.171.43/PEP/PaysRest/";
-  $rootScope.serverImagesURL = "http://185.23.171.43/PaysImages/";
 
   $rootScope.englishLangCode = "en_EN";
   $rootScope.serbianLangCode = "rs_RS";
@@ -277,6 +276,9 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
   $rootScope.currentLang = $rootScope.englishLangCode;
 
   $rootScope.maxItemsPerPage = 20;
+
+  $rootScope.undefinedImageId = -1;
+
   $rootScope.changeLanguage  = function (langCode) {
     $rootScope.currentLang = langCode;
     $translate.use(langCode);
@@ -284,12 +286,12 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
 
   $rootScope.credentials = UsersService.getUserCredentials();
   $rootScope.$on('$routeChangeStart', function (event, next) {
-    console.log($location.url());
-    if (next.restricted) {
-      if (!$rootScope.isLoggedIn()) {
-        $window.location.href = "#/login";
-      }
-    }
+    //console.log($location.url());
+    //if (next.restricted) {
+    //  if (!$rootScope.isLoggedIn()) {
+    //    $window.location.href = "#/login";
+    //  }
+    //}
   });
 
   $rootScope.logoutAdmin = function () {
