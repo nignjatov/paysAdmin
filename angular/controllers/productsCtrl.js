@@ -21,11 +21,14 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
     $scope.selectProduct = function (product) {
       $scope.changeCategory.rootCategory = null;
       $scope.selectedProduct             = product;
+      if($scope.obj.flow){
+        $scope.obj.flow.cancel();
+      }
       if (!$scope.selectedProduct.img || $scope.selectedProduct.img.length == 0) {
         ProductsService.getProductImage($scope.selectedProduct.id, $scope.selectedProduct.images).then(function (data) {
           for (var j = 0; j < $scope.products.length; j++) {
             if ($scope.products[j].id === data.index) {
-              $scope.products[j].img = "data:" + data.type + ";base64," + data.document_content;
+              $scope.products[j].img = "data:image/jpeg;base64," + data.document_content;
             }
           }
         });
@@ -133,11 +136,12 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
         ProductsService.uploadProductImage($scope.selectedProduct.id,
           $scope.selectedProduct.images ? $scope.selectedProduct.images : $rootScope.undefinedImageId,
           $scope.obj.flow).then(function (data) {
+            $scope.selectedProduct.images = data.image;
             Notification.success({message: $filter('translate')('PRODUCT_IMAGE_UPLOADED')});
-            ProductsService.getProductImage($scope.selectedProduct.id, $scope.selectedProduct.images).then(function (data) {
+            ProductsService.getProductImage($scope.selectedProduct.id, data.image).then(function (data) {
               for (var j = 0; j < $scope.products.length; j++) {
                 if ($scope.products[j].id === data.index) {
-                  $scope.products[j].img = "data:" + data.type + ";base64," + data.document_content;
+                  $scope.products[j].img = "data:image/jpeg;base64," + data.document_content;
                 }
               }
             });
@@ -152,7 +156,6 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
 
     _mergeProductsWithCategories = function (products, categories) {
       angular.forEach(products, function (product) {
-        product.flow = {};
         _assignCategoryDataToProduct(product, categories);
       });
     };

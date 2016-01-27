@@ -156,7 +156,9 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'APARTMENT_NUMBER' : 'Apartment number',
       'SELECT_IMAGE' : 'Select image',
       'UPDATE' : 'Change image',
-      'UPLOAD' : 'Upload'
+      'UPLOAD' : 'Upload',
+      'PRODUCT_IMAGE_UPLOADED' : 'Product image uploaded',
+      'PRODUCT_IMAGE_FAILURE' : 'Product image upload failed!'
 
     })
       .translations('rs_RS', {
@@ -272,7 +274,9 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'APARTMENT_NUMBER' : 'Broj stana',
         'SELECT_IMAGE' : 'Odaberi sliku',
         'UPDATE' : 'Promeni sliku',
-        'UPLOAD' : 'Postavi sliku'
+        'UPLOAD' : 'Postavi sliku',
+        'PRODUCT_IMAGE_UPLOADED' : 'Slika proizvoda postavljena',
+        'PRODUCT_IMAGE_FAILURE' : 'Neuspešno postavljanje slike proizvoda!'
 
       });
     $translateProvider.preferredLanguage('en_EN');

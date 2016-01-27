@@ -128,9 +128,10 @@ angular.module('paysAdmin').service('ProductsService',
         }
         flowObj.opts.testChunks        = false;
         flowObj.opts.fileParameterName = "file";
+        console.log(flowObj.opts);
         flowObj.on('fileSuccess', function (event, resp) {
           console.log('fileSuccess ', resp);
-          deferred.resolve(resp);
+          deferred.resolve(JSON.parse(resp));
         });
         flowObj.on('fileError', function (event, err) {
           console.log('fileError ', err);

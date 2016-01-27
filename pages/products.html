@@ -185,12 +185,12 @@
                 </div>
                 <div class="col-sm-12">
             <span class="btn btn-primary" ng-show="!$flow.files.length"
-                  flow-btn="">{{'SELECT_IMAGE' | translate}}<input
+                  flow-btn flow-attrs="{accept:'image/*'}">{{'SELECT_IMAGE' | translate}}<input
               type="file"
               style="visibility: hidden; position: absolute;"></span>
             <span class="btn btn-primary ng-hide"
                   ng-show="$flow.files.length"
-                  flow-btn="">{{'UPDATE' | translate}}
+                  flow-btn flow-attrs="{accept:'image/*'}">{{'UPDATE' | translate}}
             <input type="file"
                    style="visibility: hidden; position: absolute;"></span>
                   <a class="btn btn-primary" ng-show="$flow.files.length"
