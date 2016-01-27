@@ -114,7 +114,37 @@
             <div class="col-sm-12">
               <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
               <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address}}
+                {{selectedOrder.address.street}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedOrder.address.postalCode}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedOrder.address.city}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'HOUSE_NUMBER' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedOrder.address.houseNumber}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'FLOOR' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedOrder.address.floor}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'APARTMENT_NUMBER' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedOrder.address.apartmentNumber}}
               </h5>
             </div>
             <div class="col-sm-12">

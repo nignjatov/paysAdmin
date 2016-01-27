@@ -150,7 +150,13 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'DELIVERY_DATE' : 'Delivery date',
       'DELIVERY_TIME' : 'Delivery time',
       'PRODUCTS_NUMBER' : "Number of products",
-      'IMAGE' : 'Image'
+      'IMAGE' : 'Image',
+      'HOUSE_NUMBER' : 'Number',
+      'FLOOR' : 'Floor',
+      'APARTMENT_NUMBER' : 'Apartment number',
+      'SELECT_IMAGE' : 'Select image',
+      'UPDATE' : 'Change image',
+      'UPLOAD' : 'Upload'
 
     })
       .translations('rs_RS', {
@@ -260,7 +266,13 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'DELIVERY_DATE' : 'Datum dostave',
         'DELIVERY_TIME' : 'Vreme dostave',
         'PRODUCTS_NUMBER' : "Broj proizvoda",
-        'IMAGE' : 'Slika'
+        'IMAGE' : 'Slika',
+        'HOUSE_NUMBER' : 'Broj',
+        'FLOOR' : 'Sprat',
+        'APARTMENT_NUMBER' : 'Broj stana',
+        'SELECT_IMAGE' : 'Odaberi sliku',
+        'UPDATE' : 'Promeni sliku',
+        'UPLOAD' : 'Postavi sliku'
 
       });
     $translateProvider.preferredLanguage('en_EN');
