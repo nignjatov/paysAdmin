@@ -158,7 +158,11 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'UPDATE' : 'Change image',
       'UPLOAD' : 'Upload',
       'PRODUCT_IMAGE_UPLOADED' : 'Product image uploaded',
-      'PRODUCT_IMAGE_FAILURE' : 'Product image upload failed!'
+      'PRODUCT_IMAGE_FAILURE' : 'Product image upload failed!',
+      'BUYER_NOT_DEACTIVATED' : 'Failed to deactivate buyer!',
+      'BUYER_DEACTIVATED' : 'Buyer deactivated',
+      'BUYER_NOT_ACTIVATED' : 'Failed to activate buyer',
+      'BUYER_ACTIVATED' : 'Buyer activated'
 
     })
       .translations('rs_RS', {
@@ -276,7 +280,11 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'UPDATE' : 'Promeni sliku',
         'UPLOAD' : 'Postavi sliku',
         'PRODUCT_IMAGE_UPLOADED' : 'Slika proizvoda postavljena',
-        'PRODUCT_IMAGE_FAILURE' : 'Neuspešno postavljanje slike proizvoda!'
+        'PRODUCT_IMAGE_FAILURE' : 'Neuspešno postavljanje slike proizvoda!',
+        'BUYER_NOT_DEACTIVATED' : 'Neuspešna deaktivacija kupca!',
+        'BUYER_DEACTIVATED' : 'Kupac deaktiviran',
+        'BUYER_NOT_ACTIVATED' : 'Neuspešna aktivacija kupca',
+        'BUYER_ACTIVATED' : 'Kupac aktiviran'
 
       });
     $translateProvider.preferredLanguage('en_EN');
@@ -302,12 +310,12 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
 
   $rootScope.credentials = UsersService.getUserCredentials();
   $rootScope.$on('$routeChangeStart', function (event, next) {
-    //console.log($location.url());
-    //if (next.restricted) {
-    //  if (!$rootScope.isLoggedIn()) {
-    //    $window.location.href = "#/login";
-    //  }
-    //}
+    console.log($location.url());
+    if (next.restricted) {
+      if (!$rootScope.isLoggedIn()) {
+        $window.location.href = "#/login";
+      }
+    }
   });
 
   $rootScope.logoutAdmin = function () {

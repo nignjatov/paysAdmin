@@ -18,8 +18,9 @@
     <section class="container container-override">
       <div class="col-sm-8">
         <div class="col-sm-12">
-          <div class="col-sm-4 color-legend not-active-user">{{ 'NOT_CONFIRMED' | translate}}</div>
-          <div class="col-sm-4 color-legend active-user">{{ 'CONFIRMED_ACCOUNT' | translate}}</div>
+          <div class="col-sm-3 color-legend not-active-user">{{ 'NOT_ACTIVATED' | translate}}</div>
+          <div class="col-sm-3 color-legend active-user">{{ 'ACTIVATED' | translate}}</div>
+          <div class="col-sm-4 color-legend not-confirmed-user">{{ 'NOT_CONFIRMED' | translate}}</div>
         </div>
         <div class="col-sm-12 mt20">
           <form>
@@ -67,7 +68,8 @@
               <tr class="cursor-pointer"
                   dir-paginate="buyer in buyers | orderBy:sortType:sortReverse | filter:searchWord | itemsPerPage:maxItemsPerPage "
                   ng-click="selectBuyer(buyer)"
-                  ng-class="{'active-user' : buyer.isConfirmed ,'not-active-user' : !buyer.isConfirmed}">
+                  ng-class="{'active-user' : buyer.isActive ,'not-active-user' : !buyer.isActive,
+                'not-confirmed-user' : !buyer.isConfirmed}">
                 <td>{{buyer.privateSubject.name}} {{buyer.privateSubject.lastName}}</td>
                 <td>{{buyer.privateSubject.city}}</td>
                 <td>{{buyer.email}}</td>
@@ -121,6 +123,14 @@
                 {{selectedBuyer.privateSubject.city}}
               </h5>
             </div>
+            <button ng-if=" selectedBuyer.isConfirmed && !selectedBuyer.isActive"
+                    class="pull-right btn btn-primary btn-padded" ng-click="activateBuyer()">
+              <i class="fa fa-check"></i> {{ 'ACTIVATE' | translate}}
+            </button>
+            <button ng-if=" selectedBuyer.isConfirmed && selectedBuyer.isActive"
+                    class="pull-right btn btn-primary btn-padded" ng-click="deactivateBuyer()">
+              <i class="fa fa-times"></i> {{ 'DEACTIVATE' | translate}}
+            </button>
           </div>
         </div>
       </div>

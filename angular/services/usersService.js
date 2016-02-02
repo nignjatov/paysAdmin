@@ -87,9 +87,9 @@ angular.module('paysAdmin').service('UsersService',
         return deffered.promise;
       }
       ,
-      activateFarmer: function (farmer) {
+      activateFarmer: function (farmerId) {
         var deffered = $q.defer();
-        $http.put("merchant/" + farmer + "/activate").
+        $http.put("merchant/" + farmerId + "/activate").
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);
@@ -106,9 +106,9 @@ angular.module('paysAdmin').service('UsersService',
         return deffered.promise;
       }
       ,
-      deactivateFarmer: function (distributorId) {
+      deactivateFarmer: function (farmerId) {
         var deffered = $q.defer();
-        $http.put("merchant/" + distributorId + "/deactivate").
+        $http.put("merchant/" + farmerId + "/deactivate").
           success(function (data, status) {
             if (status == 200) {
               deffered.resolve(data);
@@ -146,6 +146,44 @@ angular.module('paysAdmin').service('UsersService',
             deffered.reject("Error");
           });
 
+        return deffered.promise;
+      }
+      ,
+      activateBuyer: function (farmer) {
+        var deffered = $q.defer();
+        $http.put("client/" + farmer + "/activate").
+          success(function (data, status) {
+            if (status == 200) {
+              deffered.resolve(data);
+            } else {
+              console.log("activateFarmer | Status not OK " + status);
+              deffered.reject("Error");
+            }
+
+          }).
+          error(function (data, status) {
+            console.log("activateFarmer | Error " + status);
+            deffered.reject("Error");
+          });
+        return deffered.promise;
+      }
+      ,
+      deactivateBuyer: function (distributorId) {
+        var deffered = $q.defer();
+        $http.put("client/" + distributorId + "/deactivate").
+          success(function (data, status) {
+            if (status == 200) {
+              deffered.resolve(data);
+            } else {
+              console.log("deactivateFarmer | Status not OK " + status);
+              deffered.reject("Error");
+            }
+
+          }).
+          error(function (data, status) {
+            console.log("deactivateFarmer | Error " + status);
+            deffered.reject("Error");
+          });
         return deffered.promise;
       }
       ,
