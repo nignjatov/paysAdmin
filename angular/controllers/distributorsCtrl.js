@@ -8,6 +8,9 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
       $scope.selectedDistributor = distributor;
     }
 
+    $scope.goBack = function () {
+      $scope.selectedDistributor = null;
+    }
     $scope.deactivateDistributor = function () {
       UsersService.deactivateDistributor($scope.selectedDistributor.id).then(function (data) {
         $scope.selectedDistributor.isActive = false;
@@ -25,6 +28,7 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
         Notification.error({message: $filter('translate')('DISTRIBUTOR_NOT_ACTIVATED')});
       });
     }
+
 
     $scope.sortType    = "businessSubject.name";
     $scope.sortReverse = "false";

@@ -88,6 +88,9 @@
                         ng-disabled="!selectedCategory.name.localization[englishLangCode].length || !selectedCategory.name.localization[serbianLangCode]">
                   <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}
                 </button>
+                <button class="pull-left btn btn-primary btn-padded" ng-click="goBack()">
+                  <i class="fa fa-caret-left"></i> {{ 'BACK' | translate}}
+                </button>
               </dl>
             </div>
           </div>

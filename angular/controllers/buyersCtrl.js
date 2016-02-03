@@ -10,6 +10,10 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope", "$
             $scope.selectedBuyer = buyer;
         }
 
+        $scope.goBack = function () {
+            $scope.selectedBuyer = null;
+        }
+
         $scope.deactivateBuyer = function () {
             UsersService.deactivateBuyer($scope.selectedBuyer.id).then(function (data) {
                 $scope.selectedBuyer.isActive = false;

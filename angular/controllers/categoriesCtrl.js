@@ -113,5 +113,8 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
       $scope.selectedCategory      = null
     }
 
+    $scope.goBack = function () {
+      $scope.selectedCategory = null;
+    }
     $scope.loadCategories();
   }]);

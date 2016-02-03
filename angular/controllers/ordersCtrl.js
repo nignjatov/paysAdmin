@@ -42,6 +42,9 @@ angular.module('paysAdmin').controller("ordersCtrl", ["$scope", "$rootScope", "O
       $scope.selectedOrder = order;
     };
 
+    $scope.goBack = function () {
+      $scope.selectedOrder = null;
+    }
     $scope.sortType    = "id";
     $scope.sortReverse = false;
     $scope.searchWord  = '';

@@ -126,3 +126,7 @@ select {
 .product-image-preview {
     height: 130px;
 }
+
+.mb10 {
+    margin-bottom: 10px;
+}

@@ -162,7 +162,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'BUYER_NOT_DEACTIVATED' : 'Failed to deactivate buyer!',
       'BUYER_DEACTIVATED' : 'Buyer deactivated',
       'BUYER_NOT_ACTIVATED' : 'Failed to activate buyer',
-      'BUYER_ACTIVATED' : 'Buyer activated'
+      'BUYER_ACTIVATED' : 'Buyer activated',
+      'BACK' : 'Back'
 
     })
       .translations('rs_RS', {
@@ -284,7 +285,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'BUYER_NOT_DEACTIVATED' : 'Neuspešna deaktivacija kupca!',
         'BUYER_DEACTIVATED' : 'Kupac deaktiviran',
         'BUYER_NOT_ACTIVATED' : 'Neuspešna aktivacija kupca',
-        'BUYER_ACTIVATED' : 'Kupac aktiviran'
+        'BUYER_ACTIVATED' : 'Kupac aktiviran',
+        'BACK' : 'Nazad'
 
       });
     $translateProvider.preferredLanguage('en_EN');
@@ -311,11 +313,11 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
   $rootScope.credentials = UsersService.getUserCredentials();
   $rootScope.$on('$routeChangeStart', function (event, next) {
     console.log($location.url());
-    if (next.restricted) {
-      if (!$rootScope.isLoggedIn()) {
-        $window.location.href = "#/login";
-      }
-    }
+    //if (next.restricted) {
+    //  if (!$rootScope.isLoggedIn()) {
+    //    $window.location.href = "#/login";
+    //  }
+    //}
   });
 
   $rootScope.logoutAdmin = function () {

@@ -221,6 +221,11 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
       }
       return null;
     }
+
+    $scope.goBack = function () {
+      $scope.selectedProduct = null;
+    }
+
     $scope.sortType       = "id";
     $scope.sortReverse    = false;
     $scope.searchWord     = '';
