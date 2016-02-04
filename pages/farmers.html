@@ -64,6 +64,13 @@
                 <span ng-show="sortType == 'businessSubject.phone' && !sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+                {{ 'STATUS' | translate}}
+                <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
             </thead>
             <tbody>
             <tr class="cursor-pointer"
@@ -75,6 +82,7 @@
               <td>{{farmer.businessSubject.city}}</td>
               <td>{{farmer.email}}</td>
               <td>{{farmer.businessSubject.phone}}</td>
+              <td>{{farmer.status | translate}}</td>
             </tr>
             </tbody>
           </table>
@@ -90,7 +98,9 @@
       <div class="col-sm-4">
         <div ng-if="selectedFarmer" class="panel panel-info panel-heading-position">
           <div class="panel-heading col-sm-12">
-            <div class="col-sm-4">{{ 'FARMER' | translate}}</div>
+            <div class="col-sm-12">{{ 'FARMER' | translate}}
+              <span> - <strong>{{selectedFarmer.businessSubject.name}}</strong></span>
+            </div>
           </div>
           <div class="panel-body">
             <div class="col-sm-12">

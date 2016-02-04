@@ -5,6 +5,18 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
 
     $scope.selectedFarmer = null;
 
+    angular.forEach($scope.farmers, function (farmer) {
+      if (!farmer.isConfirmed) {
+        farmer.status = "NOT_CONFIRMED"
+      } else {
+        if (farmer.isActive) {
+          farmer.status = "ACTIVATED"
+        } else {
+          farmer.status = "NOT_ACTIVATED"
+        }
+      }
+    });
+
     $scope.selectFarmer = function (farmer) {
       $scope.selectedFarmer = farmer;
     }

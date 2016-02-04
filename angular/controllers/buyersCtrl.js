@@ -3,8 +3,19 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope", "$
 
         $scope.buyers = buyers;
 
-        $rootScope.objectPrint($scope.buyers);
         $scope.selectedBuyer = null;
+
+        angular.forEach($scope.buyers, function (buyer) {
+            if (!buyer.isConfirmed) {
+                buyer.status = "NOT_CONFIRMED"
+            } else {
+                if (buyer.isActive) {
+                    buyer.status = "ACTIVATED"
+                } else {
+                    buyer.status = "NOT_ACTIVATED"
+                }
+            }
+        });
 
         $scope.selectBuyer = function (buyer) {
             $scope.selectedBuyer = buyer;

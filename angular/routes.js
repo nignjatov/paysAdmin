@@ -12,6 +12,10 @@ angular.module("paysAdmin").config(['$routeProvider', function (routeProvider) {
         templateUrl: "pages/orders.html",
         controller: "ordersCtrl",
         restricted : true
+    }).when("/reviews", {
+        templateUrl: "pages/reviews.html",
+        controller: "reviewsCtrl",
+        restricted : true
     }).when("/farmers", {
         templateUrl: "pages/farmers.html",
         controller: "farmersCtrl",

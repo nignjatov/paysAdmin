@@ -74,7 +74,10 @@
       <div class="col-sm-4">
         <div ng-if="selectedProduct" class="panel panel-info panel-heading-position">
           <div class="panel-heading col-sm-12">
-            <div class="col-sm-4">{{ 'PRODUCT' | translate}}</div>
+            <div class="col-sm-12">{{ 'PRODUCT' | translate}}
+            <span ng-if="selectedProduct.name.localization[currentLang].length"> -
+                  <strong>{{selectedProduct.name.localization[currentLang]}}</strong></span>
+            </div>
           </div>
           <div class="panel-body">
             <div class="col-sm-12">

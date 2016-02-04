@@ -63,6 +63,13 @@
                   <span ng-show="sortType == 'privateSubject.phone' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
               </th>
+              <th>
+                <a class="cursor-pointer" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+                  {{ 'STATUS' | translate}}
+                  <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
               </thead>
               <tbody>
               <tr class="cursor-pointer"
@@ -74,6 +81,7 @@
                 <td>{{buyer.privateSubject.city}}</td>
                 <td>{{buyer.email}}</td>
                 <td>{{buyer.privateSubject.phone}}</td>
+                <td>{{buyer.status | translate}}</td>
               </tr>
               </tbody>
             </table>
@@ -90,7 +98,8 @@
       <div class="col-sm-4">
         <div ng-if="selectedBuyer" class="panel panel-info panel-heading-position">
           <div class="panel-heading col-sm-12">
-            <div class="col-sm-4">{{ 'BUYER' | translate}}</div>
+            <div class="col-sm-12">{{ 'BUYER' | translate}}
+              <span> - <strong>{{selectedBuyer.privateSubject.name}} {{selectedBuyer.privateSubject.lastName}}</strong></span></div>
           </div>
           <div class="panel-body">
             <div class="col-sm-12">

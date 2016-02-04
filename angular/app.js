@@ -167,6 +167,23 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'SUBCATEGORY_NAME_ENGLISH': 'Subcategory name( english )',
       'SUBCATEGORY_NAME_SERBIAN': 'Subcategory name( serbian )',
       'ENTER_SUBCATEGORY_NAME': 'Enter subcategory name',
+      'NUMBER' : 'number',
+      'REVIEWS' : 'Reviews',
+      'REVIEWS_DESC' : 'Overview and handling of reviews',
+      'SEARCH_REVIEWS' : 'Search reviews',
+      'RATING' : 'Rating',
+      'POSTED_ON' : 'Posted on',
+      'WAITING' : 'Waiting',
+      'APPROVED' : 'Approved',
+      'REJECTED' : 'Rejected',
+      'REVIEW' : 'Review',
+      'COMMENT' : 'Comment',
+      'REJECT' : 'Reject',
+      'APPROVE' : 'Approve',
+      'REVIEW_NOT_APPROVED' : 'Failed to approved review',
+      'REVIEW_APPROVED' : 'Review approved',
+      'REVIEW_NOT_REJECTED' : 'Failed to reject review',
+      'REVIEW_REJECTED' : 'Review rejected'
 
     })
       .translations('rs_RS', {
@@ -199,8 +216,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'CITY': 'Grad',
         'E_MAIL': 'E-mail adresa',
         'PHONE': 'Telefon',
-        'NOT_ACTIVATED': 'Nisu aktivirani',
-        'ACTIVATED': 'Aktivirani',
+        'NOT_ACTIVATED': 'Nije aktiviran',
+        'ACTIVATED': 'Aktiviran',
         'SEARCH_DISTRIBUTORS': 'Pretražite distributere',
         'NOT_CONFIRMED': 'Nalog nije potvrđen',
         'TAX_NUM': 'Poreski broj',
@@ -293,6 +310,23 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'SUBCATEGORY_NAME_ENGLISH': 'Ime podkategorije( engleski )',
         'SUBCATEGORY_NAME_SERBIAN': 'Ime podkategorije( srpski )',
         'ENTER_SUBCATEGORY_NAME': 'Unesite ime podkategorije',
+        'NUMBER' : 'broj',
+        'REVIEWS' : 'Komentari',
+        'REVIEWS_DESC' : 'Pregled i upravljanje komentarima u sistemu',
+        'SEARCH_REVIEWS' : 'Pretraga komentara',
+        'RATING' : 'Ocena',
+        'POSTED_ON' : 'Objavljeno',
+        'WAITING' : 'Na čekanju',
+        'APPROVED' : 'Odobren',
+        'REJECTED' : 'Odbijen',
+        'REVIEW' : 'Komentar',
+        'COMMENT' : 'Tekst komentara',
+        'REJECT' : 'Odbij',
+        'APPROVE' : 'Odobri',
+        'REVIEW_NOT_APPROVED' : 'Neuspelo odobravanje komentara',
+        'REVIEW_APPROVED' : 'Komentar odobren',
+        'REVIEW_NOT_REJECTED' : 'Neuspelo odbijanje komentara',
+        'REVIEW_REJECTED' : 'Komentar odbijen'
 
       });
     $translateProvider.preferredLanguage('en_EN');

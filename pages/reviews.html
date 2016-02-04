@@ -1,0 +1,173 @@
+<div class="wrapper">
+
+  <div ng-include="'pages/header.html'"></div>
+  <div ng-include="'pages/navbar.html'"></div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{'REVIEWS' | translate}}
+        <small>{{'REVIEWS_DESC' | translate}}</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#/"><i class="fa fa-dashboard"></i> {{'HOME' | translate}}</a></li>
+        <li class="active">{{'REVIEWS' | translate}}</li>
+      </ol>
+    </section>
+    <section class="container container-override">
+      <div class="col-sm-8">
+        <div class=" col-sm-12 mt20">
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="{{ 'SEARCH_REVIEWS' | translate}}"
+                       ng-model="searchWord">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-12">
+          <table class="table table-responsive">
+            <thead>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                #
+                <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer"
+                 ng-click="sortType = 'commentBy'; sortReverse = !sortReverse">
+                {{ 'BUYER_NAME' | translate}}
+                <span ng-show="sortType == 'commentBy' && sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'commentBy' && !sortReverse"
+                      class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer"
+                 ng-click="sortType = 'farmer'; sortReverse = !sortReverse">
+                {{ 'FARMER_NAME' | translate}}
+                <span ng-show="sortType == 'farmer' && sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'farmer' && !sortReverse"
+                      class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer"
+                 ng-click="sortType = 'rating'; sortReverse = !sortReverse">
+                {{ 'RATING' | translate}}
+                <span ng-show="sortType == 'rating' && sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'rating' && !sortReverse"
+                      class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'approved'; sortReverse = !sortReverse">
+                {{ 'STATUS' | translate}}
+                <span ng-show="sortType == 'approved' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'approved' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'date'; sortReverse = !sortReverse">
+                {{ 'POSTED_ON' | translate}}
+                <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            </thead>
+            <tbody>
+            <tr class="cursor-pointer"
+                dir-paginate="review in reviews | orderBy:sortType:sortReverse | filter:searchWord |itemsPerPage:maxItemsPerPage"
+                ng-click="selectReview(review)">
+              <td>{{review.id}}</td>
+              <td>{{review.commentBy}}</td>
+              <td>{{review.farmer}}</td>
+              <td>
+                <p class="fa fa-star" ng-repeat="star in review.stars"></p>
+              </td>
+              <td>{{review.status | translate}}</td>
+              <td>{{review.date}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <dir-pagination-controls
+              max-size="5"
+              direction-links="true"
+              boundary-links="true">
+            </dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div ng-if="selectedReview" class="panel panel-info panel-heading-position">
+          <div class="panel-heading col-sm-12">
+            <div class="col-sm-12">{{ 'REVIEW' | translate}}
+            <span>{{'NUMBER' | translate}}
+                  <strong>{{selectedReview.id}}</strong></span>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'FARMER_NAME' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedReview.commentBy}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedReview.farmer}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'RATING' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                <p class="fa fa-star" ng-repeat="star in selectedReview.stars"></p>
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'COMMENT' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedReview.comment}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'POSTED_ON' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedReview.date}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'STATUS' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedReview.status | translate}}
+              </h5>
+            </div>
+            <div class="col-sm-12 mb10">
+              <button class="pull-left btn btn-primary btn-padded" ng-click="goBack()">
+                <i class="fa fa-caret-left"></i> {{ 'BACK' | translate}}
+              </button>
+              <button ng-if="selectedReview.approved == 'W' || selectedReview.approved == 'A'" class="pull-right btn btn-primary btn-padded" ng-click="rejectReview()">
+                <i class="fa fa-times"></i> {{ 'REJECT' | translate}}
+              </button>
+              <button ng-if="selectedReview.approved == 'W' || selectedReview.approved == 'R'" class="pull-right btn btn-primary btn-padded" ng-click="approveReview()">
+                <i class="fa fa-check"></i> {{ 'APPROVE' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+    </section>
+  </div>
+  <div ng-include="'pages/footer.html'"></div>
+  <!-- /.content-wrapper -->
+</div>
+

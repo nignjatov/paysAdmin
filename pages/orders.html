@@ -108,7 +108,10 @@
       <div class="col-sm-4">
         <div ng-if="selectedOrder" class="panel panel-info panel-heading-position">
           <div class="panel-heading col-sm-12">
-            <div class="col-sm-4">{{ 'ORDER' | translate}}</div>
+            <div class="col-sm-12">{{ 'ORDER' | translate}}
+            <span>{{'NUMBER' | translate}}
+                  <strong>{{selectedOrder.id}}</strong></span>
+            </div>
           </div>
           <div class="panel-body">
             <div class="col-sm-12">
