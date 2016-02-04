@@ -32,7 +32,7 @@ angular.module('paysAdmin').controller("reviewsCtrl", ["$scope", "$rootScope", "
       ReviewsService.approveReview($scope.selectedReview.id).then(function(){
         Notification.success({message: $filter('translate')('REVIEW_APPROVED')});
         $scope.selectedReview.status = "APPROVED";
-        $scope.selectedReview.approved = 'W';
+        $scope.selectedReview.approved = 'A';
         $scope.selectedReview = null;
       }).catch(function(){
         Notification.error({message: $filter('translate')('REVIEW_NOT_APPROVED')});
@@ -50,7 +50,7 @@ angular.module('paysAdmin').controller("reviewsCtrl", ["$scope", "$rootScope", "
       });
     }
 
-    $scope.sortType    = "id";
-    $scope.sortReverse = false;
+    $scope.sortType    = "date";
+    $scope.sortReverse = true;
     $scope.searchWord  = '';
   }]);
