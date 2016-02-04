@@ -163,7 +163,10 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'BUYER_DEACTIVATED' : 'Buyer deactivated',
       'BUYER_NOT_ACTIVATED' : 'Failed to activate buyer',
       'BUYER_ACTIVATED' : 'Buyer activated',
-      'BACK' : 'Back'
+      'BACK' : 'Back',
+      'SUBCATEGORY_NAME_ENGLISH': 'Subcategory name( english )',
+      'SUBCATEGORY_NAME_SERBIAN': 'Subcategory name( serbian )',
+      'ENTER_SUBCATEGORY_NAME': 'Enter subcategory name',
 
     })
       .translations('rs_RS', {
@@ -286,7 +289,10 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'BUYER_DEACTIVATED' : 'Kupac deaktiviran',
         'BUYER_NOT_ACTIVATED' : 'Neuspešna aktivacija kupca',
         'BUYER_ACTIVATED' : 'Kupac aktiviran',
-        'BACK' : 'Nazad'
+        'BACK' : 'Nazad',
+        'SUBCATEGORY_NAME_ENGLISH': 'Ime podkategorije( engleski )',
+        'SUBCATEGORY_NAME_SERBIAN': 'Ime podkategorije( srpski )',
+        'ENTER_SUBCATEGORY_NAME': 'Unesite ime podkategorije',
 
       });
     $translateProvider.preferredLanguage('en_EN');

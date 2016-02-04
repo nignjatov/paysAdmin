@@ -64,6 +64,7 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
         .then(function (data) {
           Notification.success({message: $filter('translate')('CATEGORY_DELETED')});
           scope.remove();
+          $scope.clearSelectedCategory();
         }).catch(function (err) {
           Notification.error({message: $filter('translate')('CATEGORY_NOT_DELETED')});
         });
@@ -106,11 +107,17 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
     $scope.selectCategory = function (scope) {
       $scope.selectedCategoryScope = scope;
       $scope.selectedCategory      = $scope.selectedCategoryScope.$modelValue;
+
+      $scope.selectedParentCategoryScope = null;
+      $scope.selectedParentCategory      = null;
+
     }
 
     $scope.clearSelectedCategory = function () {
       $scope.selectedCategoryScope = null;
-      $scope.selectedCategory      = null
+      $scope.selectedCategory      = null;
+      $scope.selectedParentCategoryScope = null;
+      $scope.selectedParentCategory      = null;
     }
 
     $scope.goBack = function () {

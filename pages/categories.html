@@ -63,9 +63,14 @@
         <div class="col-sm-5">
           <div ng-if="selectedCategory" class="panel panel-info panel-heading-position">
             <div class="panel-heading col-sm-12">
-              <div class="col-sm-4">{{ 'CATEGORY' | translate}}</div>
+              <div class="col-sm-12 pull-left">{{ 'CATEGORY' | translate}}
+                <span ng-if="!selectedParentCategory && selectedCategory.name.localization[currentLang].length"> -
+                  <strong>{{selectedCategory.name.localization[currentLang]}}</strong></span>
+                <span ng-if="selectedParentCategory && selectedParentCategory.name.localization[currentLang].length"> -
+                  <strong>{{selectedParentCategory.name.localization[currentLang]}}</strong></span>
+              </div>
             </div>
-            <div class="panel-body">
+            <div ng-if="!selectedParentCategory" class="panel-body">
               <dl>
                 <dt class="col-sm-6">{{ 'CATEGORY_NAME_ENGLISH' | translate}}</dt>
                 <dd class="col-sm-6 text-center">
@@ -77,12 +82,40 @@
                   <input type="text" maxlength="64" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[serbianLangCode]"
                          placeholder="{{ 'ENTER_CATEGORY_NAME' | translate}}">
                   </input></dd>
-                <dt ng-if="selectedCategory.level < 2" class="col-sm-6">{{ 'SUBCATEGORY_NUM' | translate}}</dt>
-                <dd ng-if="selectedCategory.level < 2" class="col-sm-6 text-center">
+                <dt ng-if="selectedCategory.level < 2 && selectedCategory.children.length" class="col-sm-6">{{ 'SUBCATEGORY_NUM' | translate}}</dt>
+                <dd ng-if="selectedCategory.level < 2 && selectedCategory.children.length" class="col-sm-6 text-center">
                   {{selectedCategory.children.length}}
                 </dd>
-                <dt class="col-sm-6">{{ 'PRODUCTS_NUM' | translate}}</dt>
-                <dd class="col-sm-6 text-center">{{selectedCategory.products.length}}</dd>
+                <dt ng-if="selectedCategory.products.length" class="col-sm-6">{{ 'PRODUCTS_NUM' | translate}}</dt>
+                <dd ng-if="selectedCategory.products.length" class="col-sm-6 text-center">{{selectedCategory.products.length}}</dd>
+
+                <button class="pull-right btn btn-primary btn-padded" ng-click="saveCategory()"
+                        ng-disabled="!selectedCategory.name.localization[englishLangCode].length || !selectedCategory.name.localization[serbianLangCode]">
+                  <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}
+                </button>
+                <button class="pull-left btn btn-primary btn-padded" ng-click="goBack()">
+                  <i class="fa fa-caret-left"></i> {{ 'BACK' | translate}}
+                </button>
+              </dl>
+            </div>
+            <div ng-if="selectedParentCategory" class="panel-body">
+              <dl>
+                <dt class="col-sm-6">{{ 'SUBCATEGORY_NAME_ENGLISH' | translate}}</dt>
+                <dd class="col-sm-6 text-center">
+                  <input type="text" maxlength="64" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[englishLangCode]"
+                         placeholder="{{ 'ENTER_SUBCATEGORY_NAME' | translate}}">
+                  </input></dd>
+                <dt class="col-sm-6">{{ 'SUBCATEGORY_NAME_SERBIAN' | translate}}</dt>
+                <dd class="col-sm-6 text-center">
+                  <input type="text" maxlength="64" class="form-control col-sm-12 text-left" ng-model="selectedCategory.name.localization[serbianLangCode]"
+                         placeholder="{{ 'ENTER_SUBCATEGORY_NAME' | translate}}">
+                  </input></dd>
+                <dt ng-if="selectedCategory.level < 2 && selectedCategory.children.length" class="col-sm-6">{{ 'SUBCATEGORY_NUM' | translate}}</dt>
+                <dd ng-if="selectedCategory.level < 2 && selectedCategory.children.length" class="col-sm-6 text-center">
+                  {{selectedCategory.children.length}}
+                </dd>
+                <dt ng-if="selectedCategory.products.length" class="col-sm-6">{{ 'PRODUCTS_NUM' | translate}}</dt>
+                <dd ng-if="selectedCategory.products.length" class="col-sm-6 text-center">{{selectedCategory.products.length}}</dd>
 
                 <button class="pull-right btn btn-primary btn-padded" ng-click="saveCategory()"
                         ng-disabled="!selectedCategory.name.localization[englishLangCode].length || !selectedCategory.name.localization[serbianLangCode]">
