@@ -183,7 +183,12 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'REVIEW_NOT_APPROVED' : 'Failed to approved review',
       'REVIEW_APPROVED' : 'Review approved',
       'REVIEW_NOT_REJECTED' : 'Failed to reject review',
-      'REVIEW_REJECTED' : 'Review rejected'
+      'REVIEW_REJECTED' : 'Review rejected',
+      'MEASUREMENT_UNIT' : 'Measurement unit',
+      'AVERAGE_WEIGHT' : 'Average weight per measurement unit',
+      'ENTER_AVERAGE_WEIGHT' : 'Enter average weight per measurement unit',
+      'TAX_RATE' : 'Tax rate',
+      'ENTER_TAX_RATE' : 'Enter tax rate'
 
     })
       .translations('rs_RS', {
@@ -326,13 +331,17 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'REVIEW_NOT_APPROVED' : 'Neuspelo odobravanje komentara',
         'REVIEW_APPROVED' : 'Komentar odobren',
         'REVIEW_NOT_REJECTED' : 'Neuspelo odbijanje komentara',
-        'REVIEW_REJECTED' : 'Komentar odbijen'
-
+        'REVIEW_REJECTED' : 'Komentar odbijen',
+        'MEASUREMENT_UNIT' : 'Jedinica mere',
+        'AVERAGE_WEIGHT' : 'Prosečna težina po jedinici mere',
+        'ENTER_AVERAGE_WEIGHT' : 'Unesite prosečnu težinu po jedinici mere',
+        'TAX_RATE' : 'Poreska stopa',
+        'ENTER_TAX_RATE' : 'Unesite poresku stopu'
       });
     $translateProvider.preferredLanguage('en_EN');
   });
 
-paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window) {
+paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window, ProductsService) {
   $rootScope.serverURL       = "http://185.23.171.43/PEP/PaysRest/";
 
   $rootScope.englishLangCode = "en_EN";
@@ -351,6 +360,15 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
   };
 
   $rootScope.credentials = UsersService.getUserCredentials();
+  $rootScope.kgUnitId = -1;
+  ProductsService.getMeasurementUnits().then(function(data){
+    $rootScope.units = data;
+    angular.forEach($rootScope.units, function(unit){
+      if(unit.code == 'kg'){
+        $rootScope.kgUnitId = unit.id;
+      }
+    });
+  });
   $rootScope.$on('$routeChangeStart', function (event, next) {
     console.log($location.url());
     //if (next.restricted) {

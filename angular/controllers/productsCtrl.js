@@ -10,11 +10,11 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
       flow: null
     };
 
-    ProductsService.getProducts().then(function (data) {
-      $scope.products = data;
+    ProductsService.getProducts().then(function (productData) {
       CategoryService.getCategories().then(function (data) {
         $scope.categories = data;
-        _mergeProductsWithCategories($scope.products, $scope.categories);
+        _mergeProductsWithCategories(productData, $scope.categories);
+        $scope.products = productData;
       })
     });
 
@@ -58,7 +58,9 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
             en_EN: "",
             rs_RS: ""
           }
-        }
+        },
+        avgWeight : 0,
+        tax : 0
       }
     }
 
@@ -66,7 +68,9 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
       $scope.selectedProduct.name.default      = $scope.selectedProduct.name.localization[$rootScope.defaultLang];
       $scope.selectedProduct.shortDesc.default = $scope.selectedProduct.shortDesc.localization[$rootScope.defaultLang];
       $scope.selectedProduct.fullDesc.default  = $scope.selectedProduct.fullDesc.localization[$rootScope.defaultLang];
-
+      if($scope.selectedProduct.unit == $rootScope.kgUnitId){
+        $scope.selectedProduct.avgWeight = 0;
+      }
       var newCategory = $scope.getNewCategory();
       if ($scope.selectedProduct.id) {
         //Update existing product
@@ -156,6 +160,9 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
 
     _mergeProductsWithCategories = function (products, categories) {
       angular.forEach(products, function (product) {
+        product.unit = product.unit.id;
+        product.avgWeight = parseFloat(product.avgWeight);
+        product.tax = parseFloat(product.tax);
         _assignCategoryDataToProduct(product, categories);
       });
     };

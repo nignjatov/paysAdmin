@@ -94,6 +94,25 @@
                      placeholder="{{ 'ENTER_PRODUCT_NAME' | translate}}">
               </input>
             </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-12"><strong>{{ 'MEASUREMENT_UNIT' | translate}}</strong></h5>
+              <select class="col-sm-12" ng-model="selectedProduct.unit"
+                      ng-options="unit.id as unit.name for unit in units"></select>
+            </div>
+            <div class="col-sm-12" ng-if="selectedProduct.unit != null && selectedProduct.unit != kgUnitId">
+              <h5 class="col-sm-12"><strong>{{ 'AVERAGE_WEIGHT' | translate}} (kg)</strong></h5>
+              <input type="number" min="0" class="form-control col-sm-12 text-left"
+                     ng-model="selectedProduct.avgWeight"
+                     placeholder="{{ 'ENTER_AVERAGE_WEIGHT' | translate}}">
+              </input>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-12"><strong>{{ 'TAX_RATE' | translate}} (%)</strong></h5>
+              <input type="number" class="form-control col-sm-12 text-left"
+                     ng-model="selectedProduct.tax"
+                     placeholder="{{ 'ENTER_TAX_RATE' | translate}}">
+              </input>
+            </div>
             <div class="col-sm-12 mt10">
               <a data-toggle="collapse" data-target="#productShortDesc" class="cursor-pointer pull-left">{{'SHORT_DESC'
                 | translate}}<i

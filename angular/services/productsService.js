@@ -143,6 +143,26 @@ angular.module('paysAdmin').service('ProductsService',
         });
         flowObj.upload();
         return deferred.promise;
+      },
+      getMeasurementUnits: function () {
+        var deffered = $q.defer();
+
+        $http.get("measurement_unit").
+          success(function (data, status) {
+            if (status == 200) {
+              deffered.resolve(data);
+            } else {
+              console.log("getMeasurementUnits | Status not OK " + status);
+              deffered.reject("Error");
+            }
+
+          }).
+          error(function (data, status) {
+            console.log("getMeasurementUnits | Error " + status);
+            deffered.reject("Error");
+          });
+
+        return deffered.promise;
       }
     }
   });
