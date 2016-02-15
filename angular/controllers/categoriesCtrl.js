@@ -5,7 +5,10 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
     $scope.selectedCategoryScope  = null;
     $scope.selectedParentCategory = null;
 
+    $scope.loading = false;
+
     $scope.loadCategories = function () {
+      $scope.loading = true;
       CategoryService.getCategories().then(function (data) {
         $scope.categories = data;
         angular.forEach($scope.categories, function (rootCat) {
@@ -18,6 +21,7 @@ angular.module('paysAdmin').controller("categoriesCtrl", ["$scope", "$rootScope"
             });
           });
         });
+        $scope.loading = false;
       });
     }
 

@@ -4,6 +4,8 @@ angular.module('paysAdmin').controller("ordersCtrl", ["$scope", "$rootScope", "O
     $scope.selectedOrder = null;
     $scope.orders = null;
 
+    $scope.loading = true;
+
 
     OrdersService.getOrders().then(function (orderData) {
       UsersService.getBuyers().then(function (buyerData) {
@@ -36,7 +38,9 @@ angular.module('paysAdmin').controller("ordersCtrl", ["$scope", "$rootScope", "O
         });
       });
       $scope.orders = orderData;
+      $scope.loading = false;
     });
+
 
     $scope.selectOrder = function(order){
       $scope.selectedOrder = order;

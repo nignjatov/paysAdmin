@@ -188,7 +188,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'AVERAGE_WEIGHT' : 'Average weight per measurement unit',
       'ENTER_AVERAGE_WEIGHT' : 'Enter average weight per measurement unit',
       'TAX_RATE' : 'Tax rate',
-      'ENTER_TAX_RATE' : 'Enter tax rate'
+      'ENTER_TAX_RATE' : 'Enter tax rate',
+      'LOADING' : 'Loading...'
 
     })
       .translations('rs_RS', {
@@ -336,7 +337,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'AVERAGE_WEIGHT' : 'Prosečna težina po jedinici mere',
         'ENTER_AVERAGE_WEIGHT' : 'Unesite prosečnu težinu po jedinici mere',
         'TAX_RATE' : 'Poreska stopa',
-        'ENTER_TAX_RATE' : 'Unesite poresku stopu'
+        'ENTER_TAX_RATE' : 'Unesite poresku stopu',
+        'LOADING' : 'Učitavanje...'
       });
     $translateProvider.preferredLanguage('en_EN');
   });

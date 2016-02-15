@@ -23,6 +23,11 @@
               <i class="fa fa-plus"></i> {{ 'ADD_PRODUCT' | translate}}
             </button>
           </div>
+          <div class="col-sm-12 mt10">
+              <div class="alert loadingAlert" ng-show="loading">
+                  <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
+              </div>
+          </div>
           <div class=" col-sm-12 mt20">
             <form>
               <div class="form-group">

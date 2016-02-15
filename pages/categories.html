@@ -47,9 +47,14 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="col-sm-6 btn btn-primary btn-padded btn-lg" ng-click="newSubCategory(null,true)">
+              <button ng-disabled="loading" class="col-sm-6 btn btn-primary btn-padded btn-lg" ng-click="newSubCategory(null,true)">
                 <i class="fa fa-plus"></i> {{ 'ADD_CATEGORY' | translate}}
               </button>
+            </div>
+            <div class="col-sm-12 mt10">
+              <div class="alert loadingAlert" ng-show="loading">
+                  <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
+              </div>
             </div>
             <div class="row">
             </div>

@@ -6,6 +6,8 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
 
     $scope.changeCategory = {};
 
+    $scope.loading = true;
+
     $scope.obj = {
       flow: null
     };
@@ -165,6 +167,7 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
         product.tax = parseFloat(product.tax);
         _assignCategoryDataToProduct(product, categories);
       });
+      $scope.loading = false;
     };
 
     _assignCategoryDataToProduct = function (product, categories) {
