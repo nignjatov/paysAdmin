@@ -148,3 +148,6 @@ select {
 .filled {
     color: #fd0;
 }
+.loadingAlert {
+    background-color: white !important;
+}
