@@ -12,6 +12,7 @@ angular.module('paysAdmin').controller("ordersCtrl", ["$scope", "$rootScope", "O
         UsersService.getFarmers().then(function (farmerData) {
           UsersService.getDistributors().then(function (distributorData) {
             angular.forEach(orderData, function (order) {
+              order.numericStatus = $rootScope.getNumericOrderStatus(order.status);
               angular.forEach(buyerData, function (buyer) {
                 if (!order.buyerData) {
                   if (buyer.id === order.orderedBy) {

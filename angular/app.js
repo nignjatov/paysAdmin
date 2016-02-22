@@ -11,6 +11,31 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
     return function (arr, start, end) {
       return arr.slice(start, end);
     };
+  }).filter('orderStatus', function () {
+    return function (code) {
+      var ret = code;
+      switch (code) {
+        case 'C':
+          ret = "CREATED";
+          break;
+        case 'A':
+          ret = "ACTIVE";
+          break;
+        case 'T':
+          ret = "TRANSPORT";
+          break;
+        case 'D':
+          ret = "DELIVERED";
+          break;
+        case 'P':
+          ret = "PAID";
+          break;
+        default:
+          ret = code;
+          break;
+      }
+      return ret;
+    }
   }).config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('myHttpInterceptor');
 
@@ -189,7 +214,12 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'ENTER_AVERAGE_WEIGHT' : 'Enter average weight per measurement unit',
       'TAX_RATE' : 'Tax rate',
       'ENTER_TAX_RATE' : 'Enter tax rate',
-      'LOADING' : 'Loading...'
+      'LOADING' : 'Loading...',
+      'CREATED' : 'Created',
+      'ACTIVE' : 'Active',
+      'TRANSPORT' : 'In transport',
+      'DELIVERED' : 'Delivered',
+      'PAID' : 'Paid',
 
     })
       .translations('rs_RS', {
@@ -338,7 +368,12 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'ENTER_AVERAGE_WEIGHT' : 'Unesite prosečnu težinu po jedinici mere',
         'TAX_RATE' : 'Poreska stopa',
         'ENTER_TAX_RATE' : 'Unesite poresku stopu',
-        'LOADING' : 'Učitavanje...'
+        'LOADING' : 'Učitavanje...',
+        'CREATED' : 'Kreirana',
+        'ACTIVE' : 'Aktivna',
+        'TRANSPORT' : 'U transportu',
+        'DELIVERED' : 'Dostavljena',
+        'PAID' : 'Plaćena',
       });
     $translateProvider.preferredLanguage('en_EN');
   });
@@ -372,12 +407,12 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
     });
   });
   $rootScope.$on('$routeChangeStart', function (event, next) {
-    console.log($location.url());
-    if (next.restricted) {
-      if (!$rootScope.isLoggedIn()) {
-        $window.location.href = "#/login";
-      }
-    }
+    //console.log($location.url());
+    //if (next.restricted) {
+    //  if (!$rootScope.isLoggedIn()) {
+    //    $window.location.href = "#/login";
+    //  }
+    //}
   });
 
   $rootScope.logoutAdmin = function () {
@@ -395,6 +430,30 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
 
   $rootScope.objectPrint = function (obj) {
     console.log(JSON.stringify(obj, null, 4));
+  }
+
+  $rootScope.getNumericOrderStatus = function(statusAlpha){
+    var ret = 0;
+    switch (statusAlpha) {
+      case 'C':
+        ret = 1;
+        break;
+      case 'A':
+        ret = 2;
+        break;
+      case 'T':
+        ret = 3;
+        break;
+      case 'D':
+        ret = 4;
+        break;
+      case 'P':
+        ret = 5;
+        break;
+      default:
+        break;
+    }
+    return ret;
   }
 
 });

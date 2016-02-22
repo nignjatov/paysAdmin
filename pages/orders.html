@@ -81,10 +81,10 @@
               </a>
             </th>
             <th>
-              <a class="cursor-pointer" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+              <a class="cursor-pointer" ng-click="sortType = 'numericStatus'; sortReverse = !sortReverse">
                 {{ 'STATUS' | translate}}
-                <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
+                <span ng-show="sortType == 'numericStatus' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'numericStatus' && !sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
             </thead>
@@ -97,7 +97,7 @@
               <td>{{order.farmerData.businessSubject.name}}</td>
               <td>{{order.distributorData.businessSubject.name}}</td>
               <td>{{order.totalPrice}} {{order.currency.code}}</td>
-              <td>{{order.status}}</td>
+              <td>{{order.status | orderStatus | translate}}</td>
             </tr>
             </tbody>
           </table>
@@ -182,7 +182,7 @@
             <div class="col-sm-12">
               <h5 class="col-sm-6"><strong>{{ 'STATUS' | translate}}</strong></h5>
               <h5 class="col-sm-6 text-center">
-                {{selectedOrder.status}}
+                {{selectedOrder.status | orderStatus | translate}}
               </h5>
             </div>
             <div class="col-sm-12">
