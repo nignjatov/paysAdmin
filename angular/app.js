@@ -373,11 +373,11 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
   });
   $rootScope.$on('$routeChangeStart', function (event, next) {
     console.log($location.url());
-    //if (next.restricted) {
-    //  if (!$rootScope.isLoggedIn()) {
-    //    $window.location.href = "#/login";
-    //  }
-    //}
+    if (next.restricted) {
+      if (!$rootScope.isLoggedIn()) {
+        $window.location.href = "#/login";
+      }
+    }
   });
 
   $rootScope.logoutAdmin = function () {

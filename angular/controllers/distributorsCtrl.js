@@ -4,7 +4,7 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
     $scope.distributors        = distributors;
     $scope.selectedDistributor = null;
 
-    angular.forEach($scope.distributors, function (distributor) {
+    _generateStatus = function(distributor){
       if (!distributor.isConfirmed) {
         distributor.status = "NOT_CONFIRMED"
       } else {
@@ -14,6 +14,10 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
           distributor.status = "NOT_ACTIVATED"
         }
       }
+    }
+
+    angular.forEach($scope.distributors, function (distributor) {
+      _generateStatus(distributor);
     });
     $scope.selectDistributor   = function (distributor) {
       $scope.selectedDistributor = distributor;
@@ -25,6 +29,7 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
     $scope.deactivateDistributor = function () {
       UsersService.deactivateDistributor($scope.selectedDistributor.id).then(function (data) {
         $scope.selectedDistributor.isActive = false;
+        _generateStatus($scope.selectedDistributor);
         Notification.success({message: $filter('translate')('DISTRIBUTOR_DEACTIVATED')});
       }).catch(function (err) {
         Notification.error({message: $filter('translate')('DISTRIBUTOR_NOT_DEACTIVATED')});
@@ -34,6 +39,7 @@ angular.module('paysAdmin').controller("distributorsCtrl", ["$scope", "$rootScop
     $scope.activateDistributor = function () {
       UsersService.activateDistributor($scope.selectedDistributor.id).then(function (data) {
         $scope.selectedDistributor.isActive = true;
+        _generateStatus($scope.selectedDistributor);
         Notification.success({message: $filter('translate')('DISTRIBUTOR_ACTIVATED')});
       }).catch(function (err) {
         Notification.error({message: $filter('translate')('DISTRIBUTOR_NOT_ACTIVATED')});

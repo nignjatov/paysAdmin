@@ -5,7 +5,7 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope", "$
 
         $scope.selectedBuyer = null;
 
-        angular.forEach($scope.buyers, function (buyer) {
+        _generateStatus = function(buyer){
             if (!buyer.isConfirmed) {
                 buyer.status = "NOT_CONFIRMED"
             } else {
@@ -15,6 +15,10 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope", "$
                     buyer.status = "NOT_ACTIVATED"
                 }
             }
+        }
+
+        angular.forEach($scope.buyers, function (buyer) {
+            _generateStatus(buyer);
         });
 
         $scope.selectBuyer = function (buyer) {
@@ -28,6 +32,7 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope", "$
         $scope.deactivateBuyer = function () {
             UsersService.deactivateBuyer($scope.selectedBuyer.id).then(function (data) {
                 $scope.selectedBuyer.isActive = false;
+                _generateStatus($scope.selectedBuyer);
                 Notification.success({message: $filter('translate')('BUYER_DEACTIVATED')});
             }).catch(function (err) {
                 Notification.error({message: $filter('translate')('BUYER_NOT_DEACTIVATED')});
@@ -37,11 +42,13 @@ angular.module('paysAdmin').controller("buyersCtrl", ["$scope", "$rootScope", "$
         $scope.activateBuyer = function () {
             UsersService.activateBuyer($scope.selectedBuyer.id).then(function (data) {
                 $scope.selectedBuyer.isActive = true;
+                _generateStatus($scope.selectedBuyer);
                 Notification.success({message: $filter('translate')('BUYER_ACTIVATED')});
             }).catch(function (err) {
                 Notification.error({message: $filter('translate')('BUYER_NOT_ACTIVATED')});
             });
         }
+
 
         $scope.sortType    = "privateSubject.name";
         $scope.sortReverse = false;

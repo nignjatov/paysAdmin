@@ -5,7 +5,7 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
 
     $scope.selectedFarmer = null;
 
-    angular.forEach($scope.farmers, function (farmer) {
+    _generateStatus = function(farmer){
       if (!farmer.isConfirmed) {
         farmer.status = "NOT_CONFIRMED"
       } else {
@@ -15,6 +15,11 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
           farmer.status = "NOT_ACTIVATED"
         }
       }
+    }
+
+
+    angular.forEach($scope.farmers, function (farmer) {
+      _generateStatus(farmer);
     });
 
     $scope.selectFarmer = function (farmer) {
@@ -28,6 +33,7 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
     $scope.deactivateFarmer = function () {
       UsersService.deactivateFarmer($scope.selectedFarmer.id).then(function (data) {
         $scope.selectedFarmer.isActive = false;
+        _generateStatus($scope.selectedFarmer);
         Notification.success({message: $filter('translate')('FARMER_DEACTIVATED')});
       }).catch(function (err) {
         Notification.error({message: $filter('translate')('FARMER_NOT_DEACTIVATED')});
@@ -37,6 +43,7 @@ angular.module('paysAdmin').controller("farmersCtrl", ["$scope", "$rootScope", "
     $scope.activateFarmer = function () {
       UsersService.activateFarmer($scope.selectedFarmer.id).then(function (data) {
         $scope.selectedFarmer.isActive = true;
+        _generateStatus($scope.selectedFarmer);
         Notification.success({message: $filter('translate')('FARMER_ACTIVATED')});
       }).catch(function (err) {
         Notification.error({message: $filter('translate')('FARMER_NOT_ACTIVATED')});

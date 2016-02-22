@@ -69,6 +69,7 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
     $scope.saveProduct = function () {
       $scope.selectedProduct.name.default      = $scope.selectedProduct.name.localization[$rootScope.defaultLang];
       $scope.selectedProduct.shortDesc.default = $scope.selectedProduct.shortDesc.localization[$rootScope.defaultLang];
+      $scope.selectedProduct.shortDesc.default = $scope.selectedProduct.shortDesc.localization[$rootScope.defaultLang];
       $scope.selectedProduct.fullDesc.default  = $scope.selectedProduct.fullDesc.localization[$rootScope.defaultLang];
       if($scope.selectedProduct.unit == $rootScope.kgUnitId){
         $scope.selectedProduct.avgWeight = 0;

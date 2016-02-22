@@ -15,7 +15,7 @@
         <li class="active">{{ 'PRODUCTS' | translate}}</li>
       </ol>
     </section>
-    <section class="container container-override">
+    <section class="container-fluid mt20">
       <div class="col-sm-8">
         <div class="col-sm-12 mt20">
           <div class="col-sm-12">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div ng-if="selectedProduct" class="panel panel-info panel-heading-position">
+        <div ng-if="selectedProduct" class="panel panel-info">
           <div class="panel-heading col-sm-12">
             <div class="col-sm-12">{{ 'PRODUCT' | translate}}
             <span ng-if="selectedProduct.name.localization[currentLang].length"> -
