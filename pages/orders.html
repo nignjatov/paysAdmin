@@ -18,9 +18,9 @@
     <section class="container-fluid mt50">
       <div class="col-sm-8">
         <div class="col-sm-12 mt10">
-              <div class="alert loadingAlert" ng-show="loading">
-                  <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
-              </div>
+          <div class="alert loadingAlert" ng-show="loading">
+            <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
+          </div>
         </div>
         <div class=" col-sm-12 mt20">
           <form>
@@ -64,20 +64,17 @@
               </a>
             </th>
             <th>
-              <a class="cursor-pointer"
-                 ng-click="sortType = 'order.distributorData.businessSubject.name'; sortReverse = !sortReverse">
-                {{ 'TRANSPORTER_NAME' | translate}}
-                <span ng-show="sortType == 'order.distributorData.businessSubject.name' && sortReverse"
-                      class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'order.distributorData.businessSubject.name' && !sortReverse"
-                      class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
               <a class="cursor-pointer" ng-click="sortType = 'totalPrice'; sortReverse = !sortReverse">
                 {{ 'PRICE' | translate}}
                 <span ng-show="sortType == 'totalPrice' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'totalPrice' && !sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a class="cursor-pointer" ng-click="sortType = 'acceptedPrice'; sortReverse = !sortReverse">
+                {{ 'PRICE_TO_CAPTURE' | translate}}
+                <span ng-show="sortType == 'acceptedPrice' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'acceptedPrice' && !sortReverse" class="fa fa-caret-up"></span>
               </a>
             </th>
             <th>
@@ -95,8 +92,8 @@
               <td>{{order.id}}</td>
               <td>{{order.buyerData.privateSubject.name}} {{order.buyerData.privateSubject.lastName}}</td>
               <td>{{order.farmerData.businessSubject.name}}</td>
-              <td>{{order.distributorData.businessSubject.name}}</td>
               <td>{{order.totalPrice}} {{order.currency.code}}</td>
+              <td>{{order.acceptedPrice}} {{order.currency.code}}</td>
               <td>{{order.status | orderStatus | translate}}</td>
             </tr>
             </tbody>
@@ -177,6 +174,12 @@
               <h5 class="col-sm-6"><strong>{{ 'PRICE' | translate}}</strong></h5>
               <h5 class="col-sm-6 text-center">
                 {{selectedOrder.totalPrice}} {{selectedOrder.currency.code}}
+              </h5>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="col-sm-6"><strong>{{ 'TRANSACTION_ID' | translate}}</strong></h5>
+              <h5 class="col-sm-6 text-center">
+                {{selectedOrder.transId}}
               </h5>
             </div>
             <div class="col-sm-12">
@@ -298,76 +301,46 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-12">
-              <a data-toggle="collapse" data-target="#distributorInfo" class="cursor-pointer pull-left col-sm-12 mt10">{{'DISTRIBUTOR_INFO'
+            <div class="col-sm-12" ng-if="selectedOrder.status == 'D' || selectedOrder.status == 'P'">
+              <a data-toggle="collapse" data-target="#orderItems" class="cursor-pointer pull-left col-sm-12 mt10">{{'ORDER_ITEMS'
                 | translate}}<i
                   class="fa fa-caret-down"></i></a>
 
-              <div id="distributorInfo" class="collapse">
+              <div id="orderItems" class="collapse">
                 <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'COMPANY_NAME' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.name}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'BANK_NUMBER' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.account}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'TAX_NUM' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.taxNum}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'PIB_NUMBER' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.companyNum}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'BUSINESS_ACT_NUM' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.businessActivityCode}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'PHONE' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.phone}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5t class="col-sm-6"><strong>{{ 'FAX' | translate}}</strong></h5t>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.fax}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.email}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.address}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.postalCode}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.distributorData.businessSubject.city}}
+                  <table class="table table-responsive">
+                    <thead>
+                    <th>
+                      <h5 class="text-center"><strong>{{ 'NAME' | translate}}</strong></h5>
+                    </th>
+                    <th>
+                      <h5 class="text-center"><strong>{{ 'AMOUNT' | translate}}</strong></h5>
+                    </th>
+                    <th>
+                      <h5 class=text-center"><strong>{{ 'PRICE' | translate}}</strong></h5>
+                    </th>
+                    <th>
+                      <h5 class=text-center"><strong>{{ 'ACCEPTED' | translate}}</strong></h5>
+                    </th>
+
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in selectedOrder.items">
+                      <td><h5 class="text-center">
+                        {{item.product.name.localization[currentLang]}}
+                      </h5></td>
+                      <td><h5 class="text-center">
+                        {{item.amount}}
+                      </h5></td>
+                      <td><h5 class="text-center">
+                        {{item.totalItemPrice}}
+                      </h5></td>
+                      <td><h5 class="text-center">
+                        {{item.status | orderItemStatus | translate}}
+                      </h5></td>
+                    </tr>
+                    </tbody>
+                  </table>
                   </h5>
                 </div>
               </div>

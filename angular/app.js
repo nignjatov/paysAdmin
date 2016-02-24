@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.tree', 'ui-notification'
-  , 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'LocalStorageModule','flow'])
+  , 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'LocalStorageModule', 'flow'])
   .filter('html', function ($sce) {
     return function (input) {
       return $sce.trustAsHtml(input);
@@ -29,6 +29,22 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
           break;
         case 'P':
           ret = "PAID";
+          break;
+        default:
+          ret = code;
+          break;
+      }
+      return ret;
+    }
+  }).filter('orderItemStatus', function () {
+    return function (code) {
+      var ret = "N/A";
+      switch (code) {
+        case 'A':
+          ret = "YES";
+          break;
+        case 'R':
+          ret = "NO";
           break;
         default:
           ret = code;
@@ -150,76 +166,84 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
       'PRODUCT_FULL_DESC_ENGLISH': 'Product full description ( english )',
       'PRODUCT_FULL_DESC_SERBIAN': 'Product full description ( serbian )',
       'ENTER_PRODUCT_FULL_DESC': 'Enter product full description',
-      'DELETE' : 'Delete',
-      'ADD_PRODUCT' : 'Add new product',
-      'PRODUCT_NOT_UPDATED' : 'Failed to update product',
-      'PRODUCT_UPDATED' : 'Product updated',
-      'PRODUCT_NOT_CREATED' : 'Failed to create product',
-      'PRODUCT_CREATED' : 'Product created',
-      'PRODUCT_NOT_DELETED' : 'Failed to delete product',
-      'PRODUCT_DELETED' : 'Product deleted',
-      'CURRENT_CATEGORY' : 'Current category',
-      'CHANGE_CATEGORY_TO' : 'Change category to',
-      'SUBCATEGORY' : 'Subcategory',
-      'ORDER_DESC' : "Review orders in PAYS System",
-      'SEARCH_ORDERS' : 'Search orders',
-      'BUYER_NAME' : 'Buyer name',
-      'FARMER_NAME' : 'Farmer name',
-      'TRANSPORTER_NAME' : 'Distributor name',
-      'PRICE' : 'Price',
-      'STATUS' : 'Status',
-      'ORDER' : 'Order',
-      'BUYER_INFO' : 'Buyer information',
-      'FARMER_INFO' : 'Farmer information',
-      'DISTRIBUTOR_INFO' :'Distributor information',
-      'DELIVERY_DATE' : 'Delivery date',
-      'DELIVERY_TIME' : 'Delivery time',
-      'PRODUCTS_NUMBER' : "Number of products",
-      'IMAGE' : 'Image',
-      'HOUSE_NUMBER' : 'Number',
-      'FLOOR' : 'Floor',
-      'APARTMENT_NUMBER' : 'Apartment number',
-      'SELECT_IMAGE' : 'Select image',
-      'UPDATE' : 'Change image',
-      'UPLOAD' : 'Upload',
-      'PRODUCT_IMAGE_UPLOADED' : 'Product image uploaded',
-      'PRODUCT_IMAGE_FAILURE' : 'Product image upload failed!',
-      'BUYER_NOT_DEACTIVATED' : 'Failed to deactivate buyer!',
-      'BUYER_DEACTIVATED' : 'Buyer deactivated',
-      'BUYER_NOT_ACTIVATED' : 'Failed to activate buyer',
-      'BUYER_ACTIVATED' : 'Buyer activated',
-      'BACK' : 'Back',
+      'DELETE': 'Delete',
+      'ADD_PRODUCT': 'Add new product',
+      'PRODUCT_NOT_UPDATED': 'Failed to update product',
+      'PRODUCT_UPDATED': 'Product updated',
+      'PRODUCT_NOT_CREATED': 'Failed to create product',
+      'PRODUCT_CREATED': 'Product created',
+      'PRODUCT_NOT_DELETED': 'Failed to delete product',
+      'PRODUCT_DELETED': 'Product deleted',
+      'CURRENT_CATEGORY': 'Current category',
+      'CHANGE_CATEGORY_TO': 'Change category to',
+      'SUBCATEGORY': 'Subcategory',
+      'ORDER_DESC': "Review orders in PAYS System",
+      'SEARCH_ORDERS': 'Search orders',
+      'BUYER_NAME': 'Buyer name',
+      'FARMER_NAME': 'Farmer name',
+      'TRANSPORTER_NAME': 'Distributor name',
+      'PRICE': 'Price',
+      'STATUS': 'Status',
+      'ORDER': 'Order',
+      'BUYER_INFO': 'Buyer information',
+      'FARMER_INFO': 'Farmer information',
+      'DISTRIBUTOR_INFO': 'Distributor information',
+      'DELIVERY_DATE': 'Delivery date',
+      'DELIVERY_TIME': 'Delivery time',
+      'PRODUCTS_NUMBER': "Number of products",
+      'IMAGE': 'Image',
+      'HOUSE_NUMBER': 'Number',
+      'FLOOR': 'Floor',
+      'APARTMENT_NUMBER': 'Apartment number',
+      'SELECT_IMAGE': 'Select image',
+      'UPDATE': 'Change image',
+      'UPLOAD': 'Upload',
+      'PRODUCT_IMAGE_UPLOADED': 'Product image uploaded',
+      'PRODUCT_IMAGE_FAILURE': 'Product image upload failed!',
+      'BUYER_NOT_DEACTIVATED': 'Failed to deactivate buyer!',
+      'BUYER_DEACTIVATED': 'Buyer deactivated',
+      'BUYER_NOT_ACTIVATED': 'Failed to activate buyer',
+      'BUYER_ACTIVATED': 'Buyer activated',
+      'BACK': 'Back',
       'SUBCATEGORY_NAME_ENGLISH': 'Subcategory name( english )',
       'SUBCATEGORY_NAME_SERBIAN': 'Subcategory name( serbian )',
       'ENTER_SUBCATEGORY_NAME': 'Enter subcategory name',
-      'NUMBER' : 'number',
-      'REVIEWS' : 'Reviews',
-      'REVIEWS_DESC' : 'Overview and handling of reviews',
-      'SEARCH_REVIEWS' : 'Search reviews',
-      'RATING' : 'Rating',
-      'POSTED_ON' : 'Posted on',
-      'WAITING' : 'Waiting',
-      'APPROVED' : 'Approved',
-      'REJECTED' : 'Rejected',
-      'REVIEW' : 'Review',
-      'COMMENT' : 'Comment',
-      'REJECT' : 'Reject',
-      'APPROVE' : 'Approve',
-      'REVIEW_NOT_APPROVED' : 'Failed to approved review',
-      'REVIEW_APPROVED' : 'Review approved',
-      'REVIEW_NOT_REJECTED' : 'Failed to reject review',
-      'REVIEW_REJECTED' : 'Review rejected',
-      'MEASUREMENT_UNIT' : 'Measurement unit',
-      'AVERAGE_WEIGHT' : 'Average weight per measurement unit',
-      'ENTER_AVERAGE_WEIGHT' : 'Enter average weight per measurement unit',
-      'TAX_RATE' : 'Tax rate',
-      'ENTER_TAX_RATE' : 'Enter tax rate',
-      'LOADING' : 'Loading...',
-      'CREATED' : 'Created',
-      'ACTIVE' : 'Active',
-      'TRANSPORT' : 'In transport',
-      'DELIVERED' : 'Delivered',
-      'PAID' : 'Paid',
+      'NUMBER': 'number',
+      'REVIEWS': 'Reviews',
+      'REVIEWS_DESC': 'Overview and handling of reviews',
+      'SEARCH_REVIEWS': 'Search reviews',
+      'RATING': 'Rating',
+      'POSTED_ON': 'Posted on',
+      'WAITING': 'Waiting',
+      'APPROVED': 'Approved',
+      'REJECTED': 'Rejected',
+      'REVIEW': 'Review',
+      'COMMENT': 'Comment',
+      'REJECT': 'Reject',
+      'APPROVE': 'Approve',
+      'REVIEW_NOT_APPROVED': 'Failed to approved review',
+      'REVIEW_APPROVED': 'Review approved',
+      'REVIEW_NOT_REJECTED': 'Failed to reject review',
+      'REVIEW_REJECTED': 'Review rejected',
+      'MEASUREMENT_UNIT': 'Measurement unit',
+      'AVERAGE_WEIGHT': 'Average weight per measurement unit',
+      'ENTER_AVERAGE_WEIGHT': 'Enter average weight per measurement unit',
+      'TAX_RATE': 'Tax rate',
+      'ENTER_TAX_RATE': 'Enter tax rate',
+      'LOADING': 'Loading...',
+      'CREATED': 'Created',
+      'ACTIVE': 'Active',
+      'TRANSPORT': 'In transport',
+      'DELIVERED': 'Delivered',
+      'PAID': 'Paid',
+      'PRICE_TO_CAPTURE' : 'For capture',
+      'TRANSACTION_ID' : 'Transaction',
+      'ORDER_ITEMS' : 'Order items',
+      'AMOUNT' : 'Amount',
+      'ACCEPTED' : 'Accepted',
+      'YES': 'Yes',
+      'NO': 'No'
+
 
     })
       .translations('rs_RS', {
@@ -304,82 +328,89 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
         'PRODUCT_FULL_DESC_ENGLISH': 'Pun opis proizvoda ( engleski )',
         'PRODUCT_FULL_DESC_SERBIAN': 'Pun opis proizvoda ( srpski )',
         'ENTER_PRODUCT_FULL_DESC': 'Unesite pun opis proizvoda',
-        'DELETE' : 'Obriši',
-        'ADD_PRODUCT' : 'Dodaj novi proizvod',
-        'PRODUCT_NOT_UPDATED' : 'Neuspešno ažuriranje proizvoda',
-        'PRODUCT_UPDATED' : 'Proizvod ažuriran',
-        'PRODUCT_NOT_CREATED' : 'Neuspešno kreiranje proizvoda',
-        'PRODUCT_CREATED' : 'Proizvod kreiran',
-        'PRODUCT_NOT_DELETED' : 'Neuspešno brisanje proizvoda',
-        'PRODUCT_DELETED' : 'Proizvod obrisan',
-        'CURRENT_CATEGORY' : 'Trenutna kategorija',
-        'CHANGE_CATEGORY_TO' : 'Prebaci u kategoriju',
-        'SUBCATEGORY' : 'Podkategorija',
-        'ORDER_DESC' : "Pregled informacija o narudžbinama",
-        'SEARCH_ORDERS' : 'Pretražite narudžbine',
-        'BUYER_NAME' : 'Ime kupca',
-        'FARMER_NAME' : 'Ime farmera',
-        'TRANSPORTER_NAME' : 'Ime distributera',
-        'PRICE' : 'Cena',
-        'STATUS' : 'Status',
-        'ORDER' : 'Narudžbina',
-        'BUYER_INFO' : 'Informacije o kupcu',
-        'FARMER_INFO' : 'Informacije o farmeru',
-        'DISTRIBUTOR_INFO' :'Informacije o distributeru',
-        'DELIVERY_DATE' : 'Datum dostave',
-        'DELIVERY_TIME' : 'Vreme dostave',
-        'PRODUCTS_NUMBER' : "Broj proizvoda",
-        'IMAGE' : 'Slika',
-        'HOUSE_NUMBER' : 'Broj',
-        'FLOOR' : 'Sprat',
-        'APARTMENT_NUMBER' : 'Broj stana',
-        'SELECT_IMAGE' : 'Odaberi sliku',
-        'UPDATE' : 'Promeni sliku',
-        'UPLOAD' : 'Postavi sliku',
-        'PRODUCT_IMAGE_UPLOADED' : 'Slika proizvoda postavljena',
-        'PRODUCT_IMAGE_FAILURE' : 'Neuspešno postavljanje slike proizvoda!',
-        'BUYER_NOT_DEACTIVATED' : 'Neuspešna deaktivacija kupca!',
-        'BUYER_DEACTIVATED' : 'Kupac deaktiviran',
-        'BUYER_NOT_ACTIVATED' : 'Neuspešna aktivacija kupca',
-        'BUYER_ACTIVATED' : 'Kupac aktiviran',
-        'BACK' : 'Nazad',
+        'DELETE': 'Obriši',
+        'ADD_PRODUCT': 'Dodaj novi proizvod',
+        'PRODUCT_NOT_UPDATED': 'Neuspešno ažuriranje proizvoda',
+        'PRODUCT_UPDATED': 'Proizvod ažuriran',
+        'PRODUCT_NOT_CREATED': 'Neuspešno kreiranje proizvoda',
+        'PRODUCT_CREATED': 'Proizvod kreiran',
+        'PRODUCT_NOT_DELETED': 'Neuspešno brisanje proizvoda',
+        'PRODUCT_DELETED': 'Proizvod obrisan',
+        'CURRENT_CATEGORY': 'Trenutna kategorija',
+        'CHANGE_CATEGORY_TO': 'Prebaci u kategoriju',
+        'SUBCATEGORY': 'Podkategorija',
+        'ORDER_DESC': "Pregled informacija o narudžbinama",
+        'SEARCH_ORDERS': 'Pretražite narudžbine',
+        'BUYER_NAME': 'Ime kupca',
+        'FARMER_NAME': 'Ime farmera',
+        'TRANSPORTER_NAME': 'Ime distributera',
+        'PRICE': 'Cena',
+        'STATUS': 'Status',
+        'ORDER': 'Narudžbina',
+        'BUYER_INFO': 'Informacije o kupcu',
+        'FARMER_INFO': 'Informacije o farmeru',
+        'DISTRIBUTOR_INFO': 'Informacije o distributeru',
+        'DELIVERY_DATE': 'Datum dostave',
+        'DELIVERY_TIME': 'Vreme dostave',
+        'PRODUCTS_NUMBER': "Broj proizvoda",
+        'IMAGE': 'Slika',
+        'HOUSE_NUMBER': 'Broj',
+        'FLOOR': 'Sprat',
+        'APARTMENT_NUMBER': 'Broj stana',
+        'SELECT_IMAGE': 'Odaberi sliku',
+        'UPDATE': 'Promeni sliku',
+        'UPLOAD': 'Postavi sliku',
+        'PRODUCT_IMAGE_UPLOADED': 'Slika proizvoda postavljena',
+        'PRODUCT_IMAGE_FAILURE': 'Neuspešno postavljanje slike proizvoda!',
+        'BUYER_NOT_DEACTIVATED': 'Neuspešna deaktivacija kupca!',
+        'BUYER_DEACTIVATED': 'Kupac deaktiviran',
+        'BUYER_NOT_ACTIVATED': 'Neuspešna aktivacija kupca',
+        'BUYER_ACTIVATED': 'Kupac aktiviran',
+        'BACK': 'Nazad',
         'SUBCATEGORY_NAME_ENGLISH': 'Ime podkategorije( engleski )',
         'SUBCATEGORY_NAME_SERBIAN': 'Ime podkategorije( srpski )',
         'ENTER_SUBCATEGORY_NAME': 'Unesite ime podkategorije',
-        'NUMBER' : 'broj',
-        'REVIEWS' : 'Komentari',
-        'REVIEWS_DESC' : 'Pregled i upravljanje komentarima u sistemu',
-        'SEARCH_REVIEWS' : 'Pretraga komentara',
-        'RATING' : 'Ocena',
-        'POSTED_ON' : 'Objavljeno',
-        'WAITING' : 'Na čekanju',
-        'APPROVED' : 'Odobren',
-        'REJECTED' : 'Odbijen',
-        'REVIEW' : 'Komentar',
-        'COMMENT' : 'Tekst komentara',
-        'REJECT' : 'Odbij',
-        'APPROVE' : 'Odobri',
-        'REVIEW_NOT_APPROVED' : 'Neuspelo odobravanje komentara',
-        'REVIEW_APPROVED' : 'Komentar odobren',
-        'REVIEW_NOT_REJECTED' : 'Neuspelo odbijanje komentara',
-        'REVIEW_REJECTED' : 'Komentar odbijen',
-        'MEASUREMENT_UNIT' : 'Jedinica mere',
-        'AVERAGE_WEIGHT' : 'Prosečna težina po jedinici mere',
-        'ENTER_AVERAGE_WEIGHT' : 'Unesite prosečnu težinu po jedinici mere',
-        'TAX_RATE' : 'Poreska stopa',
-        'ENTER_TAX_RATE' : 'Unesite poresku stopu',
-        'LOADING' : 'Učitavanje...',
-        'CREATED' : 'Kreirana',
-        'ACTIVE' : 'Aktivna',
-        'TRANSPORT' : 'U transportu',
-        'DELIVERED' : 'Dostavljena',
-        'PAID' : 'Plaćena',
+        'NUMBER': 'broj',
+        'REVIEWS': 'Komentari',
+        'REVIEWS_DESC': 'Pregled i upravljanje komentarima u sistemu',
+        'SEARCH_REVIEWS': 'Pretraga komentara',
+        'RATING': 'Ocena',
+        'POSTED_ON': 'Objavljeno',
+        'WAITING': 'Na čekanju',
+        'APPROVED': 'Odobren',
+        'REJECTED': 'Odbijen',
+        'REVIEW': 'Komentar',
+        'COMMENT': 'Tekst komentara',
+        'REJECT': 'Odbij',
+        'APPROVE': 'Odobri',
+        'REVIEW_NOT_APPROVED': 'Neuspelo odobravanje komentara',
+        'REVIEW_APPROVED': 'Komentar odobren',
+        'REVIEW_NOT_REJECTED': 'Neuspelo odbijanje komentara',
+        'REVIEW_REJECTED': 'Komentar odbijen',
+        'MEASUREMENT_UNIT': 'Jedinica mere',
+        'AVERAGE_WEIGHT': 'Prosečna težina po jedinici mere',
+        'ENTER_AVERAGE_WEIGHT': 'Unesite prosečnu težinu po jedinici mere',
+        'TAX_RATE': 'Poreska stopa',
+        'ENTER_TAX_RATE': 'Unesite poresku stopu',
+        'LOADING': 'Učitavanje...',
+        'CREATED': 'Kreirana',
+        'ACTIVE': 'Aktivna',
+        'TRANSPORT': 'U transportu',
+        'DELIVERED': 'Dostavljena',
+        'PAID': 'Plaćena',
+        'PRICE_TO_CAPTURE' : 'Za naplatu',
+        'TRANSACTION_ID' : 'Transakcija',
+        'ORDER_ITEMS' : 'Naručeni proizvodi',
+        'AMOUNT' : 'Količina',
+        'ACCEPTED' : 'Prihvaćeno',
+        'YES': 'Da',
+        'NO': 'Ne'
       });
     $translateProvider.preferredLanguage('en_EN');
   });
 
 paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window, ProductsService) {
-  $rootScope.serverURL       = "http://185.23.171.43/PEP/PaysRest/";
+  $rootScope.serverURL = "http://185.23.171.43/PEP/PaysRest/";
 
   $rootScope.englishLangCode = "en_EN";
   $rootScope.serbianLangCode = "rs_RS";
@@ -391,17 +422,17 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
 
   $rootScope.undefinedImageId = -1;
 
-  $rootScope.changeLanguage  = function (langCode) {
+  $rootScope.changeLanguage = function (langCode) {
     $rootScope.currentLang = langCode;
     $translate.use(langCode);
   };
 
   $rootScope.credentials = UsersService.getUserCredentials();
-  $rootScope.kgUnitId = -1;
-  ProductsService.getMeasurementUnits().then(function(data){
+  $rootScope.kgUnitId    = -1;
+  ProductsService.getMeasurementUnits().then(function (data) {
     $rootScope.units = data;
-    angular.forEach($rootScope.units, function(unit){
-      if(unit.code == 'kg'){
+    angular.forEach($rootScope.units, function (unit) {
+      if (unit.code == 'kg') {
         $rootScope.kgUnitId = unit.id;
       }
     });
@@ -432,7 +463,7 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
     console.log(JSON.stringify(obj, null, 4));
   }
 
-  $rootScope.getNumericOrderStatus = function(statusAlpha){
+  $rootScope.getNumericOrderStatus = function (statusAlpha) {
     var ret = 0;
     switch (statusAlpha) {
       case 'C':
