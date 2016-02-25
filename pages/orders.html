@@ -179,7 +179,7 @@
             <div class="col-sm-12">
               <h5 class="col-sm-6"><strong>{{ 'TRANSACTION_ID' | translate}}</strong></h5>
               <h5 class="col-sm-6 text-center">
-                {{selectedOrder.transId}}
+                {{selectedOrder.emsId}}
               </h5>
             </div>
             <div class="col-sm-12">
@@ -333,7 +333,7 @@
                         {{item.amount}}
                       </h5></td>
                       <td><h5 class="text-center">
-                        {{item.totalItemPrice}}
+                        {{item.totalPayPrice}}
                       </h5></td>
                       <td><h5 class="text-center">
                         {{item.status | orderItemStatus | translate}}

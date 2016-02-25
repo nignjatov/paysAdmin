@@ -15,14 +15,10 @@ angular.module('paysAdmin').controller("ordersCtrl", ["$scope", "$rootScope", "O
             order.acceptedPrice = parseFloat(0);
             if (order.status == 'D' || order.status == 'P') {
               order.acceptedPrice = parseFloat(0);
-              order.acceptedItems = [];
-              order.rejectedItems = [];
               angular.forEach(order.items, function (item) {
+                item.totalPayPrice = parseFloat(item.totalItemPrice) * parseFloat(item.amount);
                 if (item.status == "A") {
-                  order.acceptedItems.push(item);
-                  order.acceptedPrice += parseFloat(item.totalItemPrice);
-                } else if (item.status == "R") {
-                  order.rejectedItems.push(item);
+                  order.acceptedPrice += (parseFloat(item.totalItemPrice) * parseFloat(item.amount));
                 }
               });
             }
