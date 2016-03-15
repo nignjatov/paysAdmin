@@ -102,7 +102,7 @@
             <div class="col-sm-12">
               <h5 class="col-sm-12"><strong>{{ 'MEASUREMENT_UNIT' | translate}}</strong></h5>
               <select class="col-sm-12" ng-model="selectedProduct.unit"
-                      ng-options="unit.id as unit.name for unit in units"></select>
+                      ng-options="unit.id as unit.name.localization[currentLang] for unit in units"></select>
             </div>
             <div class="col-sm-12" ng-if="selectedProduct.unit != null && selectedProduct.unit != kgUnitId">
               <h5 class="col-sm-12"><strong>{{ 'AVERAGE_WEIGHT' | translate}} (kg)</strong></h5>

@@ -1,0 +1,205 @@
+<div class="wrapper">
+
+    <div ng-include="'pages/header.html'"></div>
+    <div ng-include="'pages/navbar.html'"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {{'DELIVERY_LOCATIONS' | translate}}
+                <small>{{'DELIVERY_LOCATIONS_DESC' | translate}}</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#/"><i class="fa fa-dashboard"></i> {{'HOME' | translate}}</a></li>
+                <li class="active">{{'DELIVERY_LOCATIONS' | translate}}</li>
+            </ol>
+        </section>
+        <section class="container-fluid mt50">
+            <div class="col-sm-8">
+                <div class=" col-sm-12 mt20">
+                    <div class="col-sm-12">
+                        <button class="col-sm-5 btn btn-primary btn-padded btn-lg" ng-click="newDeliveryLocation()">
+                            <i class="fa fa-plus"></i> {{ 'ADD_DELIVERY_LOCATION' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-12 mt10">
+                        <div class="alert loadingAlert" ng-show="loading">
+                            <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt20">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                    <input type="text" class="form-control"
+                                           placeholder="{{ 'SEARCH_DELIVERY_LOCATIONS' | translate}}"
+                                           ng-model="searchWord">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-12">
+                        <table class="table table-responsive">
+                            <thead>
+                            <th>
+                                <a class="cursor-pointer" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                                    #
+                                    <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="cursor-pointer"
+                                   ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                                    {{ 'NAME' | translate}}
+                <span ng-show="sortType == 'name' && sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'name' && !sortReverse"
+                      class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="cursor-pointer"
+                                   ng-click="sortType = 'cityData.name'; sortReverse = !sortReverse">
+                                    {{ 'CITY' | translate}}
+                <span ng-show="sortType == 'cityData.name' && sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'cityData.name' && !sortReverse"
+                      class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="cursor-pointer"
+                                   ng-click="sortType = 'address.street'; sortReverse = !sortReverse">
+                                    {{ 'ADDRESS' | translate}}
+                <span ng-show="sortType == 'address.street' && sortReverse"
+                      class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'address.street' && !sortReverse"
+                      class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a class="cursor-pointer" ng-click="sortType = 'workHours'; sortReverse = !sortReverse">
+                                    {{ 'WORK_HOURS' | translate}}
+                                    <span ng-show="sortType == 'workHours' && sortReverse"
+                                          class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'workHours' && !sortReverse"
+                                          class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            </thead>
+                            <tbody>
+                            <tr class="cursor-pointer"
+                                dir-paginate="location in locations | orderBy:sortType:sortReverse | filter:searchWord |itemsPerPage:maxItemsPerPage"
+                                ng-click="selectLocation(location)">
+                                <td>{{location.id}}</td>
+                                <td>{{location.name}}</td>
+                                <td>{{location.cityData.name}}</td>
+                                <td>{{location.address.street}} {{location.address.houseNumber}}</td>
+                                <td>{{location.workHours}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <dir-pagination-controls
+                                    max-size="5"
+                                    direction-links="true"
+                                    boundary-links="true">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div ng-if="selectedLocation" class="panel panel-info">
+                    <div class="panel-heading col-sm-12">
+                        <div class="col-sm-12">{{ 'DELIVERY_LOCATION' | translate}} -
+                            <strong>{{selectedLocation.name}}</strong>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-12"><strong>{{ 'NAME' | translate}}</strong></h5>
+                            <input type="text" class="form-control col-sm-12 text-left"
+                                   ng-model="selectedLocation.name"
+                                   placeholder="{{ 'ENTER_NAME' | translate}}">
+                            </input>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedLocation.cityData.name}}
+                            </h5>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedLocation.cityData.postalCode}}
+                            </h5>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-12"><strong>{{ 'CHANGE_CITY' | translate}}</strong></h5>
+                            <select ng-model="selectedLocation.cityDataString" class="form-control">
+                                <option ng-repeat="city in cities | orderBy:'name':false" value="{{city}}">
+                                    {{city.name |
+                                    html}}, {{city.postalCode |
+                                    html}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-12"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
+                            <input type="text" class="form-control col-sm-12 text-left"
+                                   ng-model="selectedLocation.address.street"
+                                   placeholder="{{ 'ENTER_ADDRESS' | translate}}">
+                            </input>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-12"><strong>{{ 'HOUSE_NUMBER' | translate}}</strong></h5>
+                            <input type="text" class="form-control col-sm-12 text-left"
+                                   ng-model="selectedLocation.address.houseNumber"
+                                   placeholder="{{ 'ENTER_HOUSE_NUMBER' | translate}}">
+                            </input>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'WORK_HOURS' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedLocation.fromTime | date: timeFormat}} - {{selectedLocation.toTime | date:
+                                timeFormat}}
+                            </h5>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-6 text-center">
+                                <timepicker ng-model="selectedLocation.fromTime" hour-step="hstep"
+                                            minute-step="mstep"
+                                            show-meridian="ismeridian"></timepicker>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <timepicker ng-model="selectedLocation.toTime" hour-step="hstep"
+                                            minute-step="mstep" min="selectedLocation.minTime"
+                                            show-meridian="ismeridian"></timepicker>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb10">
+                            <button class="pull-right btn btn-primary btn-padded" ng-click="saveLocation()"
+                                    ng-disabled="!selectedLocation.name.length">
+                                <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}
+                            </button>
+                            <button class="pull-right btn btn-primary btn-padded" ng-click="deleteLocation()">
+                                <i class="fa fa-times"></i> {{ 'DELETE' | translate}}
+                            </button>
+                            <button class="pull-left btn btn-primary btn-padded" ng-click="goBack()">
+                                <i class="fa fa-caret-left"></i> {{ 'BACK' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+    <div ng-include="'pages/footer.html'"></div>
+    <!-- /.content-wrapper -->
+</div>
+

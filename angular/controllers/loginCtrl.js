@@ -7,7 +7,7 @@ angular.module('paysAdmin').controller("loginCtrl", ["$scope","$window",
 
             //redirect url for the user to authenticate
             //itself using the fi-ware oauth
-            var newURL            = "http://185.23.171.43/oauth2/authorize"
+            var newURL            = "http://148.6.81.216/oauth2/authorize"
               + "?response_type=code"
               + "&client_id=" + clientId
               + "&state=xyz"
