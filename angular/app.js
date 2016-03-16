@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstrap','ui.bootstrap.timepicker', 'ui.tree', 'ui-notification'
+var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.bootstrap.timepicker', 'ui.tree', 'ui-notification'
         , 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'LocalStorageModule', 'flow'])
     .filter('html', function ($sce) {
         return function (input) {
@@ -243,16 +243,22 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
                 'ACCEPTED': 'Accepted',
                 'YES': 'Yes',
                 'NO': 'No',
-                'DELIVERY_LOCATIONS' : 'Delivery locations',
-                'DELIVERY_LOCATION' : 'Delivery location',
-                'DELIVERY_LOCATIONS_DESC' : 'Control information about delivery locations in PAYS system',
-                'ADD_DELIVERY_LOCATION' : 'Add delivery location',
-                'SEARCH_DELIVERY_LOCATIONS' : 'Search delivery locations',
-                'WORK_HOURS' : 'Work hours',
-                'CHANGE_CITY' : 'Change city',
-                'ENTER_NAME' :'Enter name',
-                'ENTER_ADDRESS' :'Enter street',
-                'ENTER_HOUSE_NUMBER' :'Enter number'
+                'DELIVERY_LOCATIONS': 'Delivery locations',
+                'DELIVERY_LOCATION': 'Delivery location',
+                'DELIVERY_LOCATIONS_DESC': 'Control information about delivery locations in PAYS system',
+                'ADD_DELIVERY_LOCATION': 'Add delivery location',
+                'SEARCH_DELIVERY_LOCATIONS': 'Search delivery locations',
+                'WORK_HOURS': 'Work hours',
+                'CHANGE_CITY': 'Change city',
+                'ENTER_NAME': 'Enter name',
+                'ENTER_ADDRESS': 'Enter street',
+                'ENTER_HOUSE_NUMBER': 'Enter number',
+                'LOCATION_UPDATED': 'Location update successfully',
+                'LOCATION_NOT_UPDATED': 'Failed to update location',
+                'LOCATION_CREATED': 'Location created successfully',
+                'LOCATION_NOT_CREATED': 'Failed to create location',
+                'LOCATION_DELETED': 'Location deleted successfully',
+                'LOCATION_NOT_DELETED': 'Failed to delete location'
 
             })
             .translations('rs_RS', {
@@ -414,16 +420,22 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
                 'ACCEPTED': 'Prihvaćeno',
                 'YES': 'Da',
                 'NO': 'Ne',
-                'DELIVERY_LOCATIONS' : 'Dostavna mesta',
-                'DELIVERY_LOCATION' : 'Dostavno mesto',
-                'DELIVERY_LOCATIONS_DESC' : 'Upravljajte informacijama o dostavnim mestima u PAYS sistemu',
-                'ADD_DELIVERY_LOCATION' : 'Dodaj dostavno mesto',
-                'SEARCH_DELIVERY_LOCATIONS' : 'Pretraži dostavna mesta',
-                'WORK_HOURS' : 'Radno vreme',
-                'CHANGE_CITY' : 'Promenite grad',
-                'ENTER_NAME' :'Unesite ime',
-                'ENTER_ADDRESS' :'Unesite ulicu',
-                'ENTER_HOUSE_NUMBER' :'Unesite broj',
+                'DELIVERY_LOCATIONS': 'Dostavna mesta',
+                'DELIVERY_LOCATION': 'Dostavno mesto',
+                'DELIVERY_LOCATIONS_DESC': 'Upravljajte informacijama o dostavnim mestima u PAYS sistemu',
+                'ADD_DELIVERY_LOCATION': 'Dodaj dostavno mesto',
+                'SEARCH_DELIVERY_LOCATIONS': 'Pretraži dostavna mesta',
+                'WORK_HOURS': 'Radno vreme',
+                'CHANGE_CITY': 'Promenite grad',
+                'ENTER_NAME': 'Unesite ime',
+                'ENTER_ADDRESS': 'Unesite ulicu',
+                'ENTER_HOUSE_NUMBER': 'Unesite broj',
+                'LOCATION_UPDATED': 'Dostavno mesto uspešno ažurirano',
+                'LOCATION_NOT_UPDATED': 'Neuspešno ažuriranje dostavnog mesta',
+                'LOCATION_CREATED': 'Dostavno mesto uspešno dodato',
+                'LOCATION_NOT_CREATED': 'Neuspešno dodavanje dostavnog mesta',
+                'LOCATION_DELETED': 'Dostavno mesto uspešno obrisano',
+                'LOCATION_NOT_DELETED': 'Neuspešno brisanje dostavnog mesta'
 
             });
         $translateProvider.preferredLanguage('en_EN');

@@ -71,6 +71,7 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
       $scope.selectedProduct.shortDesc.default = $scope.selectedProduct.shortDesc.localization[$rootScope.defaultLang];
       $scope.selectedProduct.shortDesc.default = $scope.selectedProduct.shortDesc.localization[$rootScope.defaultLang];
       $scope.selectedProduct.fullDesc.default  = $scope.selectedProduct.fullDesc.localization[$rootScope.defaultLang];
+      console.log($scope.selectedProduct);
       if($scope.selectedProduct.unit == $rootScope.kgUnitId){
         $scope.selectedProduct.avgWeight = 0;
       }
@@ -166,6 +167,19 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
         product.unit = product.unit.id;
         product.avgWeight = parseFloat(product.avgWeight);
         product.tax = parseFloat(product.tax);
+//Dirty hack for dirty data in db
+        if(product.shortDesc.localization.length == 0){
+          product.shortDesc = {
+            default : "",
+            localization : {}
+          }
+        }
+        if(product.fullDesc.localization.length == 0){
+          product.fullDesc = {
+            default : "",
+            localization : {}
+          }
+        }
         _assignCategoryDataToProduct(product, categories);
       });
       $scope.loading = false;
@@ -176,11 +190,9 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
         var categoryId = product.categories[0];
         var found      = false;
 
-        console.log("Product ID " + product.id + " Category Id " + categoryId);
         angular.forEach(categories, function (root) {
           if (found == false) {
             if (root.id == categoryId) {
-              console.log("ROOT " + root.id + " Category Id " + categoryId);
               found                = true;
               product.categoryData = root;
             }
@@ -188,7 +200,6 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
               angular.forEach(root.children, function (childOne) {
                 if (found == false) {
                   if (childOne.id == categoryId) {
-                    console.log("ChildOne " + root.id + " Category Id " + categoryId);
                     found                = true;
                     product.categoryData = childOne;
                   }
@@ -196,7 +207,6 @@ angular.module('paysAdmin').controller("productsCtrl", ["$scope", "$rootScope", 
                     angular.forEach(childOne.children, function (childTwo) {
                       if (found == false) {
                         if (childTwo.id == categoryId) {
-                          console.log("childTwo " + root.id + " Category Id " + categoryId);
                           found                = true;
                           product.categoryData = childTwo;
                         }
