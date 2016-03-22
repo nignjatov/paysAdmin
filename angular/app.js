@@ -258,7 +258,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
                 'LOCATION_CREATED': 'Location created successfully',
                 'LOCATION_NOT_CREATED': 'Failed to create location',
                 'LOCATION_DELETED': 'Location deleted successfully',
-                'LOCATION_NOT_DELETED': 'Failed to delete location'
+                'LOCATION_NOT_DELETED': 'Failed to delete location',
+                'TRANSPORT_PRICE' : 'Transport price'
 
             })
             .translations('rs_RS', {
@@ -435,7 +436,8 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
                 'LOCATION_CREATED': 'Dostavno mesto uspešno dodato',
                 'LOCATION_NOT_CREATED': 'Neuspešno dodavanje dostavnog mesta',
                 'LOCATION_DELETED': 'Dostavno mesto uspešno obrisano',
-                'LOCATION_NOT_DELETED': 'Neuspešno brisanje dostavnog mesta'
+                'LOCATION_NOT_DELETED': 'Neuspešno brisanje dostavnog mesta',
+                'TRANSPORT_PRICE' : 'Cena dostave'
 
             });
         $translateProvider.preferredLanguage('en_EN');
@@ -471,12 +473,12 @@ paysAdmin.run(function ($rootScope, $translate, UsersService, $location, $window
     });
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
-        //console.log($location.url());
-        //if (next.restricted) {
-        //  if (!$rootScope.isLoggedIn()) {
-        //    $window.location.href = "#/login";
-        //  }
-        //}
+        console.log($location.url());
+        if (next.restricted) {
+          if (!$rootScope.isLoggedIn()) {
+            $window.location.href = "#/login";
+          }
+        }
     });
 
     $rootScope.logoutAdmin = function () {

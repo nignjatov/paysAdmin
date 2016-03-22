@@ -14,14 +14,17 @@ angular.module('paysAdmin').controller("ordersCtrl", ["$scope", "$rootScope", "O
             order.numericStatus = $rootScope.getNumericOrderStatus(order.status);
             order.acceptedPrice = parseFloat(0);
             if (order.status == 'D' || order.status == 'P') {
-              order.acceptedPrice = parseFloat(0);
               angular.forEach(order.items, function (item) {
                 item.totalPayPrice = parseFloat(item.totalItemPrice) * parseFloat(item.amount);
                 if (item.status == "A") {
                   order.acceptedPrice += (parseFloat(item.totalItemPrice) * parseFloat(item.amount));
                 }
               });
+              if(order.acceptedPrice > 0){
+                order.acceptedPrice = order.acceptedPrice + parseFloat(order.transportPrice);
+              }
             }
+            order.acceptedPrice = order.acceptedPrice.toFixed(2);
             angular.forEach(buyerData, function (buyer) {
               if (!order.buyerData) {
                 if (buyer.id === order.orderedBy) {

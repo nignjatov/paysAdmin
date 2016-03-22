@@ -1,361 +1,418 @@
 <div class="wrapper">
 
-  <div ng-include="'pages/header.html'"></div>
-  <div ng-include="'pages/navbar.html'"></div>
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        {{'ORDERS' | translate}}
-        <small>{{'ORDER_DESC' | translate}}</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#/"><i class="fa fa-dashboard"></i> {{'HOME' | translate}}</a></li>
-        <li class="active">{{'ORDERS' | translate}}</li>
-      </ol>
-    </section>
-    <section class="container-fluid mt50">
-      <div class="col-sm-8">
-        <div class="col-sm-12 mt10">
-          <div class="alert loadingAlert" ng-show="loading">
-            <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
-          </div>
-        </div>
-        <div class=" col-sm-12 mt20">
-          <form>
-            <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                <input type="text" class="form-control" placeholder="{{ 'SEARCH_ORDERS' | translate}}"
-                       ng-model="searchWord">
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-sm-12">
-          <table class="table table-responsive">
-            <thead>
-            <th>
-              <a class="cursor-pointer" ng-click="sortType = 'id'; sortReverse = !sortReverse">
-                #
-                <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a class="cursor-pointer"
-                 ng-click="sortType = 'buyerData.privateSubject.name'; sortReverse = !sortReverse">
-                {{ 'BUYER_NAME' | translate}}
+    <div ng-include="'pages/header.html'"></div>
+    <div ng-include="'pages/navbar.html'"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {{'ORDERS' | translate}}
+                <small>{{'ORDER_DESC' | translate}}</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#/"><i class="fa fa-dashboard"></i> {{'HOME' | translate}}</a></li>
+                <li class="active">{{'ORDERS' | translate}}</li>
+            </ol>
+        </section>
+        <section class="container-fluid mt50">
+            <div class="col-sm-8">
+                <div class="col-sm-12 mt10">
+                    <div class="alert loadingAlert" ng-show="loading">
+                        <img src="images/loading.gif"/> {{ 'LOADING' | translate }}
+                    </div>
+                </div>
+                <div class=" col-sm-12 mt20">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                <input type="text" class="form-control" placeholder="{{ 'SEARCH_ORDERS' | translate}}"
+                                       ng-model="searchWord">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12">
+                    <table class="table table-responsive">
+                        <thead>
+                        <th>
+                            <a class="cursor-pointer" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                                #
+                                <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="cursor-pointer"
+                               ng-click="sortType = 'buyerData.privateSubject.name'; sortReverse = !sortReverse">
+                                {{ 'BUYER_NAME' | translate}}
                 <span ng-show="sortType == 'buyerData.privateSubject.name' && sortReverse"
                       class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'buyerData.privateSubject.name' && !sortReverse"
                       class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a class="cursor-pointer"
-                 ng-click="sortType = 'order.farmerData.businessSubject.name'; sortReverse = !sortReverse">
-                {{ 'FARMER_NAME' | translate}}
+                            </a>
+                        </th>
+                        <th>
+                            <a class="cursor-pointer"
+                               ng-click="sortType = 'order.farmerData.businessSubject.name'; sortReverse = !sortReverse">
+                                {{ 'FARMER_NAME' | translate}}
                 <span ng-show="sortType == 'order.farmerData.businessSubject.name' && sortReverse"
                       class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'order.farmerData.businessSubject.name' && !sortReverse"
                       class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a class="cursor-pointer" ng-click="sortType = 'totalPrice'; sortReverse = !sortReverse">
-                {{ 'PRICE' | translate}}
-                <span ng-show="sortType == 'totalPrice' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'totalPrice' && !sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a class="cursor-pointer" ng-click="sortType = 'acceptedPrice'; sortReverse = !sortReverse">
-                {{ 'PRICE_TO_CAPTURE' | translate}}
-                <span ng-show="sortType == 'acceptedPrice' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'acceptedPrice' && !sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            <th>
-              <a class="cursor-pointer" ng-click="sortType = 'numericStatus'; sortReverse = !sortReverse">
-                {{ 'STATUS' | translate}}
-                <span ng-show="sortType == 'numericStatus' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'numericStatus' && !sortReverse" class="fa fa-caret-up"></span>
-              </a>
-            </th>
-            </thead>
-            <tbody>
-            <tr class="cursor-pointer"
-                dir-paginate="order in orders | orderBy:sortType:sortReverse | filter:searchWord |itemsPerPage:maxItemsPerPage"
-                ng-click="selectOrder(order)">
-              <td>{{order.id}}</td>
-              <td>{{order.buyerData.privateSubject.name}} {{order.buyerData.privateSubject.lastName}}</td>
-              <td>{{order.farmerData.businessSubject.name}}</td>
-              <td>{{order.totalPrice}} {{order.currency.code}}</td>
-              <td>{{order.acceptedPrice}} {{order.currency.code}}</td>
-              <td>{{order.status | orderStatus | translate}}</td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="text-center">
-            <dir-pagination-controls
-              max-size="5"
-              direction-links="true"
-              boundary-links="true">
-            </dir-pagination-controls>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 col-lg-4">
-        <div ng-if="selectedOrder" class="panel panel-info">
-          <div class="panel-heading col-sm-12">
-            <div class="col-sm-12">{{ 'ORDER' | translate}}
+                            </a>
+                        </th>
+                        <th>
+                            <a class="cursor-pointer" ng-click="sortType = 'totalPrice'; sortReverse = !sortReverse">
+                                {{ 'PRICE' | translate}}
+                                <span ng-show="sortType == 'totalPrice' && sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'totalPrice' && !sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="cursor-pointer" ng-click="sortType = 'acceptedPrice'; sortReverse = !sortReverse">
+                                {{ 'PRICE_TO_CAPTURE' | translate}}
+                                <span ng-show="sortType == 'acceptedPrice' && sortReverse"
+                                      class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'acceptedPrice' && !sortReverse"
+                                      class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="cursor-pointer" ng-click="sortType = 'numericStatus'; sortReverse = !sortReverse">
+                                {{ 'STATUS' | translate}}
+                                <span ng-show="sortType == 'numericStatus' && sortReverse"
+                                      class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'numericStatus' && !sortReverse"
+                                      class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        </thead>
+                        <tbody>
+                        <tr class="cursor-pointer"
+                            dir-paginate="order in orders | orderBy:sortType:sortReverse | filter:searchWord |itemsPerPage:maxItemsPerPage"
+                            ng-click="selectOrder(order)">
+                            <td>{{order.id}}</td>
+                            <td>{{order.buyerData.privateSubject.name}} {{order.buyerData.privateSubject.lastName}}</td>
+                            <td>{{order.farmerData.businessSubject.name}}</td>
+                            <td>{{order.totalPrice}} {{order.currency.code}}</td>
+                            <td>{{order.acceptedPrice}} {{order.currency.code}}</td>
+                            <td>{{order.status | orderStatus | translate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <dir-pagination-controls
+                                max-size="5"
+                                direction-links="true"
+                                boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div ng-if="selectedOrder" class="panel panel-info">
+                    <div class="panel-heading col-sm-12">
+                        <div class="col-sm-12">{{ 'ORDER' | translate}}
             <span>{{'NUMBER' | translate}}
                   <strong>{{selectedOrder.id}}</strong></span>
-            </div>
-          </div>
-          <div class="panel-body">
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address.street}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address.postalCode}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address.city}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'HOUSE_NUMBER' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address.houseNumber}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'FLOOR' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address.floor}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'APARTMENT_NUMBER' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.address.apartmentNumber}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'DELIVERY_DATE' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.deliveryDate}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'DELIVERY_TIME' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.deliveryFrom}} - {{selectedOrder.deliveryTo}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'PRODUCTS_NUMBER' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.items.length}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'PRICE' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.totalPrice}} {{selectedOrder.currency.code}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'TRANSACTION_ID' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.emsId}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <h5 class="col-sm-6"><strong>{{ 'STATUS' | translate}}</strong></h5>
-              <h5 class="col-sm-6 text-center">
-                {{selectedOrder.status | orderStatus | translate}}
-              </h5>
-            </div>
-            <div class="col-sm-12">
-              <a data-toggle="collapse" data-target="#buyerInfo" class="cursor-pointer pull-left col-sm-12 mt10">{{'BUYER_INFO'
-                | translate}}<i
-                  class="fa fa-caret-down"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-if="selectedOrder.address.city != null">
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.address.street}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.address.postalCode}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.address.city}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'HOUSE_NUMBER' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.address.houseNumber}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'FLOOR' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.address.floor}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'APARTMENT_NUMBER' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.address.apartmentNumber}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'DELIVERY_DATE' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryDate}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'DELIVERY_TIME' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryFrom}} - {{selectedOrder.deliveryTo}}
+                                </h5>
+                            </div>
+                        </div>
+                        <div ng-if="selectedOrder.deliveryPlace.address != null">
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryPlace.address.street}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryPlace.address.postalCode}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryPlace.address.city}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'HOUSE_NUMBER' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryPlace.address.houseNumber}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'DELIVERY_TIME' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.deliveryPlace.workHours}}
+                                </h5>
+                            </div>
+                        </div>
 
-              <div id="buyerInfo" class="collapse">
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'NAME' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.buyerData.privateSubject.name}} {{selectedOrder.buyerData.privateSubject.lastName}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'PHONE' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.buyerData.privateSubject.phone}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.buyerData.email}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.buyerData.privateSubject.address}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.buyerData.privateSubject.postalCode}},
-                    {{selectedOrder.buyerData.privateSubject.city}}
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <a data-toggle="collapse" data-target="#farmerInfo" class="cursor-pointer pull-left col-sm-12 mt10">{{'FARMER_INFO'
-                | translate}}<i
-                  class="fa fa-caret-down"></i></a>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'PRODUCTS_NUMBER' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedOrder.items.length}}
+                            </h5>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'PRICE' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedOrder.totalPrice}} {{selectedOrder.currency.code}}
+                            </h5>
+                        </div>
+                        <div ng-if="selectedOrder.status == 'D' || selectedOrder.status == 'P'">
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'TRANSPORT_PRICE' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.transportPrice}} {{selectedOrder.currency.code}}
+                                </h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <h5 class="col-sm-6"><strong>{{ 'PRICE_TO_CAPTURE' | translate}}</strong></h5>
+                                <h5 class="col-sm-6 text-center">
+                                    {{selectedOrder.acceptedPrice}} {{selectedOrder.currency.code}}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'TRANSACTION_ID' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedOrder.emsId}}
+                            </h5>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="col-sm-6"><strong>{{ 'STATUS' | translate}}</strong></h5>
+                            <h5 class="col-sm-6 text-center">
+                                {{selectedOrder.status | orderStatus | translate}}
+                            </h5>
+                        </div>
+                        <div class="col-sm-12">
+                            <a data-toggle="collapse" data-target="#buyerInfo"
+                               class="cursor-pointer pull-left col-sm-12 mt10">{{'BUYER_INFO'
+                                | translate}}<i
+                                        class="fa fa-caret-down"></i></a>
 
-              <div id="farmerInfo" class="collapse">
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'COMPANY_NAME' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.name}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'BANK_NUMBER' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.account}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'TAX_NUM' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.taxNum}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'PIB_NUMBER' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.companyNum}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'BUSINESS_ACT_NUM' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.businessActivityCode}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'PHONE' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.phone}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5t class="col-sm-6"><strong>{{ 'FAX' | translate}}</strong></h5t>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.fax}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.email}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.address}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.postalCode}}
-                  </h5>
-                </div>
-                <div class="col-sm-12">
-                  <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
-                  <h5 class="col-sm-6 text-center">
-                    {{selectedOrder.farmerData.businessSubject.city}}
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-12" ng-if="selectedOrder.status == 'D' || selectedOrder.status == 'P'">
-              <a data-toggle="collapse" data-target="#orderItems" class="cursor-pointer pull-left col-sm-12 mt10">{{'ORDER_ITEMS'
-                | translate}}<i
-                  class="fa fa-caret-down"></i></a>
+                            <div id="buyerInfo" class="collapse">
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'NAME' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.buyerData.privateSubject.name}}
+                                        {{selectedOrder.buyerData.privateSubject.lastName}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'PHONE' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.buyerData.privateSubject.phone}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.buyerData.email}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.buyerData.privateSubject.address}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.buyerData.privateSubject.postalCode}},
+                                        {{selectedOrder.buyerData.privateSubject.city}}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <a data-toggle="collapse" data-target="#farmerInfo"
+                               class="cursor-pointer pull-left col-sm-12 mt10">{{'FARMER_INFO'
+                                | translate}}<i
+                                        class="fa fa-caret-down"></i></a>
 
-              <div id="orderItems" class="collapse">
-                <div class="col-sm-12">
-                  <table class="table table-responsive">
-                    <thead>
-                    <th>
-                      <h5 class="text-center"><strong>{{ 'NAME' | translate}}</strong></h5>
-                    </th>
-                    <th>
-                      <h5 class="text-center"><strong>{{ 'AMOUNT' | translate}}</strong></h5>
-                    </th>
-                    <th>
-                      <h5 class=text-center"><strong>{{ 'PRICE' | translate}}</strong></h5>
-                    </th>
-                    <th>
-                      <h5 class=text-center"><strong>{{ 'ACCEPTED' | translate}}</strong></h5>
-                    </th>
+                            <div id="farmerInfo" class="collapse">
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'COMPANY_NAME' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.name}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'BANK_NUMBER' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.account}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'TAX_NUM' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.taxNum}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'PIB_NUMBER' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.companyNum}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'BUSINESS_ACT_NUM' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.businessActivityCode}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'PHONE' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.phone}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5t class="col-sm-6"><strong>{{ 'FAX' | translate}}</strong></h5t>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.fax}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.email}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'ADDRESS' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.address}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'POSTAL_CODE' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.postalCode}}
+                                    </h5>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
+                                    <h5 class="col-sm-6 text-center">
+                                        {{selectedOrder.farmerData.businessSubject.city}}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" ng-if="selectedOrder.status == 'D' || selectedOrder.status == 'P'">
+                            <a data-toggle="collapse" data-target="#orderItems"
+                               class="cursor-pointer pull-left col-sm-12 mt10">{{'ORDER_ITEMS'
+                                | translate}}<i
+                                        class="fa fa-caret-down"></i></a>
 
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="item in selectedOrder.items">
-                      <td><h5 class="text-center">
-                        {{item.product.name.localization[currentLang]}}
-                      </h5></td>
-                      <td><h5 class="text-center">
-                        {{item.amount}}
-                      </h5></td>
-                      <td><h5 class="text-center">
-                        {{item.totalPayPrice}}
-                      </h5></td>
-                      <td><h5 class="text-center">
-                        {{item.status | orderItemStatus | translate}}
-                      </h5></td>
-                    </tr>
-                    </tbody>
-                  </table>
-                  </h5>
+                            <div id="orderItems" class="collapse">
+                                <div class="col-sm-12">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                        <th>
+                                            <h5 class="text-center"><strong>{{ 'NAME' | translate}}</strong></h5>
+                                        </th>
+                                        <th>
+                                            <h5 class="text-center"><strong>{{ 'AMOUNT' | translate}}</strong></h5>
+                                        </th>
+                                        <th>
+                                            <h5 class=text-center"><strong>{{ 'PRICE' | translate}}</strong></h5>
+                                        </th>
+                                        <th>
+                                            <h5 class=text-center"><strong>{{ 'ACCEPTED' | translate}}</strong></h5>
+                                        </th>
+
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in selectedOrder.items">
+                                            <td><h5 class="text-center">
+                                                {{item.product.name.localization[currentLang]}}
+                                            </h5></td>
+                                            <td><h5 class="text-center">
+                                                {{item.amount}}
+                                            </h5></td>
+                                            <td><h5 class="text-center">
+                                                {{item.totalPayPrice}}
+                                            </h5></td>
+                                            <td><h5 class="text-center">
+                                                {{item.status | orderItemStatus | translate}}
+                                            </h5></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mt20">
+                            <button class="pull-left btn btn-primary btn-padded" ng-click="goBack()">
+                                <i class="fa fa-caret-left"></i> {{ 'BACK' | translate}}
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col-sm-12 mt20">
-              <button class="pull-left btn btn-primary btn-padded" ng-click="goBack()">
-                <i class="fa fa-caret-left"></i> {{ 'BACK' | translate}}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-  <div ng-include="'pages/footer.html'"></div>
-  <!-- /.content-wrapper -->
+        </section>
+    </div>
+    <div ng-include="'pages/footer.html'"></div>
+    <!-- /.content-wrapper -->
 </div>
 
