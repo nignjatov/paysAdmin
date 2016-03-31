@@ -259,7 +259,13 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
                 'LOCATION_NOT_CREATED': 'Failed to create location',
                 'LOCATION_DELETED': 'Location deleted successfully',
                 'LOCATION_NOT_DELETED': 'Failed to delete location',
-                'TRANSPORT_PRICE' : 'Transport price'
+                'TRANSPORT_PRICE' : 'Transport price',
+                'ENTER_EMAIL' : 'Enter e-mail',
+                'PASSWORD' : 'Password',
+                'ENTER_PASSWORD' : 'Enter password',
+                'CONFIRM_PASSWORD' : 'Confirm password',
+                'ADD' : 'Add',
+                'PASSWORD_NOT_MATCH' : 'Password do not match'
 
             })
             .translations('rs_RS', {
@@ -437,7 +443,14 @@ var paysAdmin = angular.module('paysAdmin', ['ngRoute', 'ngAnimate', 'ui.bootstr
                 'LOCATION_NOT_CREATED': 'Neuspešno dodavanje dostavnog mesta',
                 'LOCATION_DELETED': 'Dostavno mesto uspešno obrisano',
                 'LOCATION_NOT_DELETED': 'Neuspešno brisanje dostavnog mesta',
-                'TRANSPORT_PRICE' : 'Cena dostave'
+                'TRANSPORT_PRICE' : 'Cena dostave',
+                'ENTER_EMAIL' : 'Unesite e-mail adresu',
+                'PASSWORD' : 'Lozinka',
+                'ENTER_PASSWORD' : 'Unesite lozinku',
+                'CONFIRM_PASSWORD' : 'Potvrdite lozinku',
+                'ADD' : 'Dodaj',
+                'PASSWORD_NOT_MATCH' : 'Lozinke se ne poklapaju'
+
 
             });
         $translateProvider.preferredLanguage('en_EN');
