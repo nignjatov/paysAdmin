@@ -127,6 +127,25 @@
                                    placeholder="{{ 'ENTER_NAME' | translate}}">
                             </input>
                         </div>
+                        <div class="col-sm-12" ng-if="!selectedLocation.id">
+                            <h5 class="col-sm-12"><strong>{{ 'E_MAIL' | translate}}</strong></h5>
+                            <input type="email" class="form-control col-sm-12 text-left"
+                                   ng-model="selectedLocation.email"
+                                   placeholder="{{ 'ENTER_EMAIL' | translate}}">
+                            </input>
+                        </div>
+                        <div class="col-sm-12" ng-if="!selectedLocation.id">
+                            <h5 class="col-sm-12"><strong>{{ 'PASSWORD' | translate}}</strong></h5>
+                            <input type="password" class="form-control col-sm-12 text-left"
+                                   ng-model="selectedLocation.password"
+                                   placeholder="{{ 'ENTER_PASSWORD' | translate}}">
+                            </input>
+                            <input type="password" class="form-control col-sm-12 text-left mt10"
+                                   ng-model="confirmPassword.text"
+                                   placeholder="{{ 'CONFIRM_PASSWORD' | translate}}">
+                            </input>
+                            <h5 ng-if="selectedLocation.password != confirmPassword.text" style="color: red;">{{ 'PASSWORD_NOT_MATCH'}}</h5>
+                        </div>
 
                         <div class="col-sm-12">
                             <h5 class="col-sm-6"><strong>{{ 'CITY' | translate}}</strong></h5>
@@ -184,9 +203,13 @@
                             </div>
                         </div>
                         <div class="col-sm-12 mb10">
-                            <button class="pull-right btn btn-primary btn-padded" ng-click="saveLocation()"
+                            <button ng-if="selectedLocation.id" class="pull-right btn btn-primary btn-padded" ng-click="saveLocation()"
                                     ng-disabled="!selectedLocation.name.length">
                                 <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate}}
+                            </button>
+                            <button ng-if="!selectedLocation.id" class="pull-right btn btn-primary btn-padded" ng-click="saveLocation()"
+                                    ng-disabled="selectedLocation.email.length == 0 || selectedLocation.password == 0 || selectedLocation.password != confirmPassword.text">
+                                <i class="fa fa-floppy-o"></i> {{ 'ADD' | translate}}
                             </button>
                             <button class="pull-right btn btn-primary btn-padded" ng-click="deleteLocation()">
                                 <i class="fa fa-times"></i> {{ 'DELETE' | translate}}

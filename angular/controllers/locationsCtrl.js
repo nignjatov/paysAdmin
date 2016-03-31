@@ -9,7 +9,9 @@ angular.module('paysAdmin').controller("locationsCtrl", ["$scope", "$rootScope",
         $scope.timeFormat = 'HH:mm';
 
         $scope.ismeridian = false;
-
+        $scope.confirmPassword = {
+            text : ""
+        };
         LocationsService.getCities().then(function (data) {
             $scope.cities = data;
             LocationsService.getLocations().then(function (data) {
@@ -34,6 +36,9 @@ angular.module('paysAdmin').controller("locationsCtrl", ["$scope", "$rootScope",
 
         $scope.selectLocation = function (location) {
             $scope.selectedLocation = location;
+            $scope.confirmPassword = {
+                text : ""
+            };
         };
 
         $scope.goBack = function () {
@@ -42,6 +47,8 @@ angular.module('paysAdmin').controller("locationsCtrl", ["$scope", "$rootScope",
 
         $scope.newDeliveryLocation = function () {
             $scope.selectedLocation = {
+                email : "",
+                password : "",
                 address: {},
                 fromTime: new Date(new Date().setHours(8, 0, 0, 0)),
                 toTime: new Date(new Date().setHours(10, 0, 0, 0))
@@ -55,7 +62,12 @@ angular.module('paysAdmin').controller("locationsCtrl", ["$scope", "$rootScope",
         });
 
         $scope.deleteLocation = function () {
-            Notification.error({message: $filter('translate')('NOT YET IMPLEMENTED')});
+            LocationsService.deleteLocation($scope.selectedLocation.id).then(function(){
+                Notification.success({message: $filter('translate')('LOCATION_DELETED')});
+                $scope.locations.splice($scope.locations.indexOf($scope.selectedLocation), 1);
+            }).catch(function(){
+                Notification.success({message: $filter('translate')('LOCATION_NOT_DELETED')});
+            });
         }
 
         $scope.saveLocation = function () {
@@ -78,7 +90,8 @@ angular.module('paysAdmin').controller("locationsCtrl", ["$scope", "$rootScope",
                 delete $scope.selectedLocation.minTime;
                 delete $scope.selectedLocation.cityData;
                 delete $scope.selectedLocation.cityDataString;
-                LocationsService.createLocation($scope.selectedLocation).then(function (data) {
+                $scope.selectedLocation.username = $scope.selectedLocation.email;
+                    LocationsService.createLocation($scope.selectedLocation).then(function (data) {
                     Notification.success({message: $filter('translate')('LOCATION_CREATED')});
                     if (data.workHours.length > 1) {
                         var timeString = data.workHours.split('-');

@@ -78,6 +78,25 @@ angular.module('paysAdmin').service('LocationsService',
 
         return deffered.promise;
       },
+      deleteLocation : function(locationId){
+        var deffered = $q.defer();
+        $http.put("delivery_place/"+locationId+"deactivate").
+        success(function (data, status) {
+          if (status == 200) {
+            deffered.resolve(data);
+          } else {
+            console.log("deleteLocation | Status not OK " + status);
+            deffered.reject("Error");
+          }
+
+        }).
+        error(function (data, status) {
+          console.log(" deleteLocation | Error " + status);
+          deffered.reject("Error");
+        });
+
+        return deffered.promise;
+      }
     }
   }
 );
