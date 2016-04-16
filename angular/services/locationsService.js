@@ -80,7 +80,7 @@ angular.module('paysAdmin').service('LocationsService',
       },
       deleteLocation : function(locationId){
         var deffered = $q.defer();
-        $http.put("delivery_place/"+locationId+"deactivate").
+        $http.put("delivery_place/"+locationId+"/deactivate").
         success(function (data, status) {
           if (status == 200) {
             deffered.resolve(data);

@@ -3,14 +3,19 @@ angular.module('paysAdmin').factory('myHttpInterceptor', function($q,$rootScope)
     // optional method
     'request': function(config) {
       // do something on success
-      console.log(config);
       if(!/.html/.test(config.url) && !/.Pagination/.test(config.url)){
         //if(/.images/.test(config.url)){
         //  config.url = $rootScope.serverImagesURL + config.url;
         //}else {
           config.url = $rootScope.serverURL + config.url;
-        //}
+        //});
+        if ($rootScope.credentials && $rootScope.credentials.token) {
+          config.headers['X-Auth-Token'] = $rootScope.credentials.token;
+        } else {
+          config.headers['X-Auth-Token'] = "9F2490EC33584328A5E83991724C28AE";
+        }
         console.log("NEW URL "+ config.url);
+        console.log("HEADERS " + JSON.stringify(config.headers,null,4));
       }
       return config;
     },
@@ -18,7 +23,6 @@ angular.module('paysAdmin').factory('myHttpInterceptor', function($q,$rootScope)
     // optional method
     'response': function(response) {
       // do something on success
-      console.log(response);
       return response;
     },
 
